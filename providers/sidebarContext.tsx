@@ -1,5 +1,5 @@
 import makeContextHook from "hooks/makeContextHooks";
-import React, { createContext, useState } from "react";
+import React from "react";
 export const SidebarOpenContext =
   React.createContext<
     [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
