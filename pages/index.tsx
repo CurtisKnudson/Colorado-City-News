@@ -6,9 +6,7 @@ export default function Home() {
     <div className="bg-black text-white h-screen">
       hello world
       <div>
-        <Sidebar>
-          <div>Hello world this is the child to the sidebar </div>
-        </Sidebar>
+        <Sidebar></Sidebar>
       </div>
     </div>
   );

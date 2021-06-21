@@ -1,0 +1,1 @@
+export { SvgMenuIcon } from "./sidebarMenuIcon";

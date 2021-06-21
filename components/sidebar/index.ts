@@ -1,1 +1,2 @@
-export { Sidebar } from "./Sidebar";
+export { Sidebar } from "./sidebar";
+export { SidebarButtonCollapser } from "./sidebarButtonCollapser";
