@@ -1,4 +1,4 @@
-import { SidebarButtonCollapser } from "components/sidebar";
+import { SidebarButtonCollapser } from "components/sidebarButtonCollapser";
 import useSideBarOpenContext from "providers/sidebarContext";
 import React from "react";
 

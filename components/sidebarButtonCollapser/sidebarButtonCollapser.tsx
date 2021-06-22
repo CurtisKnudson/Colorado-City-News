@@ -12,6 +12,7 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
       onClick={() => {
         setOpen(!open);
       }}
+      className="cursor-pointer"
     >
       {open ? (
         <SvgMenuIconOpen color="dark:text-white text-black" />

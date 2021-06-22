@@ -6,7 +6,7 @@ export const Sidebar = ({ children }: any) => {
   return (
     <div
       className={` bg-white shadow-nav cursor-pointer static truncate  h-screen rounded duration-75 transition-width dark:bg-black ${
-        navOpen ? "  w-10/12  " : "w-0"
+        navOpen ? "w-10/12" : "w-0"
       }`}
     >
       <> {children}</>

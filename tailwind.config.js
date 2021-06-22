@@ -2,8 +2,10 @@ module.exports = {
   mode: "jit",
   purge: [
     "./pages/index.tsx",
+    "./components/header/header.tsx",
+    "./components/layout/layout.tsx",
     "./components/sidebar/sidebar.tsx",
-    "./components/sidebar/sidebarButtonCollapser.tsx",
+    "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./icons/sidebarMenuIcon.tsx",
   ],
   darkMode: "media", // or 'media' or 'class'
