@@ -3,6 +3,8 @@ import { SvgShareIcon } from "icons/sidebarShareIcon";
 import useSideBarOpenContext from "providers/sidebarContext";
 import React from "react";
 
+import Link from "next/link";
+
 export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
   return (
@@ -15,12 +17,16 @@ export const Header = () => {
             classes=""
           />
         </div>
-        <div className="font-chomsky col-span-7 text-xl flex items-center justify-center">
-          Colorado City News
-        </div>
-        <div className="col-start-12 col-end-13 flex items-center justify-center">
-          <SvgShareIcon />
-        </div>
+        <Link href="/">
+          <div className="font-chomsky col-span-7 text-xl flex items-center justify-center cursor-pointer">
+            Colorado City News
+          </div>
+        </Link>
+        <Link href="/test/test">
+          <div className="col-start-12 col-end-13 flex items-center justify-center">
+            <SvgShareIcon />
+          </div>
+        </Link>
       </div>
     </>
   );
