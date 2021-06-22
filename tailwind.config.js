@@ -15,7 +15,11 @@ module.exports = {
         width: "width",
       },
       boxShadow: {
-        nav: "10px 0 5px -2px #ececec;",
+        nav: "3px 5px 6px 0px #ececec",
+        darknav: "3px 5px 6px 0px #232121",
+      },
+      fontFamily: {
+        chomsky: ["Chomsky"],
       },
     },
   },
