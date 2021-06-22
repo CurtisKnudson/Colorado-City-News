@@ -1,9 +1,10 @@
 import { SidebarButtonCollapser } from "components/sidebarButtonCollapser";
-import { SvgShareIcon } from "icons/sidebarShareIcon";
+import { SvgShareIcon } from "icons/navMenuShareIcon";
 import useSideBarOpenContext from "providers/sidebarContext";
 import React from "react";
 
 import Link from "next/link";
+import { SvgSearchIcon } from "icons/navMenuSearchIcon";
 
 export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
@@ -22,11 +23,10 @@ export const Header = () => {
             Colorado City News
           </div>
         </Link>
-        <Link href="/test/test">
-          <div className="col-start-12 col-end-13 flex items-center justify-center">
-            <SvgShareIcon />
-          </div>
-        </Link>
+
+        <div className="col-start-12 col-end-13 flex items-center justify-center">
+          <SvgSearchIcon />
+        </div>
       </div>
     </>
   );
