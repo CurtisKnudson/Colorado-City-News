@@ -16,11 +16,13 @@ export const Layout = ({ children }: Layout) => {
 
   return (
     <>
-      <SidebarOpenContext.Provider value={[navOpen, handleNavOpen]}>
-        <Header></Header>
-        <Sidebar></Sidebar>
-        {children}
-      </SidebarOpenContext.Provider>
+      <div>
+        <SidebarOpenContext.Provider value={[navOpen, handleNavOpen]}>
+          <Header></Header>
+          <Sidebar></Sidebar>
+          {children}
+        </SidebarOpenContext.Provider>
+      </div>
     </>
   );
 };
