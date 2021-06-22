@@ -12,12 +12,12 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
       onClick={() => {
         setOpen(!open);
       }}
-      className="cursor-pointer"
+      className="cursor-pointer h-8 w-8 flex justify-center align-middle"
     >
       {open ? (
-        <SvgMenuIconOpen color="dark:text-white text-black" />
+        <SvgMenuIconOpen color="dark:text-white text-black" classes="m-auto" />
       ) : (
-        <SvgMenuIcon color="dark:text-white text-black" />
+        <SvgMenuIcon color="dark:text-white text-black" classes="m-auto" />
       )}
     </div>
   );

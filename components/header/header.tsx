@@ -6,8 +6,10 @@ export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
   return (
     <>
-      I am the header
-      <SidebarButtonCollapser open={navOpen} setOpen={setNavOpen} />
+      <div className="flex">
+        <SidebarButtonCollapser open={navOpen} setOpen={setNavOpen} />
+        <div className="font-chomsky">Colorado City News</div>
+      </div>
     </>
   );
 };

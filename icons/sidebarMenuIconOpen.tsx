@@ -1,13 +1,13 @@
 import { SvgProps } from "types/SvgIconProps";
 
 export const SvgMenuIconOpen = (props: SvgProps) => {
-  const { dimensions, color } = props;
+  const { dimensions, color, classes } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={`${dimensions ? dimensions : "h-6 w-6"}, ${
         color ? color : ""
-      }`}
+      }, ${classes ? classes : ""}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

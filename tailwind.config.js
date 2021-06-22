@@ -17,6 +17,9 @@ module.exports = {
       boxShadow: {
         nav: "10px 0 5px -2px #ececec;",
       },
+      fontFamily: {
+        chomsky: ["Chomsky"],
+      },
     },
   },
   variants: {
