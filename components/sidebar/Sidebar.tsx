@@ -1,20 +1,15 @@
+import useSideBarOpenContext from "providers/sidebarContext";
 import React, { useState } from "react";
-import { SidebarOpenContext } from "providers/sidebarContext";
-import { SidebarButtonCollapser } from ".";
 
 export const Sidebar = ({ children }: any) => {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
+  const [navOpen] = useSideBarOpenContext();
   return (
-    <SidebarOpenContext.Provider value={[open, handleOpen]}>
-      <div>Hello World, I am the Sidebar</div>
-      <div>{children}</div>
-      <SidebarButtonCollapser open={open} setOpen={handleOpen} />
-    </SidebarOpenContext.Provider>
+    <div
+      className={` bg-white shadow-nav cursor-pointer static truncate  h-screen rounded duration-75 transition-width dark:bg-black ${
+        navOpen ? "  w-10/12  " : "w-0"
+      }`}
+    >
+      <> {children}</>
+    </div>
   );
 };
-8;

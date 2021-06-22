@@ -1,12 +1,12 @@
 import React from "react";
-import { Sidebar } from "components/sidebar";
+
+import { Layout } from "components/layout";
 
 export default function Home() {
   return (
-    <div className="bg-black text-white h-screen">
-      hello world
+    <div className="bg-white text-black dark:bg-black dark:text-white  h-screen">
       <div>
-        <Sidebar></Sidebar>
+        <Layout></Layout>
       </div>
     </div>
   );

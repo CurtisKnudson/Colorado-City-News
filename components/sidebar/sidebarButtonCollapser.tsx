@@ -1,4 +1,4 @@
-import { SvgMenuIcon } from "icons";
+import { SvgMenuIcon, SvgMenuIconOpen } from "icons";
 
 interface SidebarButtonCollapser {
   open: boolean;
@@ -11,10 +11,13 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
     <div
       onClick={() => {
         setOpen(!open);
-        console.log("clicked");
       }}
     >
-      <SvgMenuIcon color="text-white" />;
+      {open ? (
+        <SvgMenuIconOpen color="dark:text-white text-black" />
+      ) : (
+        <SvgMenuIcon color="dark:text-white text-black" />
+      )}
     </div>
   );
 };
