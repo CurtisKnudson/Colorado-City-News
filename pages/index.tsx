@@ -1,14 +1,12 @@
-import Button from "@material-ui/core/Button/Button";
 import React from "react";
+
+import { Layout } from "components/layout";
 
 export default function Home() {
   return (
-    <div className="text-xl text-green-600 bg-blue-800">
-      This is the commit that adds TailwindCSS
+    <div className="bg-white text-black dark:bg-black dark:text-white  h-screen">
       <div>
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
+        <Layout></Layout>
       </div>
     </div>
   );
