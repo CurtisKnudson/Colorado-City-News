@@ -20,7 +20,7 @@ export const Layout = ({ children }: Layout) => {
         <SidebarOpenContext.Provider value={[navOpen, handleNavOpen]}>
           <Header></Header>
           <Sidebar></Sidebar>
-          {children}
+          <div className="mx-4">{children}</div>
         </SidebarOpenContext.Provider>
       </div>
     </>

@@ -1,7 +1,6 @@
-import { SidebarButtonCollapser } from "components/sidebarButtonCollapser";
-import { SvgShareIcon } from "icons/navMenuShareIcon";
-import useSideBarOpenContext from "providers/sidebarContext";
 import React from "react";
+import { SidebarButtonCollapser } from "components/sidebarButtonCollapser";
+import useSideBarOpenContext from "providers/sidebarContext";
 
 import Link from "next/link";
 import { SvgSearchIcon } from "icons/navMenuSearchIcon";
@@ -19,7 +18,7 @@ export const Header = () => {
           />
         </div>
         <Link href="/">
-          <div className="font-chomsky col-span-7 text-xl flex items-center justify-center cursor-pointer">
+          <div className="font-chomsky col-span-7 text-xl flex items-center justify-center cursor-pointer select-none">
             Colorado City News
           </div>
         </Link>
