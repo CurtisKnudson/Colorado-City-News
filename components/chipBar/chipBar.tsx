@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "styles/modules/chipbar.module.css";
+import styles from "@modules/chipbar.module.css";
 import { Chip } from ".";
 
 // Eventually this will randomy generate Chips to select, in the meantime I will hard code.

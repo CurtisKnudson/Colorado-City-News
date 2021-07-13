@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "styles/modules/chipbar.module.css";
+import styles from "@modules/chipbar.module.css";
 
 export const Chip = (props: { chip: { name: string; id: number } }) => {
   const { chipDots } = styles;

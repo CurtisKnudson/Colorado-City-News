@@ -1,4 +1,4 @@
-import useSideBarOpenContext from "providers/sidebarContext";
+import useSideBarOpenContext from "@providers/sidebarContext";
 import React, { useState } from "react";
 
 export const Sidebar = ({ children }: any) => {

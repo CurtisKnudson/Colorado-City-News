@@ -1,6 +1,6 @@
 import React from "react";
-import { SidebarButtonCollapser } from "components/sidebarButtonCollapser";
-import useSideBarOpenContext from "providers/sidebarContext";
+import { SidebarButtonCollapser } from "@components/sidebarButtonCollapser";
+import useSideBarOpenContext from "@providers/sidebarContext";
 
 import Link from "next/link";
 import { SvgSearchIcon } from "icons/navMenuSearchIcon";

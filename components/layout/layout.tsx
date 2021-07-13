@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { SidebarOpenContext } from "providers/sidebarContext";
-import { Header } from "components/header";
-import { Sidebar } from "components/sidebar";
+import { SidebarOpenContext } from "@providers/sidebarContext";
+import { Header } from "@components/header";
+import { Sidebar } from "@components/sidebar";
 
 interface Layout {
   children?: React.ReactNode;
