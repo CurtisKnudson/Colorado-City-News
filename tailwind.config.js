@@ -1,12 +1,16 @@
 module.exports = {
   mode: "jit",
   purge: [
-    "./pages/index.tsx",
+    "./components/articleCard/articleCard.tsx",
+    "./components/articleCard/featuredArticleCard.tsx",
+    "./components/chipBar/chip.tsx",
+    "./components/chipBar/chipBar.tsx",
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./icons/sidebarMenuIcon.tsx",
+    "./pages/index.tsx",
   ],
   darkMode: "media", // or 'media' or 'class'
   theme: {
@@ -20,6 +24,7 @@ module.exports = {
       },
       fontFamily: {
         chomsky: ["Chomsky"],
+        lbRegular: ["Libre-Frankling-Regular"],
       },
     },
   },

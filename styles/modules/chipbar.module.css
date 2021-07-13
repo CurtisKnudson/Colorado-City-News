@@ -1,0 +1,11 @@
+.chipbar::-webkit-scrollbar {
+  display: none;
+  font-family: "Libre-Frankling-Regular";
+}
+.chipDots{
+  background: rgb(158, 158, 158);
+  height: 1px;
+  width: 1px;
+  margin: 1px;
+  border-radius: 50%;
+}

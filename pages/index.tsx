@@ -1,13 +1,15 @@
 import React from "react";
 
 import { Layout } from "components/layout";
+import { ArticleCard, FeaturedArticleCard } from "components/articleCard";
+import { ChipBar } from "components/chipBar";
 
 export default function Home() {
   return (
-    <div className="bg-white text-black dark:bg-black dark:text-white  h-full">
-      <div>
-        <Layout></Layout>
-      </div>
-    </div>
+    <Layout>
+      <ChipBar />
+      <FeaturedArticleCard />
+      <ArticleCard />
+    </Layout>
   );
 }
