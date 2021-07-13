@@ -24,7 +24,8 @@ module.exports = {
       },
       fontFamily: {
         chomsky: ["Chomsky"],
-        lbRegular: ["Libre-Frankling-Regular"],
+        lfRegular: ["Libre-Franklin-Regular"],
+        lfBold: ["Libre-Franklin-Bold"],
       },
     },
   },

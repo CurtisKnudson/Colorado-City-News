@@ -11,6 +11,12 @@
   }
 
 @font-face {
-  font-family: "Libre-Frankling-Regular";
+  font-family: "Libre-Franklin-Regular";
   src: url("../fonts/LibreFranklin/LibreFranklin-Regular.ttf")
 }
+
+@font-face {
+  font-family: "Libre-Franklin-Bold";
+  src: url("../fonts/LibreFranklin/LibreFranklin-Bold.ttf");
+}
+

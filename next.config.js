@@ -3,4 +3,7 @@ module.exports = {
     customKey: "my-value",
   },
   webpack5: true,
+  images: {
+    domains: ["picsum.photos"],
+  },
 };
