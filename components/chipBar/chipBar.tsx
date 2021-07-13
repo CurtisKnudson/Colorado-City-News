@@ -18,7 +18,7 @@ export const ChipBar = () => {
   return (
     <>
       <div
-        className={`flex overflow-auto whitespace-nowrap scrollbar-visibility-none ${styles.chipbar}`}
+        className={`h-12 flex overflow-auto whitespace-nowrap scrollbar-visibility-none ${styles.chipbar}`}
       >
         {chipArray.map((chip) => {
           return <Chip chip={chip} key={chip.id} />;

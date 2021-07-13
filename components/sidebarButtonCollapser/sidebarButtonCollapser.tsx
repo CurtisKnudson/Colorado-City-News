@@ -18,9 +18,9 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
       }`}
     >
       {open ? (
-        <SvgMenuIconOpen color="dark:text-white text-black" classes="m-auto" />
+        <SvgMenuIconOpen color="" classes="m-auto" />
       ) : (
-        <SvgMenuIcon color="dark:text-white text-black" classes="m-auto" />
+        <SvgMenuIcon color="" classes="m-auto" />
       )}
     </div>
   );
