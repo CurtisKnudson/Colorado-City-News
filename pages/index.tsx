@@ -10,6 +10,7 @@ export default function Home() {
       <ChipBar />
       <FeaturedArticleCard />
       <ArticleCard />
+      <div></div>
     </Layout>
   );
 }
