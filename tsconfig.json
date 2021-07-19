@@ -23,7 +23,7 @@
        
       }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/write/editor.jsx.", "pages/write/editor.jsx"],
   "exclude": ["node_modules"]
   
   
