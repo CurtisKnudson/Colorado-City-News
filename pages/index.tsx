@@ -1,16 +1,14 @@
 import React from "react";
 
+// components
 import { Layout } from "@components/layout";
-import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
-import { ChipBar } from "@components/chipBar";
+
+import FrontPage from "views/frontPage";
 
 export default function Home() {
   return (
     <Layout>
-      <ChipBar />
-      <FeaturedArticleCard />
-      <ArticleCard />
-      <div></div>
+      <FrontPage />
     </Layout>
   );
 }

@@ -3,7 +3,7 @@ module.exports = {
     customKey: "my-value",
     MONGODB_URI:
       "mongodb+srv://curtis:upGZcaN6xoMNSulm@cluster0.lu9hq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    MONGODB_DB: "sample_mflix",
+    MONGODB_DB: "colorado_city_news",
   },
   webpack5: true,
   images: {
