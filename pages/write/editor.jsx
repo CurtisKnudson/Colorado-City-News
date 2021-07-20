@@ -8,7 +8,7 @@ import { Editable, Slate, withReact } from "slate-react";
 
 import { CustomEditor } from "components/wysiwyg/customEditor";
 
-// Define our own custom set of helpers.
+import { useSaveToMongo } from "hooks/useSaveToMongo";
 
 const App = () => {
   const editor = useMemo(() => withReact(createEditor()), []);
@@ -18,6 +18,7 @@ const App = () => {
       children: [{ text: "A line of text in a paragraph." }],
     },
   ]);
+  const content = JSON.stringify(value);
 
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -34,50 +35,63 @@ const App = () => {
   }, []);
 
   return (
-    <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
-      <div>
-        <button
-          onMouseDown={(event) => {
-            event.preventDefault();
-            CustomEditor.toggleBoldMark(editor);
-          }}
-        >
-          Bold
-        </button>
-        <button
-          onMouseDown={(event) => {
-            event.preventDefault();
-            CustomEditor.toggleCodeBlock(editor);
-          }}
-        >
-          Code Block
-        </button>
-      </div>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        onKeyDown={(event) => {
-          if (!event.ctrlKey) {
-            return;
-          }
+    <>
+      <Slate
+        editor={editor}
+        value={value}
+        onChange={(value) => {
+          setValue(value);
 
-          // Replace the `onKeyDown` logic with our new commands.
-          switch (event.key) {
-            case "`": {
-              event.preventDefault();
-              CustomEditor.toggleCodeBlock(editor);
-              break;
-            }
+          // Save the value to Local Storage.
 
-            case "b": {
+          localStorage.setItem("content", content);
+        }}
+      >
+        <div>
+          <button
+            onMouseDown={(event) => {
               event.preventDefault();
               CustomEditor.toggleBoldMark(editor);
-              break;
+            }}
+          >
+            Bold
+          </button>
+          <button
+            onMouseDown={(event) => {
+              event.preventDefault();
+              CustomEditor.toggleCodeBlock(editor);
+            }}
+          >
+            Code Block
+          </button>
+        </div>
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          onKeyDown={(event) => {
+            if (!event.ctrlKey) {
+              return;
             }
-          }
-        }}
-      />
-    </Slate>
+
+            // Replace the `onKeyDown` logic with our new commands.
+            switch (event.key) {
+              case "`": {
+                event.preventDefault();
+                CustomEditor.toggleCodeBlock(editor);
+                break;
+              }
+
+              case "b": {
+                event.preventDefault();
+                CustomEditor.toggleBoldMark(editor);
+                break;
+              }
+            }
+          }}
+        />
+      </Slate>
+      <div onClick={() => useSaveToMongo(value)}>Save</div>
+    </>
   );
 };
 
