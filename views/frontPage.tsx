@@ -1,17 +1,9 @@
 import React, { useState } from "react";
+import useSWR from "swr";
 import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 
-const fetchArticles = async () => {
-  const res = await fetch("http://localhost:3000/api/articles");
-  const articles = await res.json();
-
-  return articles;
-};
-
-const FrontPage = () => {
-  const [articles, setArticles] = useState({});
-
+const FrontPage = ({ articles }: any) => {
   console.log(articles);
   return (
     <>
