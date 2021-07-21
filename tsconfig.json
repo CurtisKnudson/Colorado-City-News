@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -19,12 +19,12 @@
         "@utils/*": ["./utils/*"],
         "@modules/*": ["./styles/modules/*"],
         "@providers/*": ["./providers/*"],
+        "@lib/*":["./lib/*"]
         
        
-      }
+      },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/write/editor.jsx.", "pages/write/editor.jsx", "utils/mongodb.ts", "pages/api/article.ts", "pages/api/authentication/index.jxs"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],
   "exclude": ["node_modules"]
-  
-  
+
 }

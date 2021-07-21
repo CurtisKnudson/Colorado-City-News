@@ -1,6 +1,9 @@
 module.exports = {
   env: {
     customKey: "my-value",
+    // Passport
+    TOKEN_SECRET:
+      "This is a super secure token secret that is atleast 100 letters long",
     // Mongo
     MONGODB_URI:
       "mongodb+srv://curtis:upGZcaN6xoMNSulm@cluster0.lu9hq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
