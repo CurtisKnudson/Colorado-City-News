@@ -1,6 +1,5 @@
 import nextConnect from "next-connect";
 import auth from "middleware/auth";
-import { connectToDatabase } from "@utils/mongodb";
 import { createUser, findUserByEmail } from "@lib/db";
 
 const handler = nextConnect();
@@ -26,9 +25,7 @@ handler
     req.logIn(user, (err) => {
       if (err) throw err;
       // Log the signed up user in
-      res.status(201).json({
-        message: "User Created",
-      });
+      res.status(201).json(req.body);
     });
   });
 

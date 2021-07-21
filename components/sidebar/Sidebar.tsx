@@ -1,5 +1,5 @@
 import useSideBarOpenContext from "@providers/sidebarContext";
-import React, { useState } from "react";
+import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen] = useSideBarOpenContext();
@@ -9,7 +9,8 @@ export const Sidebar = ({ children }: any) => {
         navOpen ? "w-10/12" : "w-0"
       } fixed `}
     >
-      <> {children}</>
+      <div className="mx-4"> {children}</div>
+      hello I am a king
     </div>
   );
 };

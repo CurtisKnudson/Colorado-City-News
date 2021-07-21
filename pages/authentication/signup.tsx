@@ -1,8 +1,13 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Router from "next/router";
 import { Layout } from "@components/layout";
 
+// Hooks
+import { useUser } from "hooks/useUser";
+
 const LoginOrSignup = () => {
+  const [t, { mutate }] = useUser();
   const [errorMsg, setErrorMsg] = useState("");
   const [user, setUser] = useState({
     firstName: "",
@@ -10,6 +15,12 @@ const LoginOrSignup = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    // redirect to home if user is authenticated
+    if (user) Router.push("/");
+  }, [user]);
+
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -30,7 +41,10 @@ const LoginOrSignup = () => {
     });
 
     if (res.status === 201) {
-      setErrorMsg("success");
+      const userObj = await res.json();
+      console.log(userObj);
+      // set user to useSWR state
+      mutate(userObj);
     } else {
       setErrorMsg(await res.text());
     }

@@ -1,17 +1,18 @@
 import nextConnect from "next-connect";
-import auth from "../../middleware/auth";
-import { deleteUser, updateUserByUsername } from "../../lib/db";
+import auth from "middleware/auth";
+import { deleteUser, updateUserByUsername } from "lib/db";
 
 const handler = nextConnect();
 
 handler
   .use(auth)
   .get((req, res) => {
-    // You do not generally want to return the whole user object
-    // because it may contain sensitive field such as !!password!! Only return what needed
-    // const { name, username, favoriteColor } = req.user
-    // res.json({ user: { name, username, favoriteColor } })
-    res.json({ user: req.user });
+    // // You do not generally want to return the whole user object
+    // // because it may contain sensitive field such as !!password!! Only return what needed
+    // // const { name, username, favoriteColor } = req.user
+    // // res.json({ user: { name, username, favoriteColor } })
+    // res.json({ user: req.user });
+    res.send("You found me");
   })
   .use((req, res, next) => {
     // handlers after this (PUT, DELETE) all require an authenticated user
