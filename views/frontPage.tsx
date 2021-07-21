@@ -4,7 +4,6 @@ import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 
 const FrontPage = ({ articles }: any) => {
-  console.log(articles);
   return (
     <>
       <ChipBar />

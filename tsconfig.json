@@ -23,7 +23,7 @@
        
       }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/write/editor.jsx.", "pages/write/editor.jsx", "utils/mongodb.ts", "pages/api/article.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/write/editor.jsx.", "pages/write/editor.jsx", "utils/mongodb.ts", "pages/api/article.ts", "pages/api/authentication/index.jxs"],
   "exclude": ["node_modules"]
   
   
