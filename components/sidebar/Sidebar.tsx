@@ -10,7 +10,6 @@ export const Sidebar = ({ children }: any) => {
       } fixed `}
     >
       <div className="mx-4"> {children}</div>
-      hello I am a king
     </div>
   );
 };

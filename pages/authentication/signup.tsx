@@ -18,8 +18,9 @@ const LoginOrSignup = () => {
 
   useEffect(() => {
     // redirect to home if user is authenticated
-    if (user) Router.push("/");
-  }, [user]);
+    if (t) Router.push("/");
+    console.log("i've been used" + t);
+  }, [t]);
 
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -42,12 +43,13 @@ const LoginOrSignup = () => {
 
     if (res.status === 201) {
       const userObj = await res.json();
-      console.log(userObj);
+      console.log(userObj + "This is coming from the signup.tsx");
       // set user to useSWR state
       mutate(userObj);
     } else {
       setErrorMsg(await res.text());
     }
+    return;
   };
   return (
     <>

@@ -22,9 +22,8 @@ handler
 
     createUser(req.body);
 
-    req.logIn(user, (err) => {
+    req.logIn(req.body, (err) => {
       if (err) throw err;
-      // Log the signed up user in
       res.status(201).json(req.body);
     });
   });

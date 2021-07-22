@@ -21,7 +21,10 @@ export const Layout = ({ children }: Layout) => {
         <SidebarOpenContext.Provider value={[navOpen, handleNavOpen]}>
           <Header></Header>
           <Sidebar>
-            <Link href="/authentication/signup">Sign Up</Link>
+            <div className="flex flex-col">
+              <Link href="/authentication/signup">Login</Link>
+              <Link href="/api/user/logout">Logout</Link>
+            </div>
           </Sidebar>
           <div className="mx-4">{children}</div>
         </SidebarOpenContext.Provider>
