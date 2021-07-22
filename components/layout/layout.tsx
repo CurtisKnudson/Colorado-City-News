@@ -22,8 +22,8 @@ export const Layout = ({ children }: Layout) => {
           <Header></Header>
           <Sidebar>
             <div className="flex flex-col">
-              <Link href="/authentication/signup">Login</Link>
-              <Link href="/api/user/logout">Logout</Link>
+              <Link href="/authentication/login">Login</Link>
+              <Link href="/api/authentication/logout">Logout</Link>
             </div>
           </Sidebar>
           <div className="mx-4">{children}</div>
