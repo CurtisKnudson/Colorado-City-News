@@ -8,8 +8,12 @@ handler
 
   .use(auth)
 
-  .post(passport.authenticate("local"), (req, res) => {
-    res.json({ user: req.user });
-  });
+  .post(
+    passport.authenticate("local"),
+
+    (req, res) => {
+      res.send(req.body);
+    }
+  );
 
 export default handler;

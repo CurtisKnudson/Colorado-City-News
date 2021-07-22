@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Router from "next/router";
-import { Layout } from "@components/layout";
 
 // Hooks
 import { useUser } from "hooks/useUser";
@@ -27,11 +26,13 @@ const Login = () => {
   };
   const onSubmit = async (e: any) => {
     e.preventDefault();
-
     const res = await fetch("/api/authentication/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
+      body: JSON.stringify({
+        username: user.email,
+        password: user.password,
+      }),
     });
 
     if (res.status === 200) {
