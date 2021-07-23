@@ -4,19 +4,21 @@ import { setLoginSession } from "utils/auth/auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function Login(req: NextApiRequest, res: NextApiResponse) {
-  if (!req.headers.authorization) {
-    res.status(400).send("Invalid Authorization in HTTP header");
-    return;
-  }
-  try {
-    const didToken = req.headers.authorization.substr(7);
-    const metadata = await magic.users.getMetadataByToken(didToken);
-    const session = { ...metadata };
+  if (req.method === "POST") {
+    if (!req.headers.authorization) {
+      res.status(400).send("Invalid Authorization in HTTP header");
+      return;
+    }
+    try {
+      const didToken = req.headers.authorization.substr(7);
+      const metadata = await magic.users.getMetadataByToken(didToken);
+      const session = { ...metadata };
 
-    await setLoginSession(res, session);
+      await setLoginSession(res, session);
 
-    res.status(200).send({ done: true });
-  } catch (error) {
-    res.status(error.status || 500).end(error.message);
+      res.status(200).send({ done: true });
+    } catch (error) {
+      res.status(error.status || 500).end(error.message);
+    }
   }
 }

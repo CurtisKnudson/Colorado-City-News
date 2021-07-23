@@ -1,8 +1,6 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-import Router from "next/router";
-
-import { Magic } from "magic-sdk";
+import { useState } from "react";
+import { useAuthenticate } from "hooks/useAuthenticate";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -16,28 +14,7 @@ const Login = () => {
   };
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      const magic = new Magic(process.env.MAGIC_PUBLISHABLE_KEY, {
-        testMode: true,
-      });
-      const didToken = await magic.auth.loginWithMagicLink({
-        email: user.email,
-      });
-      const res = await fetch("/api/authentication/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + didToken,
-        },
-        body: JSON.stringify(user),
-      });
-      if (res.status === 200) {
-        Router.push("/");
-      }
-    } catch (error) {
-      console.error("An unexpected error has occurred", error);
-    }
+    useAuthenticate(user);
   };
   return (
     <>
