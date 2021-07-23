@@ -3,8 +3,8 @@ import Router from "next/router";
 import useSWR from "swr";
 
 interface useUserProps {
-  redirectTo: string;
-  redirectIfFound: boolean;
+  redirectTo?: string;
+  redirectIfFound?: boolean;
 }
 
 const fetcher = (url: string) =>
@@ -15,7 +15,7 @@ const fetcher = (url: string) =>
     });
 
 export function useUser({ redirectTo, redirectIfFound }: useUserProps) {
-  const { data, error } = useSWR("/api/user", fetcher);
+  const { data, error } = useSWR("/api/authentication/user", fetcher);
   const user = data?.user;
   const finished = Boolean(data);
   const hasUser = Boolean(user);

@@ -10,6 +10,7 @@ module.exports = {
     MONGODB_DB: "colorado_city_news",
     // Magic
     MAGIC_SECRET_KEY: "sk_live_5BD80FB5B92D2010",
+    MAGIC_PUBLISHABLE_KEY: "pk_live_645EEB45FD696412",
   },
   webpack5: true,
   images: {

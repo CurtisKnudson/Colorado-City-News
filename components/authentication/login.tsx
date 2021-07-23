@@ -2,11 +2,11 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Router from "next/router";
 
+import { Magic } from "magic-sdk";
+
 const Login = () => {
-  const [errorMsg, setErrorMsg] = useState("");
   const [user, setUser] = useState({
     email: "",
-    password: "",
   });
 
   const handleChange = (e: any) => {
@@ -14,29 +14,34 @@ const Login = () => {
     const value = e.target.value;
     setUser({ ...user, [name]: value });
   };
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/authentication/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: user.email,
-        password: user.password,
-      }),
-    });
 
-    if (res.status === 200) {
-      setErrorMsg("Awesome!");
-      const userObj = await res.json();
-      console.log(userObj);
-    } else {
-      setErrorMsg("Incorrect username or password. Try better!");
+    try {
+      const magic = new Magic(process.env.MAGIC_PUBLISHABLE_KEY, {
+        testMode: true,
+      });
+      const didToken = await magic.auth.loginWithMagicLink({
+        email: user.email,
+      });
+      const res = await fetch("/api/authentication/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + didToken,
+        },
+        body: JSON.stringify(user),
+      });
+      if (res.status === 200) {
+        Router.push("/");
+      }
+    } catch (error) {
+      console.error("An unexpected error has occurred", error);
     }
   };
   return (
     <>
       <h1>Login</h1>
-      {errorMsg && <p className="text-red-500">{errorMsg}</p>}
       <div className="w-10/12">
         <form onSubmit={onSubmit}>
           <input
@@ -44,13 +49,6 @@ const Login = () => {
             placeholder="Email"
             name="email"
             value={user.email}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            placeholder="Password"
-            name="password"
-            value={user.password}
             onChange={handleChange}
           />
           <button type="submit">Submit</button>
