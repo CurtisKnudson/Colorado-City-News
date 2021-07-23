@@ -2,7 +2,7 @@ import React from "react";
 import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 
-const FrontPage = ({ articles }: any) => {
+const FrontPage = () => {
   return (
     <>
       <ChipBar />
