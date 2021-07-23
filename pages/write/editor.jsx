@@ -8,7 +8,7 @@ import { Editable, Slate, withReact } from "slate-react";
 
 import { CustomEditor } from "components/wysiwyg/customEditor";
 
-import { useSaveToMongo } from "hooks/useSaveToMongo";
+import { useSaveToMongo } from "@utils/saveToMongo";
 
 const App = () => {
   const editor = useMemo(() => withReact(createEditor()), []);

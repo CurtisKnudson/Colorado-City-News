@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import useSWR from "swr";
+import React from "react";
 import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 
-const FrontPage = ({ articles }: any) => {
-  console.log(articles);
+const FrontPage = () => {
   return (
     <>
       <ChipBar />

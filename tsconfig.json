@@ -19,12 +19,12 @@
         "@utils/*": ["./utils/*"],
         "@modules/*": ["./styles/modules/*"],
         "@providers/*": ["./providers/*"],
+        "@lib/*":["./lib/*"]
         
        
-      }
+      },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/write/editor.jsx.", "pages/write/editor.jsx", "utils/mongodb.ts", "pages/api/article.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],
   "exclude": ["node_modules"]
-  
-  
+
 }
