@@ -3,6 +3,7 @@ import { SidebarOpenContext } from "@providers/sidebarContext";
 import { Header } from "@components/header";
 import { Sidebar } from "@components/sidebar";
 import Link from "next/link";
+import { signIn } from "next-auth/client";
 
 interface Layout {
   children?: React.ReactNode;
@@ -20,12 +21,7 @@ export const Layout = ({ children }: Layout) => {
       <div>
         <SidebarOpenContext.Provider value={[navOpen, handleNavOpen]}>
           <Header></Header>
-          <Sidebar>
-            <div className="flex flex-col">
-              <Link href="/authentication/login">Login</Link>
-              <Link href="/api/authentication/logout">Logout</Link>
-            </div>
-          </Sidebar>
+          <Sidebar />
           <div className="mx-4">{children}</div>
         </SidebarOpenContext.Provider>
       </div>
