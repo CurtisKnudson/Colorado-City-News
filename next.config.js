@@ -11,6 +11,11 @@ module.exports = {
     // Magic
     MAGIC_SECRET_KEY: "sk_live_5BD80FB5B92D2010",
     MAGIC_PUBLISHABLE_KEY: "pk_live_645EEB45FD696412",
+
+    // Email SignIn initializer for Next Auth
+    EMAIL_USER: "curtis@midgard.marketing",
+    EMAIL_PASS: "eowlxsnzujpbcgja",
+    EMAIL_FROM: "NextAuth <curtis@midgard.marketing>",
   },
   webpack5: true,
   images: {
