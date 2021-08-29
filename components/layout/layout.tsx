@@ -21,20 +21,7 @@ export const Layout = ({ children }: Layout) => {
       <div>
         <SidebarOpenContext.Provider value={[navOpen, handleNavOpen]}>
           <Header></Header>
-          <Sidebar>
-            <div className="flex flex-col">
-              <a
-                href={`/api/auth/signin`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  signIn();
-                }}
-              >
-                Sign In
-              </a>
-              <Link href="/api/authentication/signout">Logout</Link>
-            </div>
-          </Sidebar>
+          <Sidebar />
           <div className="mx-4">{children}</div>
         </SidebarOpenContext.Provider>
       </div>

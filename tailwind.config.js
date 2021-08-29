@@ -3,8 +3,6 @@ module.exports = {
   purge: [
     "./components/articleCard/articleCard.tsx",
     "./components/articleCard/featuredArticleCard.tsx",
-    "/components/authentication/login.tsx",
-    "/components/authentication/signup.tsx",
     "./components/chipBar/chip.tsx",
     "./components/chipBar/chipBar.tsx",
     "./components/header/header.tsx",
@@ -13,8 +11,6 @@ module.exports = {
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./icons/sidebarMenuIcon.tsx",
     "./pages/index.tsx",
-    "./pages/authentication/login.tsx",
-    "./pages/authentication/signup.tsx",
     "./pages/write/editor.jsx",
   ],
   darkMode: "media", // or 'media' or 'class'
