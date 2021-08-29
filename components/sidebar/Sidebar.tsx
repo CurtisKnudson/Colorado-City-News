@@ -1,5 +1,6 @@
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/client";
+import Link from "next/link";
 import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
@@ -47,6 +48,7 @@ export const Sidebar = ({ children }: any) => {
               >
                 Sign out
               </a>
+              <Link href="/write/editor">Editor</Link>
             </>
           )}
         </div>
