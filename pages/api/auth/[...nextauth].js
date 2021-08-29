@@ -8,30 +8,15 @@ export default NextAuth({
 
   providers: [
     Providers.Email({
-      service: "Gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
       },
       from: process.env.EMAIL_FROM,
-    }),
-    Providers.Apple({
-      clientId: process.env.APPLE_ID,
-      clientSecret: {
-        appleId: process.env.APPLE_ID,
-        teamId: process.env.APPLE_TEAM_ID,
-        privateKey: process.env.APPLE_PRIVATE_KEY,
-        keyId: process.env.APPLE_KEY_ID,
-      },
-    }),
-    Providers.Facebook({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
-
-    Providers.Google({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
   database: process.env.MONGODB_URI,

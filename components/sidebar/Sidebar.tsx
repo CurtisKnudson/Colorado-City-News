@@ -1,5 +1,5 @@
 import useSideBarOpenContext from "@providers/sidebarContext";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
@@ -24,6 +24,28 @@ export const Sidebar = ({ children }: any) => {
                 }}
               >
                 Sign in
+              </a>
+            </>
+          )}
+          {session && (
+            <>
+              <span>
+                <small>Signed in as</small>
+                <br />
+                <strong>
+                  {session.user
+                    ? session.user.email || session.user.name
+                    : "User not found"}
+                </strong>
+              </span>
+              <a
+                href={`/api/auth/signout`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sign out
               </a>
             </>
           )}
