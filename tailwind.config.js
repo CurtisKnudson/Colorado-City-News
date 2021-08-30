@@ -1,8 +1,9 @@
 module.exports = {
-  mode: "jit",
   purge: [
     "./components/articleCard/articleCard.tsx",
     "./components/articleCard/featuredArticleCard.tsx",
+    "/components/authentication/needsAuthentication.tsx",
+    "/components/authentication/components/signIn.tsx",
     "./components/chipBar/chip.tsx",
     "./components/chipBar/chipBar.tsx",
     "./components/header/header.tsx",
@@ -11,6 +12,7 @@ module.exports = {
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./icons/sidebarMenuIcon.tsx",
     "./pages/index.tsx",
+    "./pages/user/profile.tsx",
     "./pages/write/editor.jsx",
   ],
   darkMode: "media", // or 'media' or 'class'
