@@ -1,3 +1,3 @@
-export interface UserApi {
-  getUserByEmail(email: string): Promise<string>;
+export interface IUserApi {
+  getUserByEmail(email: string): any;
 }

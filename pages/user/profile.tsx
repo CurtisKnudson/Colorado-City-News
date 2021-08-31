@@ -4,8 +4,6 @@ import { useSession } from "next-auth/client";
 import { Layout } from "@components/layout";
 
 const Profile = () => {
-  const [session] = useSession();
-  // const { mediator } = useUserMediator();
   return (
     <Layout>
       <NeedsAuthentication>
