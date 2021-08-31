@@ -49,6 +49,7 @@ export const Sidebar = ({ children }: any) => {
                 Sign out
               </a>
               <Link href="/write/editor">Editor</Link>
+              <Link href="/user/profile">Profile</Link>
             </>
           )}
         </div>

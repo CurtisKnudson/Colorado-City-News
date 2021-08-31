@@ -5,10 +5,11 @@ import { Layout } from "@components/layout";
 
 const Profile = () => {
   const [session] = useSession();
+  // const { mediator } = useUserMediator();
   return (
     <Layout>
       <NeedsAuthentication>
-        <div>{session?.user?.email}</div>
+        <div>You can see me if you're authenticated</div>
       </NeedsAuthentication>
     </Layout>
   );

@@ -3,8 +3,6 @@ import { SignIn } from "./components";
 
 export const NeedsAuthentication: React.FC = ({ children }) => {
   const [session] = useSession();
-
-  console.log(session);
   return (
     <>
       {session && <div>{children}</div>}
