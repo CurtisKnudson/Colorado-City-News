@@ -2,7 +2,7 @@ import { useSession } from "next-auth/client";
 import { SignIn } from "./components";
 
 export const NeedsAuthentication: React.FC = ({ children }) => {
-  const [session] = useSession();
+  const [session, loading] = useSession();
   return (
     <>
       {session && <div>{children}</div>}

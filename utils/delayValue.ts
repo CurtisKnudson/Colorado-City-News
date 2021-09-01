@@ -1,6 +1,6 @@
 export function delayValue<T>(time: number, value: T) {
   return new Promise<T>((resolve) => {
-    window.setTimeout(resolve, time, value);
+    setTimeout(resolve, time, value);
   });
 }
 

@@ -3,7 +3,6 @@ import { useMemo, useState, useCallback } from "react";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 import { CustomEditor } from "components/wysiwyg/customEditor";
-import { useSaveToMongo } from "@utils/saveToMongo";
 import { useSession } from "next-auth/client";
 import Link from "next/link";
 
