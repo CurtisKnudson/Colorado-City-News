@@ -3,6 +3,7 @@ import { IUserMediator } from ".";
 
 export class UserMediator implements IUserMediator {
   private api: IUserApi;
+
   constructor(api: IUserApi) {
     this.api = api;
   }

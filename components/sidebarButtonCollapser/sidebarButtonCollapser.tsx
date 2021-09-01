@@ -1,4 +1,4 @@
-import { SvgMenuIcon, SvgMenuIconOpen } from "icons";
+import { Menu, MenuOpen } from "icons";
 
 interface SidebarButtonCollapser {
   open: boolean;
@@ -18,9 +18,9 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
       }`}
     >
       {open ? (
-        <SvgMenuIconOpen color="" classes="m-auto" />
+        <MenuOpen color="" classes="m-auto" />
       ) : (
-        <SvgMenuIcon color="" classes="m-auto" />
+        <Menu color="" classes="m-auto" />
       )}
     </div>
   );

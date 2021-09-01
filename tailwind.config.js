@@ -1,4 +1,6 @@
+const plugin = require("tailwindcss/plugin");
 module.exports = {
+  mode: "jit",
   purge: [
     "./components/articleCard/articleCard.tsx",
     "./components/articleCard/featuredArticleCard.tsx",
@@ -8,6 +10,7 @@ module.exports = {
     "./components/chipBar/chipBar.tsx",
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
+    "./components/profile/avater.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./icons/sidebarMenuIcon.tsx",
@@ -35,5 +38,17 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        ".center-all": {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      };
+
+      addUtilities(newUtilities);
+    }),
+  ],
 };

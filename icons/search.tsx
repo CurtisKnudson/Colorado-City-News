@@ -1,6 +1,6 @@
 import { SvgProps } from "types/SvgIconProps";
 
-export const SvgSearchIcon = (props: SvgProps) => {
+export const Search = (props: SvgProps) => {
   const { dimensions, color, classes } = props;
   return (
     <svg

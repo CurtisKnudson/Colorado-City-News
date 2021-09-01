@@ -1,6 +1,6 @@
 import { SvgProps } from "types/SvgIconProps";
 
-export const SvgShareIcon = (props: SvgProps) => {
+export const Share = (props: SvgProps) => {
   const { dimensions, color, classes } = props;
   return (
     <svg

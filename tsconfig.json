@@ -19,9 +19,8 @@
         "@utils/*": ["./utils/*"],
         "@modules/*": ["./styles/modules/*"],
         "@providers/*": ["./providers/*"],
-        "@lib/*":["./lib/*"]
-        
-       
+        "@lib/*":["./lib/*"],
+        "@mediator/*": ["./mediator/*"]
       },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],
