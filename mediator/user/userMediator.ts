@@ -9,11 +9,7 @@ export class UserMediator implements IUserMediator {
   }
 
   async getUserByEmail(email: string) {
-    try {
-      const res = await this.api.getUserByEmail(email);
-      return res;
-    } catch (err) {
-      throw new Error(err);
-    }
+    const res = await this.api.getUserByEmail(email);
+    return res;
   }
 }

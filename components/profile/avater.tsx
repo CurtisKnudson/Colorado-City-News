@@ -1,15 +1,27 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/client";
 import { Camera } from "icons";
 
 export const Avatar = () => {
   const [session, loading] = useSession();
-  const uploadRef = useRef(null);
-
-  console.log(uploadRef);
+  const [profileImage, setProfileImage] = useState<string>("");
+  const imageUpload = useRef(null);
 
   const handleImageClick = () => {
     document.getElementById("imgUpload")?.click();
+  };
+
+  const readUrl = (input: any) => {
+    if (input.current.files && input.current.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        if (e.target?.result !== null || ArrayBuffer)
+          setProfileImage(e.target?.result);
+        console.log(e);
+      };
+      reader.readAsDataURL(input.current.files[0]);
+    }
   };
 
   if (loading) {
@@ -17,8 +29,8 @@ export const Avatar = () => {
   }
   return (
     <div className="center-all mt-4">
-      {session?.user?.image ? (
-        <img src={session.user.image} alt="profile picture" />
+      {profileImage ? (
+        <img src={profileImage} alt="profile picture" />
       ) : (
         <div
           className="h-44 w-44 bg-gray-400 hover:bg-gray-500 rounded relative cursor-pointer center-all"
@@ -28,11 +40,13 @@ export const Avatar = () => {
           <div className="bg-gray-300 w-full center-all absolute bottom-0">
             Add Profile Picture
           </div>
+
           <input
             type="file"
             id="imgUpload"
-            ref={uploadRef}
             className="h-0 w-0"
+            ref={imageUpload}
+            onChange={() => readUrl(imageUpload)}
           />
         </div>
       )}
