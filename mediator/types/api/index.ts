@@ -1,1 +1,1 @@
-export type { IUserApi } from "./userApi";
+export type { UserApi } from "./userApi";

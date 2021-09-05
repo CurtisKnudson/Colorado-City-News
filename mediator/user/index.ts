@@ -1,1 +1,1 @@
-export type { IUserMediator } from "./userMediator";
+export type { UserMediator } from "./userMediator";

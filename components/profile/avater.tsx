@@ -1,23 +1,28 @@
 import React, { useRef, useState } from "react";
 import { useSession } from "next-auth/client";
 import { Camera } from "icons";
+import { useUserProfileContext } from "@providers/profile";
 
 export const Avatar = () => {
   const [, loading] = useSession();
-  const [profileImage, setProfileImage] = useState();
   const imageUpload = useRef(null);
+  const [userProfileData, setUserProfileData] = useUserProfileContext();
 
   const handleImageClick = () => {
     document.getElementById("imgUpload")?.click();
   };
 
-  const readUrl = (input) => {
+  const readUrl = (input: React.MutableRefObject<null>) => {
+    if (typeof input.current === null) {
+      return;
+    }
+
     if (input.current.files && input.current.files[0]) {
       const reader = new FileReader();
 
       reader.onload = function (e) {
         if (e.target.result !== null || ArrayBuffer || undefined) {
-          setProfileImage(e.target.result);
+          setUserProfileData({ ...userProfileData, image: e.target.result });
         }
       };
       reader.readAsDataURL(input.current.files[0]);
@@ -29,8 +34,8 @@ export const Avatar = () => {
   }
   return (
     <div className="center-all mt-4">
-      {profileImage ? (
-        <img src={profileImage} alt="profile picture" />
+      {userProfileData.image ? (
+        <img src={userProfileData.image} alt="profile picture" />
       ) : (
         <div
           className="h-44 w-44 bg-gray-400 hover:bg-gray-500 rounded relative cursor-pointer center-all"
