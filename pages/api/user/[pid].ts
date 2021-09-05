@@ -3,14 +3,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { db } = await connectToDatabase();
+  const { pid } = req.query;
 
-  if (req.method === "POST") {
-    await db.collection("users").insertOne(JSON.parse(req.body));
-    return res.json(req.body);
-  }
   if (req.method === "GET") {
-    const articles = await db.collection("users").find({}).toArray();
-
-    res.json(articles);
+    if (typeof pid === "string") {
+      let user = await db
+        .collection("users")
+        .findOne({ [pid]: req.headers.body });
+      res.json(user);
+    }
   }
 };

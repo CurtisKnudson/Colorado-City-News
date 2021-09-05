@@ -9,6 +9,12 @@ const Profile = () => {
   const mediator = useUserMediator();
   const [, loading] = useSession();
 
+  const getEmail = async () => {
+    let email = await mediator.getUserByEmail("curtisknudson@gmail.com");
+
+    console.log(email) + "I am being returned from profile.tsx";
+  };
+
   return (
     <Layout>
       {loading ? (
@@ -16,6 +22,9 @@ const Profile = () => {
       ) : (
         <NeedsAuthentication>
           <Avatar />
+          <div className="cursor-pointer" onClick={getEmail}>
+            Save
+          </div>
         </NeedsAuthentication>
       )}
     </Layout>

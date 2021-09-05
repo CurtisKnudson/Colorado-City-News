@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSession } from "next-auth/client";
 import { Camera } from "icons";
 
 export const Avatar = () => {
-  const [session, loading] = useSession();
-  const [profileImage, setProfileImage] = useState<string>("");
+  const [, loading] = useSession();
+  const [profileImage, setProfileImage] = useState();
   const imageUpload = useRef(null);
 
   const handleImageClick = () => {
     document.getElementById("imgUpload")?.click();
   };
 
-  const readUrl = (input: any) => {
+  const readUrl = (input) => {
     if (input.current.files && input.current.files[0]) {
       const reader = new FileReader();
 
       reader.onload = function (e) {
-        if (e.target?.result !== null || ArrayBuffer)
-          setProfileImage(e.target?.result);
-        console.log(e);
+        if (e.target.result !== null || ArrayBuffer || undefined) {
+          setProfileImage(e.target.result);
+        }
       };
       reader.readAsDataURL(input.current.files[0]);
     }

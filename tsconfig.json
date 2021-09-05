@@ -20,7 +20,8 @@
         "@modules/*": ["./styles/modules/*"],
         "@providers/*": ["./providers/*"],
         "@lib/*":["./lib/*"],
-        "@mediator/*": ["./mediator/*"]
+        "@mediator/*": ["./mediator/*"],
+        "@constants/*": ["./constants/*"]
       },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],

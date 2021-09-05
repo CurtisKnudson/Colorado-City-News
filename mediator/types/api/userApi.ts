@@ -1,3 +1,5 @@
+import { User } from "types/user";
+
 export interface IUserApi {
-  getUserByEmail(email: string): Promise<string>;
+  getUserByEmail(email: string): Promise<User>;
 }
