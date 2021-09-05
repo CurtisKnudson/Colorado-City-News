@@ -18,9 +18,9 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
       }`}
     >
       {open ? (
-        <MenuOpen color="" classes="m-auto" />
+        <MenuOpen color="" className="m-auto" />
       ) : (
-        <Menu color="" classes="m-auto" />
+        <Menu color="" className="m-auto" />
       )}
     </div>
   );
