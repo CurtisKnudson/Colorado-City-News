@@ -3,20 +3,19 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Chomsky";
-    src: url("../fonts/Chomsky.woff");
-    font-style: normal;
-    font-weight: 400;
-    font-display: block;
-  }
+  font-family: "Chomsky";
+  src: url("../fonts/Chomsky.woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
 
 @font-face {
   font-family: "Libre-Franklin-Regular";
-  src: url("../fonts/LibreFranklin/LibreFranklin-Regular.ttf")
+  src: url("../fonts/LibreFranklin/LibreFranklin-Regular.ttf");
 }
 
 @font-face {
   font-family: "Libre-Franklin-Bold";
   src: url("../fonts/LibreFranklin/LibreFranklin-Bold.ttf");
 }
-

@@ -1,19 +1,29 @@
 import "../styles/globals.css";
 // Providers
-import { Provider } from "next-auth/client";
+import { Provider as SessionProvider } from "next-auth/client";
 // Types
 import type { AppProps } from "next/app";
+import UserApiProvider from "mediator/providers/api/userApiProvider";
+import UserMediatorProvider from "mediator/providers/userMediatorProvider";
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider
+    <SessionProvider
       options={{
         clientMaxAge: 0,
         keepAlive: 0,
       }}
     >
-      <Component {...pageProps} />
-    </Provider>
+      <UserApiProvider>
+        <UserMediatorProvider>
+          <ToastContainer />
+          <Component {...pageProps} />
+        </UserMediatorProvider>
+      </UserApiProvider>
+    </SessionProvider>
   );
 }
 export default MyApp;

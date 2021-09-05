@@ -3,7 +3,7 @@ import { SidebarButtonCollapser } from "@components/sidebarButtonCollapser";
 import useSideBarOpenContext from "@providers/sidebarContext";
 
 import Link from "next/link";
-import { SvgSearchIcon } from "icons/navMenuSearchIcon";
+import { Search } from "icons";
 
 export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
@@ -24,7 +24,7 @@ export const Header = () => {
         </Link>
 
         <div className="col-start-12 col-end-13 flex items-center justify-center">
-          <SvgSearchIcon />
+          <Search />
         </div>
       </div>
     </>

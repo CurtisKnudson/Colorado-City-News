@@ -1,4 +1,5 @@
-export { SvgMenuIcon } from "./sidebarMenuIcon";
-export { SvgMenuIconOpen } from "./sidebarMenuIconOpen";
-export { SvgSearchIcon } from "./navMenuSearchIcon";
-export { SvgShareIcon } from "./navMenuShareIcon";
+export { Menu } from "./menu";
+export { MenuOpen } from "./menuOpen";
+export { Search } from "./search";
+export { Share } from "./share";
+export { Camera } from "./camera";
