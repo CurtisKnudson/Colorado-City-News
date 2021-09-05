@@ -1,6 +1,7 @@
 import { delayWithValue } from "@utils/delayValue";
 import { UserApi } from "mediator/types/api";
 import { UserMediator as UserMediatorInterface } from ".";
+import { UserProfileInfo } from "@providers/profile/userProfileProvider";
 
 export class UserMediator implements UserMediatorInterface {
   private api: UserApi;
@@ -14,12 +15,9 @@ export class UserMediator implements UserMediatorInterface {
     return res;
   }
 
-  async completeUserProfile(userProfileData: {
-    email: string;
-    name: string;
-    image: string;
-  }) {
-    return delayWithValue(userProfileData);
+  async completeUserProfile(userProfileData: UserProfileInfo) {
+    const res = await this.api.completeUserProfile(userProfileData);
+    return res;
   }
 
   dispose() {}

@@ -6,6 +6,7 @@ import { useUserMediator } from "@mediator/providers/userMediatorProvider";
 import { Avatar, UserInfo } from "@components/profile";
 import { UserProfileContext } from "@providers/profile";
 import { UserProfileInfo } from "@providers/profile/userProfileProvider";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const mediator = useUserMediator();
@@ -22,14 +23,24 @@ const Profile = () => {
       userProfileData.email &&
       userProfileData.image
     ) {
-      const userProfile = await mediator
-        .completeUserProfile(userProfileData)
-        .then((res) => {
-          return res;
+      const userProfile = async () => {
+        let userProfile = await mediator
+          .completeUserProfile(userProfileData)
+          .then((res) => {
+            return res.json();
+          })
+          .catch((err) => {
+            return err;
+          });
+        return userProfile;
+      };
+      toast
+        .promise(userProfile, {
+          pending: "Please wait...",
+          success: "Your account has been updated! 👌",
+          error: "There was an error 🤯. Contact admin@coloradocity.news ",
         })
-        .catch((err) => {});
-      console.log(userProfile);
-      return userProfile;
+        .then((res) => res);
     }
   };
 

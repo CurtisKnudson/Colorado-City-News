@@ -1,10 +1,7 @@
 import { User } from "types/user";
+import { UserProfileInfo } from "@providers/profile/userProfileProvider";
 
 export interface UserMediator {
   getUserByEmail(email: string): Promise<User>;
-  completeUserProfile(userProfileData: {
-    email: string;
-    name: string;
-    image: string;
-  }): Promise<any>;
+  completeUserProfile(userProfileData: UserProfileInfo): Promise<any>;
 }

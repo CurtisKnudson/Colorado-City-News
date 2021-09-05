@@ -14,7 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
   if (req.method === "POST") {
-    res.send("hello");
-    console.log("post route is hit");
+    res.json(req.body);
   }
 };

@@ -35,7 +35,11 @@ export const Avatar = () => {
   return (
     <div className="center-all mt-4">
       {userProfileData.image ? (
-        <img src={userProfileData.image} alt="profile picture" />
+        <img
+          src={userProfileData.image}
+          alt="profile picture"
+          className="h-44 w-44 rounded"
+        />
       ) : (
         <div
           className="h-44 w-44 bg-gray-400 hover:bg-gray-500 rounded relative cursor-pointer center-all"
