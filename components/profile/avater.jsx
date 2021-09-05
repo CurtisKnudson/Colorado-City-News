@@ -12,7 +12,7 @@ export const Avatar = () => {
     document.getElementById("imgUpload")?.click();
   };
 
-  const readUrl = (input: React.MutableRefObject<null>) => {
+  const readUrl = (input) => {
     if (typeof input.current === null) {
       return;
     }

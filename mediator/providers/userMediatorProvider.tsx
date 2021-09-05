@@ -1,4 +1,4 @@
-import React, { createContext, useLayoutEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 // Types
 import { UserMediator as UserMediatorInterface } from "mediator/types/mediator/userMediator";
 // Hooks
@@ -15,7 +15,7 @@ const UserMediatorProvider: React.FC = ({ children }) => {
   const api = useUserApi();
   const [userMediator] = useState(() => new UserMediator(api));
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     return () => {
       userMediator.dispose();
     };

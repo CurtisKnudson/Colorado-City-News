@@ -1,4 +1,4 @@
-import { ObservableValue } from "@mediator/observables";
+import { delayWithValue } from "@utils/delayValue";
 import { UserApi } from "mediator/types/api";
 import { UserMediator as UserMediatorInterface } from ".";
 
@@ -14,8 +14,12 @@ export class UserMediator implements UserMediatorInterface {
     return res;
   }
 
-  async completeUserProfile(email: string, name: string, image: string) {
-    return;
+  async completeUserProfile(userProfileData: {
+    email: string;
+    name: string;
+    image: string;
+  }) {
+    return delayWithValue(userProfileData);
   }
 
   dispose() {}

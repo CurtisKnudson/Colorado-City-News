@@ -3,7 +3,7 @@ import { NeedsAuthentication } from "@components/authentication";
 import { useSession } from "next-auth/client";
 import { Layout } from "@components/layout";
 import { useUserMediator } from "@mediator/providers/userMediatorProvider";
-import { Avatar } from "@components/profile";
+import { Avatar, UserInfo } from "@components/profile";
 import { UserProfileContext } from "@providers/profile";
 import { UserProfileInfo } from "@providers/profile/userProfileProvider";
 
@@ -16,8 +16,21 @@ const Profile = () => {
     image: "",
   });
 
-  const handleSave = () => {
-    console.log(userProfileData);
+  const handleSave = async () => {
+    if (
+      userProfileData.name &&
+      userProfileData.email &&
+      userProfileData.image
+    ) {
+      const userProfile = await mediator
+        .completeUserProfile(userProfileData)
+        .then((res) => {
+          return res;
+        })
+        .catch((err) => {});
+      console.log(userProfile);
+      return userProfile;
+    }
   };
 
   return (
@@ -28,6 +41,13 @@ const Profile = () => {
         ) : (
           <NeedsAuthentication>
             <Avatar />
+            <UserInfo
+              email={
+                typeof session!.user!.email! === "string"
+                  ? session!.user!.email
+                  : "No Email Found"
+              }
+            />
             <div className="cursor-pointer" onClick={handleSave}>
               Save
             </div>

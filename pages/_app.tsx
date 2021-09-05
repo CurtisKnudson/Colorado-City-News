@@ -5,6 +5,9 @@ import { Provider as SessionProvider } from "next-auth/client";
 import type { AppProps } from "next/app";
 import UserApiProvider from "mediator/providers/api/userApiProvider";
 import UserMediatorProvider from "mediator/providers/userMediatorProvider";
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <UserApiProvider>
         <UserMediatorProvider>
+          <ToastContainer />
           <Component {...pageProps} />
         </UserMediatorProvider>
       </UserApiProvider>
