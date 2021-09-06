@@ -10,6 +10,7 @@ module.exports = {
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
     "./components/profile/avater.jsx",
+    "./components/profile/setUserInfo.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./icons/camera.tsx",

@@ -2,7 +2,6 @@ import { UserApi as UserApiInterface } from "mediator/types/api";
 import { config } from "@constants/config";
 import { User } from "types/user";
 import { delayWithValue } from "@utils/delayValue";
-import { UserProfileInfo } from "@providers/profile/userProfileProvider";
 
 const url = config.url.API_URL;
 export class UserApi implements UserApiInterface {
@@ -18,14 +17,17 @@ export class UserApi implements UserApiInterface {
     return user;
   }
 
-  async completeUserProfile(userProfileData: UserProfileInfo) {
-    let postUrl = `${url}/api/user/test`;
+  async completeUserProfile(userProfileData: User) {
+    let postUrl = `${url}/api/user/update`;
     let postObject = {
       method: "POST",
       body: JSON.stringify(userProfileData),
     };
 
-    const completedUser = await fetch(postUrl, postObject);
+    const completedUser = await fetch(postUrl, postObject).then((res) =>
+      res.json()
+    );
+
     return completedUser;
   }
 }

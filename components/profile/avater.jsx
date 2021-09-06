@@ -33,7 +33,7 @@ export const Avatar = () => {
     return <GhostAvatar />;
   }
   return (
-    <div className="center-all mt-4">
+    <div className="center-all mt-8">
       {userProfileData.image ? (
         <img
           src={userProfileData.image}

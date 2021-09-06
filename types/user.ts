@@ -1,9 +1,9 @@
 export interface User {
-  _id: string;
-  name: string | null;
+  _id?: string;
+  name: string;
   email: string;
-  image: string | null;
-  createdAt: string;
-  emailVerified: string;
-  updatedAt: string;
+  image: string;
+  createdAt?: string;
+  emailVerified?: string;
+  updatedAt?: string;
 }
