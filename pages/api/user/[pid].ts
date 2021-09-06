@@ -14,6 +14,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
   if (req.method === "POST") {
-    res.json(req.body);
+    if (typeof pid === "string" && pid === "update") {
+      const { email, name, image } = JSON.parse(req.body);
+      const filter = {
+        email: email,
+      };
+      const updateDocument = {
+        $set: {
+          name: name,
+          image: image,
+        },
+      };
+      let user = await db
+        .collection("users")
+        .findOneAndUpdate(filter, updateDocument, { returnDocument: "after" })
+        .then((res: any) => res);
+
+      res.json(user.value);
+    }
   }
 };

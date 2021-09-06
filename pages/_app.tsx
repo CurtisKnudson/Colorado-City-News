@@ -1,11 +1,13 @@
 import "../styles/globals.css";
+import React from "react";
 // Providers
 import { Provider as SessionProvider } from "next-auth/client";
 // Types
 import type { AppProps } from "next/app";
 import UserApiProvider from "mediator/providers/api/userApiProvider";
 import UserMediatorProvider from "mediator/providers/userMediatorProvider";
-import React from "react";
+import UserProfileContext from "@providers/profile/userProfileProvider";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,8 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <UserApiProvider>
         <UserMediatorProvider>
-          <ToastContainer />
-          <Component {...pageProps} />
+          <UserProfileContext>
+            <ToastContainer />
+            <Component {...pageProps} />
+          </UserProfileContext>
         </UserMediatorProvider>
       </UserApiProvider>
     </SessionProvider>
