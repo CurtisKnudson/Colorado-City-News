@@ -41,7 +41,12 @@ const Profile = () => {
           error: "There was an error 🤯. Contact admin@coloradocity.news ",
         })
         .then((res) => res);
+      return;
     }
+    toast.warning(
+      "Please make sure all of your data has been filled out. You must provide an image"
+    );
+    return;
   };
 
   return (
@@ -59,7 +64,10 @@ const Profile = () => {
                   : "No Email Found"
               }
             />
-            <div className="cursor-pointer" onClick={handleSave}>
+            <div
+              className="cursor-pointer border rounded w-14 center-all mx-auto mt-4"
+              onClick={handleSave}
+            >
               Save
             </div>
           </NeedsAuthentication>
