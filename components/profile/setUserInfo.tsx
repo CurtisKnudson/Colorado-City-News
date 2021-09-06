@@ -1,6 +1,6 @@
 import { useUserProfileContext } from "@providers/profile";
 
-export const UserInfo = (props: { email: string }) => {
+export const UserInfo = () => {
   const [userProfileData, setUserProfileData] = useUserProfileContext();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -8,7 +8,7 @@ export const UserInfo = (props: { email: string }) => {
     setUserProfileData({
       ...userProfileData,
       [name]: value,
-      email: props.email,
+      email: userProfileData.email,
     });
   };
 
@@ -31,7 +31,7 @@ export const UserInfo = (props: { email: string }) => {
         type="email"
         name="email"
         readOnly
-        placeholder={props.email}
+        placeholder={userProfileData.email}
         style={{ pointerEvents: "none" }}
       />
       <div className="text-gray-500 italic text-xs mt-8">

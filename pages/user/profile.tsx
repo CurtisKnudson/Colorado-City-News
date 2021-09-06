@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NeedsAuthentication } from "@components/authentication";
 import { useSession } from "next-auth/client";
 import { Layout } from "@components/layout";
@@ -9,10 +9,8 @@ import { useUserProfileContext } from "@providers/profile";
 
 const Profile = () => {
   const mediator = useUserMediator();
-  const [session, loading] = useSession();
+  const [, loading] = useSession();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
-
-  console.log(userProfileData);
 
   const handleSave = async () => {
     if (
@@ -56,13 +54,7 @@ const Profile = () => {
       ) : (
         <NeedsAuthentication>
           <Avatar />
-          <UserInfo
-            email={
-              typeof session!.user!.email! === "string"
-                ? session!.user!.email
-                : "No Email Found"
-            }
-          />
+          <UserInfo />
           <div
             className="cursor-pointer border rounded w-14 center-all mx-auto mt-4"
             onClick={handleSave}

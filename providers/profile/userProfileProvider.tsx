@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/client";
 import { useUserMediator } from "@mediator/providers/userMediatorProvider";
 import makeContextHook from "hooks/makeContextHooks";
-import { useSession } from "next-auth/client";
-import React, { useEffect, useState } from "react";
+
 import { User } from "types/user";
 
 export const context = React.createContext<
@@ -17,14 +18,18 @@ const UserProfileContext: React.FC = ({ children }: any) => {
     name: "",
     email: "",
     image: "",
-    updatedAt: "",
-    createdAt: "",
-    emailVerified: "",
   });
 
   useEffect(() => {
     if (session) {
-      mediator.getUserByEmail(session!.user!.email!);
+      mediator.getUserByEmail(session!.user!.email!).then((res) => {
+        setUserProfileData({
+          ...userProfileData,
+          name: res.name,
+          email: res.email,
+          image: res.image,
+        });
+      });
     }
   }, [session]);
 

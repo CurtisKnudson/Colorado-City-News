@@ -1,8 +1,8 @@
 export interface User {
   _id?: string;
-  name: string | null;
+  name: string;
   email: string;
-  image: string | null;
+  image: string;
   createdAt?: string;
   emailVerified?: string;
   updatedAt?: string;
