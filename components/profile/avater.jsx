@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { Camera } from "icons";
 import { useUserProfileContext } from "@providers/profile";
 
 export const Avatar = () => {
-  const [, loading] = useSession();
+  const { status } = useSession();
   const imageUpload = useRef(null);
   const [userProfileData, setUserProfileData] = useUserProfileContext();
 
@@ -29,7 +29,7 @@ export const Avatar = () => {
     }
   };
 
-  if (loading) {
+  if (status === " loading") {
     return <GhostAvatar />;
   }
   return (

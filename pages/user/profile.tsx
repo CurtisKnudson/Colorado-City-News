@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NeedsAuthentication } from "@components/authentication";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { Layout } from "@components/layout";
 import { useUserMediator } from "@mediator/providers/userMediatorProvider";
 import { Avatar, UserInfo } from "@components/profile";
@@ -9,10 +9,10 @@ import { useUserProfileContext } from "@providers/profile";
 
 const Profile = () => {
   const mediator = useUserMediator();
-  const [, loading] = useSession();
+  const { status } = useSession({
+    required: true,
+  });
   const [userProfileData, setUserProfileData] = useUserProfileContext();
-
-  console.log(userProfileData);
 
   const handleSave = async () => {
     if (
@@ -51,7 +51,7 @@ const Profile = () => {
 
   return (
     <Layout>
-      {loading ? (
+      {status === "loading" ? (
         <div>Loading please wait</div>
       ) : (
         <NeedsAuthentication>

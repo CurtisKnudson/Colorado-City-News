@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import { connectToDatabase } from "@utils/mongodb";
 
+const { db } = await connectToDatabase();
 export default NextAuth({
   providers: [
-    Providers.Email({
+    EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
         port: process.env.EMAIL_SERVER_PORT,
@@ -15,7 +16,9 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
-  database: process.env.MONGODB_URI,
+  adapter: MongoDBAdaper({
+    db: db,
+  }),
   session: {
     jwt: true,
   },

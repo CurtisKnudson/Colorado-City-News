@@ -1,11 +1,13 @@
 import useSideBarOpenContext from "@providers/sidebarContext";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen] = useSideBarOpenContext();
-  const [session] = useSession();
+  const { data: session, status } = useSession({
+    required: false,
+  });
 
   return (
     <div className="mx-4">

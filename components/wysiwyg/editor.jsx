@@ -3,11 +3,11 @@ import { useMemo, useState, useCallback } from "react";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 import { CustomEditor } from "components/wysiwyg/customEditor";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Editor = () => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const editor = useMemo(() => withReact(createEditor()), []);
   const [value, setValue] = useState([
     {

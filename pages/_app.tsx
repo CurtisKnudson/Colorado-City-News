@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import React from "react";
 // Providers
-import { Provider as SessionProvider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 // Types
 import type { AppProps } from "next/app";
 import UserApiProvider from "mediator/providers/api/userApiProvider";
@@ -11,14 +11,9 @@ import UserProfileContext from "@providers/profile/userProfileProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider
-      options={{
-        clientMaxAge: 0,
-        keepAlive: 0,
-      }}
-    >
+    <SessionProvider session={session} refetchInterval={0}>
       <UserApiProvider>
         <UserMediatorProvider>
           <UserProfileContext>
