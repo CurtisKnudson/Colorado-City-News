@@ -12,6 +12,8 @@ const Profile = () => {
   const [, loading] = useSession();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
 
+  console.log(userProfileData);
+
   const handleSave = async () => {
     if (
       userProfileData.name &&

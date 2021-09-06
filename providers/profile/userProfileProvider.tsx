@@ -28,6 +28,7 @@ const UserProfileContext: React.FC = ({ children }: any) => {
           name: res.name,
           email: res.email,
           image: res.image,
+          _id: res._id,
         });
       });
     }
