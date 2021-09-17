@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@utils/mongodb";
+import { connectToDatabase } from "database/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

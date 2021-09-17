@@ -15,13 +15,14 @@
     "jsx": "preserve",
     "baseUrl": "./",
       "paths": {
+        "@ccn/*": ["./"],
         "@components/*": ["./components/*"],
-        "@utils/*": ["./utils/*"],
         "@modules/*": ["./styles/modules/*"],
         "@providers/*": ["./providers/*"],
-        "@lib/*":["./lib/*"],
+        "@utils/*":["./utils/*"],
         "@mediator/*": ["./mediator/*"],
-        "@constants/*": ["./constants/*"]
+        "@constants/*": ["./constants/*"],
+        "@database/*":["./database/*"]
       },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],

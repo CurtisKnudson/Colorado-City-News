@@ -1,5 +1,6 @@
 const plugin = require("tailwindcss/plugin");
 module.exports = {
+  mode: "jit",
   purge: [
     "./components/articleCard/articleCard.tsx",
     "./components/articleCard/featuredArticleCard.tsx",

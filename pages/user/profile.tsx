@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { NeedsAuthentication } from "@components/authentication";
 import { useSession } from "next-auth/react";
 import { Layout } from "@components/layout";
 import { useUserMediator } from "@mediator/providers/userMediatorProvider";
@@ -54,7 +53,7 @@ const Profile = () => {
       {status === "loading" ? (
         <div>Loading please wait</div>
       ) : (
-        <NeedsAuthentication>
+        <>
           <Avatar />
           <UserInfo />
           <div
@@ -63,7 +62,7 @@ const Profile = () => {
           >
             Save
           </div>
-        </NeedsAuthentication>
+        </>
       )}
     </Layout>
   );
