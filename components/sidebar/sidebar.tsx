@@ -33,9 +33,12 @@ export const Sidebar = ({ children }: any) => {
                     : "User not found"}
                 </strong>
               </span>
-              <button onClick={() => signOut()}></button>
+
               <Link href="/write/editor">Editor</Link>
               <Link href="/user/profile">Profile</Link>
+              <hr />
+
+              <button onClick={() => signOut()}>Sign Out</button>
             </>
           )}
         </div>

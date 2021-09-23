@@ -12,8 +12,6 @@ export const UserInfo = () => {
     });
   };
 
-  console.log(userProfileData);
-
   return (
     <div className="flex flex-col mt-8">
       <label className="mt-8" htmlFor="name">
