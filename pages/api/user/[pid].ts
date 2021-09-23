@@ -23,8 +23,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       let dbImage = image;
 
       if (image.includes("base64")) {
-        console.log("passed regex test");
-
         let stringifiedImage = JSON.stringify(image.split(",")[1]);
 
         let headersList = {
