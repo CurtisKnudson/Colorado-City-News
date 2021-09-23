@@ -36,7 +36,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return response.json();
         })
         .then(function (jsonified) {
-          console.log(jsonified.data.link);
           return jsonified.data.link;
         });
 
