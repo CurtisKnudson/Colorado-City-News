@@ -29,36 +29,38 @@ export const Avatar = () => {
     }
   };
 
-  if (status === " loading") {
+  if (status === "loading") {
     return <GhostAvatar />;
   }
   return (
     <div className="center-all mt-8">
       {userProfileData.image ? (
-        <img
-          src={userProfileData.image}
-          alt="profile picture"
-          className="h-44 w-44 rounded"
-        />
+        <>
+          <img
+            src={userProfileData.image}
+            alt="profile picture"
+            className="h-44 w-44 rounded cursor-pointer shadow-xl hover:shadow-2xl"
+            onClick={handleImageClick}
+          />
+        </>
       ) : (
         <div
-          className="h-44 w-44 bg-gray-400 hover:bg-gray-500 rounded relative cursor-pointer center-all"
+          className="h-44 w-44 rounded shadow-md hover:shadow-xl relative cursor-pointer center-all"
           onClick={handleImageClick}
         >
           <Camera />
           <div className="bg-gray-300 w-full center-all absolute bottom-0">
             Add Profile Picture
           </div>
-
-          <input
-            type="file"
-            id="imgUpload"
-            className="h-0 w-0"
-            ref={imageUpload}
-            onChange={() => readUrl(imageUpload)}
-          />
         </div>
       )}
+      <input
+        type="file"
+        id="imgUpload"
+        className="h-0 w-0"
+        ref={imageUpload}
+        onChange={() => readUrl(imageUpload)}
+      />
     </div>
   );
 };
