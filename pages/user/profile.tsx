@@ -19,6 +19,10 @@ const Profile = () => {
       userProfileData.email &&
       userProfileData.image
     ) {
+      console.log(userProfileData);
+      if (userProfileData.image === null) {
+        toast.warning("You must change something to save profile");
+      }
       const userProfile = async () => {
         let userProfile = await mediator
           .completeUserProfile(userProfileData)

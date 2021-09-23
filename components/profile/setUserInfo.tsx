@@ -8,7 +8,6 @@ export const UserInfo = () => {
     setUserProfileData({
       ...userProfileData,
       [name]: value,
-      email: userProfileData.email,
     });
   };
 
@@ -30,9 +29,9 @@ export const UserInfo = () => {
       <input
         type="email"
         name="email"
-        readOnly
+        onChange={handleChange}
+        value={userProfileData.email}
         placeholder={userProfileData.email}
-        style={{ pointerEvents: "none" }}
       />
       <div className="text-gray-500 italic text-xs mt-8">
         **If you want to comment, post or interact on this website you must have

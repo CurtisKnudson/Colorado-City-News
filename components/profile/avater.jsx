@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { createRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Camera } from "icons";
 import { useUserProfileContext } from "@providers/profile";
 
 export const Avatar = () => {
   const { status } = useSession();
-  const imageUpload = useRef(null);
+  const imageUpload = createRef(null);
   const [userProfileData, setUserProfileData] = useUserProfileContext();
 
   const handleImageClick = () => {
