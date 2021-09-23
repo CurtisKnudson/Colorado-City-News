@@ -17,7 +17,7 @@ export class UserMediator implements UserMediatorInterface {
 
   async completeUserProfile(userProfileData: User) {
     const res = await this.api.completeUserProfile(userProfileData);
-    return res;
+    return delayWithValue("test");
   }
 
   dispose() {}

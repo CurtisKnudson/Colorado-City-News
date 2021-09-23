@@ -4,13 +4,16 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      TOKEN_SECRET: string;
-      // Mongo
       MONGODB_URI: string;
       MONGODB_DB: string;
-      // Magic
-      MAGIC_SECRET_KEY: string;
-      MAGIC_PUBLISHABLE_KEY: string;
+      NEXTAUTH_URL: string;
+      EMAIL_SERVER_HOST: string;
+      EMAIL_SERVER_PORT: string;
+      EMAIL_USER: string;
+      EMAIL_PASS: string;
+      EMAIL_FROM: string;
+      NEXT_PUBLIC_IMGUR_CLIENT_ID: string;
+      NEXT_PUBLIC_IMGUR_CLIENT_SECRET: string;
     }
   }
 }

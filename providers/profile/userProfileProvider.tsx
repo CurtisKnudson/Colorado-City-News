@@ -27,10 +27,10 @@ const UserProfileContext: React.FC = ({ children }: any) => {
       mediator.getUserByEmail(session!.user!.email!).then((res) => {
         setUserProfileData({
           ...userProfileData,
-          name: res.name,
-          email: res.email,
-          image: res.image,
-          _id: res._id,
+          name: res.name ? res.name : "",
+          email: res.email ? res.email : "",
+          image: res.image ? res.image : "",
+          _id: res._id ? res._id : "",
         });
       });
     }
