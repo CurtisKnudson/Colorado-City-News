@@ -24,7 +24,7 @@ const Profile = () => {
       }
       const userProfile = async () => {
         let userProfile = await mediator
-          .completeUserProfile(userProfileData)
+          .updateUserProfile(userProfileData)
           .then((res) => {
             setUserProfileData(res);
             return res;
