@@ -20,29 +20,33 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         email: email,
       };
 
-      let stringifiedImage = JSON.stringify(image.split(",")[1]);
+      let dbImage = image;
 
-      let headersList = {
-        Accept: "*/*",
-        Authorization: "Client-ID 1a01fef28b385f9",
-      };
+      if (image.includes("base64")) {
+        let stringifiedImage = JSON.stringify(image.split(",")[1]);
 
-      let imgurImage = await fetch("https://api.imgur.com/3/image", {
-        method: "POST",
-        body: stringifiedImage,
-        headers: headersList,
-      })
-        .then(function (response) {
-          return response.json();
+        let headersList = {
+          Accept: "*/*",
+          Authorization: "Client-ID 1a01fef28b385f9",
+        };
+
+        dbImage = await fetch("https://api.imgur.com/3/image", {
+          method: "POST",
+          body: stringifiedImage,
+          headers: headersList,
         })
-        .then(function (jsonified) {
-          return jsonified.data.link;
-        });
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (jsonified) {
+            return jsonified.data.link;
+          });
+      }
 
       const updateDocument = {
         $set: {
           name: name,
-          image: imgurImage,
+          image: dbImage,
         },
       };
       let user = await db
@@ -51,10 +55,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .then((res: any) => res);
 
       res.json(user.value);
-    }
-    if (typeof pid === "string" && pid === "testing") {
-      console.log(req);
-      res.json(req);
     }
   }
 };
