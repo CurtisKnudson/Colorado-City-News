@@ -3,24 +3,24 @@ import { Menu, MenuOpen } from "icons";
 interface SidebarButtonCollapser {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  classes?: string;
+  className?: string;
 }
 
 export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
-  const { open, setOpen, classes } = props;
+  const { open, setOpen, className } = props;
   return (
     <div
       onClick={() => {
         setOpen(!open);
       }}
       className={`cursor-pointer h-8 w-8 flex justify-center align-middle ${
-        classes ? classes : ""
+        className ? className : ""
       }`}
     >
       {open ? (
-        <MenuOpen color="" className="m-auto" />
+        <MenuOpen color="" className="mt-auto mb-auto mr-auto" />
       ) : (
-        <Menu color="" className="m-auto" />
+        <Menu color="" className="mt-auto mb-auto mr-auto" />
       )}
     </div>
   );

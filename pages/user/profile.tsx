@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Layout } from "@components/layout";
-import { useUserMediator } from "@mediator/providers/userMediatorProvider";
+import { useUserMediator } from "@mediator/providers/mediators/userMediatorProvider";
 import { Avatar, UserInfo } from "@components/profile";
 import { toast } from "react-toastify";
 import { useUserProfileContext } from "@providers/profile";

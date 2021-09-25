@@ -5,7 +5,7 @@ import { User } from "types/user";
 const url = config.url.API_URL;
 export class UserApi implements UserApiInterface {
   async getUserByEmail(email: string) {
-    let getUrl = `${url}/api/user/email`;
+    let getUrl = `${url}/user/email`;
     let getObject = {
       method: "GET",
       headers: {
@@ -17,7 +17,7 @@ export class UserApi implements UserApiInterface {
   }
 
   async updateUserProfile(userProfileData: User) {
-    let postUrl = `${url}/api/user/update`;
+    let postUrl = `${url}/user/update`;
     let postObject = {
       method: "POST",
       body: JSON.stringify(userProfileData),

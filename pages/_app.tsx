@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 // Types
 import type { AppProps } from "next/app";
 import UserApiProvider from "mediator/providers/api/userApiProvider";
-import UserMediatorProvider from "mediator/providers/userMediatorProvider";
+import UserMediatorProvider from "@mediator/providers/mediators/userMediatorProvider";
 import UserProfileContext from "@providers/profile/userProfileProvider";
 
 import { ToastContainer } from "react-toastify";
