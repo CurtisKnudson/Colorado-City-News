@@ -1,11 +1,13 @@
-import { Api } from "types/api";
+import { Console } from "console";
+import { ApiInterface } from "types/api";
+import { Article } from "types/article";
 import { MediatorInterface } from "types/mediator/mediator";
 import { User } from "types/user";
 
 export class Mediator implements MediatorInterface {
-  private api: Api;
+  private api: ApiInterface;
 
-  constructor(api: Api) {
+  constructor(api: ApiInterface) {
     this.api = api;
   }
 
@@ -16,6 +18,12 @@ export class Mediator implements MediatorInterface {
 
   async updateUserProfile(userProfileData: User) {
     const res: User = await this.api.updateUserProfile(userProfileData);
+    return res;
+  }
+
+  async publishArticle(article: Article, userEmail: User["email"]) {
+    const res = await this.api.publishArticle(article, userEmail);
+
     return res;
   }
 

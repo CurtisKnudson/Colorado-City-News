@@ -8,7 +8,7 @@ import UserProfileContext from "@providers/profile/userProfileProvider";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ApiProvider from "@mediator/providers/api/userApiProvider";
+import ApiProvider from "@mediator/providers/api/apiProvider";
 import MediatorProvider from "@mediator/providers/mediators/mediatorProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {

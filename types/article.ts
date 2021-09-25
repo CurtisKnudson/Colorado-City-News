@@ -3,7 +3,8 @@ export interface Article {
   date: string;
   title: string;
   subTitle: string;
+  image: string;
   readTime: string;
-  content: string;
+  content: any;
   url: string;
 }
