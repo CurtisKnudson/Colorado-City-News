@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useUserMediator } from "@mediator/providers/mediators/userMediatorProvider";
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import makeContextHook from "hooks/makeContextHooks";
 
 import { User } from "types/user";
@@ -14,7 +14,7 @@ const UserProfileContext: React.FC = ({ children }: any) => {
   const { data: session } = useSession({
     required: false,
   });
-  const mediator = useUserMediator();
+  const mediator = useMediator();
   const [userProfileData, setUserProfileData] = useState<User>({
     _id: "",
     name: "",

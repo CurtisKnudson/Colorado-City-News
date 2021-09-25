@@ -1,11 +1,11 @@
-import { UserApi } from "mediator/types/api";
+import { Api } from "types/api";
+import { MediatorInterface } from "types/mediator/mediator";
 import { User } from "types/user";
-import { UserMediator as UserMediatorInterface } from ".";
 
-export class UserMediator implements UserMediatorInterface {
-  private api: UserApi;
+export class Mediator implements MediatorInterface {
+  private api: Api;
 
-  constructor(api: UserApi) {
+  constructor(api: Api) {
     this.api = api;
   }
 

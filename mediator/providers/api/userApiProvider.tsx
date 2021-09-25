@@ -1,14 +1,14 @@
 import React, { useMemo, createContext } from "react";
 import makeContextHook from "hooks/makeContextHooks";
-import { UserApi as UserApiInterface } from "mediator/types/api";
-import { UserApi } from "mediator/api/userApi";
+import { ApiInterface } from "types/api";
+import { Api } from "@mediator/api/api";
 
-const apiContext = createContext<UserApiInterface | undefined>(undefined);
-export const useUserApi = makeContextHook(apiContext);
+const apiContext = createContext<ApiInterface | undefined>(undefined);
+export const useApi = makeContextHook(apiContext);
 
-const UserApiProvider: React.FC = ({ children }) => {
-  const api = new UserApi();
+const ApiProvider: React.FC = ({ children }) => {
+  const api = new Api();
   return <apiContext.Provider value={api}>{children}</apiContext.Provider>;
 };
 
-export default UserApiProvider;
+export default ApiProvider;

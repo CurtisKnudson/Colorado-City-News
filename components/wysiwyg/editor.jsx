@@ -1,21 +1,26 @@
 import * as React from "react";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 import { CustomEditor } from "components/wysiwyg/customEditor";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
 
 const Editor = () => {
-  const { data: session } = useSession();
   const editor = useMemo(() => withReact(createEditor()), []);
+
   const [value, setValue] = useState([
     {
       type: "paragraph",
-      children: [{ text: "A line of text in a paragraph." }],
+      children: [{ text: "Write your article here!" }],
     },
   ]);
-  const content = JSON.stringify(value);
+
+  useEffect(() => {
+    if (
+      JSON.parse(localStorage.getItem("content"))[0].children[0].text.length > 0
+    ) {
+      setValue(JSON.parse(localStorage.getItem("content")));
+    }
+  }, []);
 
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -32,75 +37,60 @@ const Editor = () => {
   }, []);
 
   return (
-    <>
-      {session && (
-        <>
-          <div>Editor</div>
-          <div>Title</div>
-          <Slate
-            editor={editor}
-            value={value}
-            onChange={(value) => {
-              setValue(value);
+    <Slate
+      editor={editor}
+      value={value}
+      onChange={(value) => {
+        setValue(value);
 
-              // Save the value to Local Storage.
+        // Save the value to Local Storage.
+        let content = JSON.stringify(value);
+        localStorage.setItem("content", content);
+      }}
+    >
+      <div className="border border-black ">
+        <button
+          onMouseDown={(event) => {
+            event.preventDefault();
+            CustomEditor.toggleBoldMark(editor);
+          }}
+        >
+          Bold
+        </button>
+        <button
+          onMouseDown={(event) => {
+            event.preventDefault();
+            CustomEditor.toggleCodeBlock(editor);
+          }}
+        >
+          Code Block
+        </button>
+      </div>
+      <Editable
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        onKeyDown={(event) => {
+          if (!event.ctrlKey) {
+            return;
+          }
 
-              localStorage.setItem("content", content);
-            }}
-          >
-            <div>
-              <button
-                onMouseDown={(event) => {
-                  event.preventDefault();
-                  CustomEditor.toggleBoldMark(editor);
-                }}
-              >
-                Bold
-              </button>
-              <button
-                onMouseDown={(event) => {
-                  event.preventDefault();
-                  CustomEditor.toggleCodeBlock(editor);
-                }}
-              >
-                Code Block
-              </button>
-            </div>
-            <Editable
-              renderElement={renderElement}
-              renderLeaf={renderLeaf}
-              onKeyDown={(event) => {
-                if (!event.ctrlKey) {
-                  return;
-                }
+          // Replace the `onKeyDown` logic with our new commands.
+          switch (event.key) {
+            case "`": {
+              event.preventDefault();
+              CustomEditor.toggleCodeBlock(editor);
+              break;
+            }
 
-                // Replace the `onKeyDown` logic with our new commands.
-                switch (event.key) {
-                  case "`": {
-                    event.preventDefault();
-                    CustomEditor.toggleCodeBlock(editor);
-                    break;
-                  }
-
-                  case "b": {
-                    event.preventDefault();
-                    CustomEditor.toggleBoldMark(editor);
-                    break;
-                  }
-                }
-              }}
-            />
-          </Slate>
-          <div onClick={() => useSaveToMongo(value)}>Save</div>
-        </>
-      )}
-      {!session && (
-        <>
-          <div>You must be signed in to access the editor</div>
-          <Link href="/">Return To Home</Link>
-        </>
-      )}
-    </>
+            case "b": {
+              event.preventDefault();
+              CustomEditor.toggleBoldMark(editor);
+              break;
+            }
+          }
+        }}
+      />
+    </Slate>
   );
 };
 

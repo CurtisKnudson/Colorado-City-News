@@ -1,9 +1,9 @@
-import { UserApi as UserApiInterface } from "mediator/types/api";
 import { config } from "@constants/config";
+import { ApiInterface } from "types/api";
 import { User } from "types/user";
 
 const url = config.url.API_URL;
-export class UserApi implements UserApiInterface {
+export class Api implements ApiInterface {
   async getUserByEmail(email: string) {
     let getUrl = `${url}/user/email`;
     let getObject = {

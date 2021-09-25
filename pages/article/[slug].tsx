@@ -2,16 +2,7 @@ import { Layout } from "@components/layout";
 import { config } from "@constants/config";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-
-export interface Article {
-  author: string;
-  date: string;
-  title: string;
-  subTitle: string;
-  readTime: string;
-  content: string;
-  url: string;
-}
+import { Article } from "types/article";
 
 interface DynamicArticleProps {
   article: Article;
