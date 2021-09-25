@@ -32,10 +32,12 @@ export const UserInfo = () => {
         onChange={handleChange}
         value={userProfileData.email}
         placeholder={userProfileData.email}
+        className="pointer-events-none select-none text-gray-300"
+        readOnly
       />
       <div className="text-gray-500 italic text-xs mt-8">
         **If you want to comment, post or interact on this website you must have
-        a name and profile picture
+        a name and profile picture**
       </div>
     </div>
   );
