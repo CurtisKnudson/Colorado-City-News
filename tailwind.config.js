@@ -21,6 +21,7 @@ module.exports = {
     "./icons/share.tsx",
     "./icons/sidebarMenuIcon.tsx",
     "./pages/index.tsx",
+    "./pages/article/[slug].tsx",
     "./pages/user/profile.tsx",
     "./pages/write/editor.jsx",
   ],
