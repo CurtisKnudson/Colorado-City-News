@@ -22,7 +22,8 @@
         "@utils/*":["./utils/*"],
         "@mediator/*": ["./mediator/*"],
         "@constants/*": ["./constants/*"],
-        "@database/*":["./database/*"]
+        "@database/*":["./database/*"],
+        "@types/*": ["./types/*"]
       },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],

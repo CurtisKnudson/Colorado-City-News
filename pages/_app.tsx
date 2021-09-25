@@ -4,24 +4,24 @@ import React from "react";
 import { SessionProvider } from "next-auth/react";
 // Types
 import type { AppProps } from "next/app";
-import UserApiProvider from "mediator/providers/api/userApiProvider";
-import UserMediatorProvider from "@mediator/providers/mediators/userMediatorProvider";
 import UserProfileContext from "@providers/profile/userProfileProvider";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ApiProvider from "@mediator/providers/api/apiProvider";
+import MediatorProvider from "@mediator/providers/mediators/mediatorProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session} refetchInterval={0}>
-      <UserApiProvider>
-        <UserMediatorProvider>
+      <ApiProvider>
+        <MediatorProvider>
           <UserProfileContext>
             <ToastContainer />
             <Component {...pageProps} />
           </UserProfileContext>
-        </UserMediatorProvider>
-      </UserApiProvider>
+        </MediatorProvider>
+      </ApiProvider>
     </SessionProvider>
   );
 }

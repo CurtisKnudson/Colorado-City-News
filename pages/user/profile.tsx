@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSession } from "next-auth/react";
 import { Layout } from "@components/layout";
-import { useUserMediator } from "@mediator/providers/mediators/userMediatorProvider";
 import { Avatar, UserInfo } from "@components/profile";
 import { toast } from "react-toastify";
 import { useUserProfileContext } from "@providers/profile";
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 
 const Profile = () => {
-  const mediator = useUserMediator();
+  const mediator = useMediator();
   const { status } = useSession({
     required: true,
   });
