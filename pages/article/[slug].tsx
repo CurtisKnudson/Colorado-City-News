@@ -4,14 +4,23 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 
 export interface Article {
+  author: string;
+  date: string;
+  title: string;
+  subTitle: string;
+  readTime: string;
+  content: string;
   url: string;
 }
 
-const DynamicArticle = ({ post }: { post: any }) => {
-  console.log(post);
+interface DynamicArticleProps {
+  article: Article;
+}
+
+const DynamicArticle = ({ article }: DynamicArticleProps) => {
   return (
     <Layout>
-      <div> I am dynamic as fuck</div>
+      <div>{article.content}</div>
     </Layout>
   );
 };
@@ -31,11 +40,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log(params);
   const url = config.url.API_URL;
   const res = await fetch(`${url}/article/${params!.slug}`);
-  const post = await res.json();
+  const article = await res.json().then((res) => {
+    return res[0];
+  });
 
   // Pass post data to the page via props
-  return { props: { post } };
+  return { props: { article } };
 };
