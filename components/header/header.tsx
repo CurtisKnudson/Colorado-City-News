@@ -11,11 +11,7 @@ export const Header = () => {
     <>
       <div className="mx-4 h-12 grid grid-cols-12">
         <div className="col-span-1 flex items-center justify-center">
-          <SidebarButtonCollapser
-            open={navOpen}
-            setOpen={setNavOpen}
-            classes=""
-          />
+          <SidebarButtonCollapser open={navOpen} setOpen={setNavOpen} />
         </div>
         <Link href="/">
           <div className="font-chomsky col-span-7 text-xl flex items-center justify-center cursor-pointer select-none">
