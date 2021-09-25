@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useUserMediator } from "@mediator/providers/userMediatorProvider";
+import { useUserMediator } from "@mediator/providers/mediators/userMediatorProvider";
 import makeContextHook from "hooks/makeContextHooks";
 
 import { User } from "types/user";

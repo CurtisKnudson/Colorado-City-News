@@ -4,7 +4,7 @@ import { UserMediator as UserMediatorInterface } from "mediator/types/mediator/u
 // Hooks
 import makeContextHook from "hooks/makeContextHooks";
 import { UserMediator } from "mediator/user/userMediator";
-import { useUserApi } from "./api/userApiProvider";
+import { useUserApi } from "../api/userApiProvider";
 
 const UserMediatorContext = createContext<UserMediatorInterface | undefined>(
   undefined
