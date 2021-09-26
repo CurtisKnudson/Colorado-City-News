@@ -25,13 +25,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const query = { "publishedArticles.url": pid };
     const options = {
-      projection: { _id: 0, publishedArticles: { $elemMatch: { url: pid } } },
+      projection: {
+        _id: 0,
+        publishedArticles: { $elemMatch: { url: pid } },
+        name: 1,
+        image: 1,
+      },
     };
     let article = await db
       .collection("users")
       .findOne(query, options)
       .then((res: any) => {
-        return res.publishedArticles[0];
+        return res;
       });
     res.json(article);
     return;

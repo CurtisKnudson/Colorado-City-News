@@ -11,11 +11,53 @@
 }
 
 @font-face {
+  font-family: "Libre-Franklin-Light";
+  src: url("../fonts/LibreFranklin/LibreFranklin-Light.ttf");
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Libre-Franklin-Regular";
   src: url("../fonts/LibreFranklin/LibreFranklin-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Libre-Franklin-Medium";
+  src: url("../fonts/LibreFranklin/LibreFranklin-Medium.ttf");
+  fontweight: 500;
 }
 
 @font-face {
   font-family: "Libre-Franklin-Bold";
   src: url("../fonts/LibreFranklin/LibreFranklin-Bold.ttf");
+}
+@font-face {
+  font-family: "Merriweather-Bold-Italic";
+  src: url("../fonts/Merriweather/Merriweather-BoldItalic.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Merriweather-Black-Italic";
+  src: url("../fonts/Merriweather/Merriweather-BlackItalic.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Merriweather-Italic";
+  src: url("../fonts/Merriweather/Merriweather-Italic.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Merriweather-Regular";
+  src: url("../fonts/Merriweather/Merriweather-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Merriweather-Medium";
+  src: url("../fonts/Merriweather/Merriweather-Regular.ttf");
+  font-weight: 500;
 }
