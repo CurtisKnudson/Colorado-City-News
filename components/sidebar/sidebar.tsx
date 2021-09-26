@@ -10,13 +10,13 @@ export const Sidebar = ({ children }: any) => {
   });
 
   return (
-    <div className="mx-4">
+    <div className="">
       <div
-        className={`bg-white cursor-pointer truncate h-screen rounded duration-75 transition-width z-50 ${
+        className={` bg-white cursor-pointer truncate h-screen rounded duration-75 transition-width z-50 ${
           navOpen ? "w-10/12" : "w-0"
         } fixed `}
       >
-        <div className="flex flex-col ">
+        <div className="flex flex-col pl-4">
           {!session && (
             <>
               <button onClick={() => signIn()}>Sign In</button>

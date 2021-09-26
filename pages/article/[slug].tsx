@@ -3,14 +3,21 @@ import { Layout } from "@components/layout";
 import { config } from "@constants/config";
 import { GetStaticPaths, GetStaticProps } from "next";
 
-import { Article } from "types/article";
+import { Article as ArticleType } from "types/article";
+import Article from "views/article";
 
-interface DynamicArticleProps {
-  article: Article;
+export interface DynamicArticleProps {
+  article: ArticleType;
+  name: string;
+  image: string;
 }
 
-const DynamicArticle = ({ article }: DynamicArticleProps) => {
-  return <Layout>{article && <></>}</Layout>;
+const DynamicArticle = ({ name, image, article }: DynamicArticleProps) => {
+  return (
+    <Layout className="mx-0">
+      {article && <Article article={article} name={name} image={image} />}
+    </Layout>
+  );
 };
 
 export default DynamicArticle;
@@ -27,8 +34,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const url = config.url.API_URL;
   const res = params && (await fetch(`${url}/article/${params.slug}`));
-  const article: Article = res && (await res.json());
+  const resObj = res && (await res.json());
+
+  const { name, image, publishedArticles } = resObj;
+
+  let article = publishedArticles[0];
 
   // Pass post data to the page via props
-  return { props: { article } };
+  return { props: { name, image, article } };
 };

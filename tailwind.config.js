@@ -24,6 +24,7 @@ module.exports = {
     "./pages/article/[slug].tsx",
     "./pages/user/profile.tsx",
     "./pages/write/editor.jsx",
+    "./views/article.tsx",
   ],
   darkMode: "media", // or 'media' or 'class'
   theme: {
@@ -52,6 +53,63 @@ module.exports = {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+        },
+        ".overline": {
+          fontFamily: "Libre-Franklin-Bold",
+          fontSize: "10px",
+          textTransform: "uppercase",
+        },
+        ".caption": {
+          fontFamily: "Merriweather-Italic",
+          fontSize: "12px",
+        },
+        ".button": {
+          fontFamily: "Libre-Franklin-Bold",
+          fontSize: "14px",
+          textTransform: "uppercase",
+        },
+        ".body2": {
+          fontFamily: "Libre-Frankling-Regular",
+          fontSize: "14px",
+        },
+        ".body1": {
+          fontFamily: "Merriweather-Regular",
+          fontSize: "16px",
+        },
+        ".subtitle2": {
+          fontFamily: "Merriweather-Medium",
+          fontSize: "14px",
+        },
+        ".subtitle1": {
+          fontFamily: "Libre-Frankling-Medium",
+          fontSize: "16px",
+        },
+        ".h6Headline": {
+          fontFamily: "Merriweather-Bold-Italic",
+          fontSize: "20px",
+        },
+        ".h5Headline": {
+          fontFamily: "Libre-Franklin-Regular",
+          fontSize: "24px",
+        },
+        ".h4Headline": {
+          fontFamily: "Libre-Franklin-Regular",
+          fontSize: "34px",
+        },
+        ".h3Headline": {
+          fontFamily: "Merriweather-Black-Italic",
+          fontSize: "48px",
+        },
+        ".h2Headline": {
+          fontFamily: "Libre-Franklin-Light",
+          fontSize: "60px",
+        },
+        ".h1Headline": {
+          fontFamily: "Merriweather-Black-Italic",
+          fontSize: "96px",
+        },
+        ".text-black-60": {
+          color: "rgba(0,0,0,0.6)",
         },
       };
 

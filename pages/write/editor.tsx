@@ -7,8 +7,6 @@ import ArticleContext, { useArticleContext } from "@providers/article";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
 
-// https://picsum.photos/1080/1080
-
 const EditorView = () => {
   const { data: session } = useSession();
   const mediator = useMediator();
