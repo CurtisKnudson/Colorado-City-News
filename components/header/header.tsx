@@ -9,7 +9,7 @@ export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
   return (
     <>
-      <div className="mx-4 h-12 grid grid-cols-12">
+      <div className="mx-4 h-16 grid grid-cols-12">
         <div className="col-span-1 flex items-center justify-center">
           <SidebarButtonCollapser open={navOpen} setOpen={setNavOpen} />
         </div>
