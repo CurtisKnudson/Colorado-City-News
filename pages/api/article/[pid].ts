@@ -22,6 +22,31 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       return;
     }
+    if (pid === "getFeaturedArticle") {
+      const query = { publishedArticles: { $exists: true } };
+      const options = {
+        projection: {
+          _id: 0,
+          publishedArticles: 1,
+          name: 1,
+          image: 1,
+        },
+        sort: { "publishedArticles.date": 1 },
+      };
+
+      let featuredArticle = await db
+        .collection("users")
+        .find(query, options)
+        .toArray();
+
+      const realFeaturedArticle = {
+        name: featuredArticle[0].name,
+        image: featuredArticle[0].image,
+        featuredArticle: featuredArticle[0].publishedArticles[0],
+      };
+      res.json(realFeaturedArticle);
+      return;
+    }
 
     const query = { "publishedArticles.url": pid };
     const options = {
