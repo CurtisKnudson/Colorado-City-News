@@ -48,7 +48,6 @@ export const FeaturedArticleCard = () => {
 export const GhostFeaturedArticleCard = () => {
   return (
     <div>
-      v
       <Image
         src="https://picsum.photos/1080/1080"
         priority
