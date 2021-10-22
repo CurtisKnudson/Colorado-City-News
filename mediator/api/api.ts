@@ -46,4 +46,13 @@ export class Api implements ApiInterface {
 
     return publishedArticle;
   }
+
+  async getFeaturedArticle() {
+    let getUrl = `${url}/article/getFeaturedArticle`;
+    const featuredArticle = await fetch(getUrl).then((res) => {
+      return res.json();
+    });
+
+    return featuredArticle;
+  }
 }

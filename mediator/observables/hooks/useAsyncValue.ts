@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useUpdate } from ".";
 import { ObservableValue } from "..";
 
@@ -21,7 +21,7 @@ export function useAsyncValue<TValue, TInitial = TValue>(
 ) {
   const update = useUpdate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const subscription = observableValue.onChange(update);
     return () => subscription.unsubscribe();
   }, [observableValue, update]);
