@@ -23,12 +23,10 @@ const DynamicArticle = ({ name, image, article }: DynamicArticleProps) => {
 export default DynamicArticle;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const url = config.url.API_URL;
-  const res = await fetch(`${url}/article/getAllArticles`);
-  const urls = await res.json();
-
-  const paths = urls;
-  return { paths, fallback: true };
+  return {
+    paths: ["/article/chicago"],
+    fallback: true,
+  };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
