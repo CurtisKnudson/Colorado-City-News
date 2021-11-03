@@ -12,37 +12,37 @@ interface FeaturedArticle {
 }
 
 export const FeaturedArticleCard = () => {
-  const mediator = useMediator();
-  const featuredArticle: FeaturedArticle = useAsyncValue(
-    mediator.featuredArticle
-  );
+  // const mediator = useMediator();
+  // const featuredArticle: FeaturedArticle = useAsyncValue(
+  //   mediator.featuredArticle
+  // );
 
-  useEffect(() => {
-    mediator.getFeaturedArticle();
-  }, [mediator]);
+  // useEffect(() => {
+  //   mediator.getFeaturedArticle();
+  // }, [mediator]);
 
-  if (!featuredArticle) {
-    return <GhostFeaturedArticleCard />;
-  }
+  // if (!featuredArticle) {
+  return <GhostFeaturedArticleCard />;
+  // }
 
-  return (
-    <Link href={`/article/${featuredArticle.featuredArticle.url}`}>
-      <div className="cursor-pointer">
-        <Image
-          src={featuredArticle.featuredArticle.image}
-          priority
-          width="1800"
-          height="1200"
-        />
-        <div className="flex flex-col">
-          <span className="font-lfBold text-sm my-2">World</span>
-          <span className="font-lfRegular text-4xl">
-            {featuredArticle.featuredArticle.title}
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
+  // return (
+  //   <Link href={`/article/${featuredArticle.featuredArticle.url}`}>
+  //     <div className="cursor-pointer">
+  //       <Image
+  //         src={featuredArticle.featuredArticle.image}
+  //         priority
+  //         width="1800"
+  //         height="1200"
+  //       />
+  //       <div className="flex flex-col">
+  //         <span className="font-lfBold text-sm my-2">World</span>
+  //         <span className="font-lfRegular text-4xl">
+  //           {featuredArticle.featuredArticle.title}
+  //         </span>
+  //       </div>
+  //     </div>
+  //   </Link>
+  // );
 };
 
 export const GhostFeaturedArticleCard = () => {

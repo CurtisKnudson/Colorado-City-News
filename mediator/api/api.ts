@@ -48,12 +48,8 @@ export class Api implements ApiInterface {
   }
 
   async getFeaturedArticle() {
-    let getUrl = `${url}/article/getFeaturedArticle`;
-    const featuredArticle = await fetch(getUrl).then((res) => {
-      return res.json();
-    });
-
-    console.log(featuredArticle);
+    let getUrl = `http://localhost:3000/api/article/getFeaturedArticle`;
+    const featuredArticle = await fetch(getUrl).then((res) => res.json());
 
     return featuredArticle;
   }

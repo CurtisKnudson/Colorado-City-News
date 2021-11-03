@@ -30,6 +30,7 @@ export class Mediator implements MediatorInterface {
   }
 
   async getFeaturedArticle() {
+    console.log("ive been called");
     const res = await this.api.getFeaturedArticle();
     this.featuredArticle.setValue(res);
     return res;
