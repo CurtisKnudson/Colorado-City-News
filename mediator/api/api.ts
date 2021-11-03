@@ -53,6 +53,8 @@ export class Api implements ApiInterface {
       return res.json();
     });
 
+    console.log(featuredArticle);
+
     return featuredArticle;
   }
 }
