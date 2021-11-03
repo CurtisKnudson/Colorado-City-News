@@ -49,8 +49,8 @@ export default DynamicArticle;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const url = config.url.API_URL;
-  const res = params && (await fetch(`${url}/article/${params.id}`));
-  const resObj = res && (await res.json());
+  const res = await fetch(`${url}/article/${params!.id}`);
+  const resObj = await res.json();
 
   const { name, image, publishedArticles } = resObj;
 

@@ -24,7 +24,9 @@ const Article = ({ article, name, image }: DynamicArticleProps) => {
           <AuthorCard name={name} image={image} />
         </div>
       </div>
-      <ReadOnly content={article.content} />
+      <div className="mx-4">
+        <ReadOnly content={article.content} />
+      </div>
     </>
   );
 };
