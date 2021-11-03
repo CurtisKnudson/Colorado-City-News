@@ -1,6 +1,7 @@
 const production = {
   url: {
-    API_URL: "https://coloradocity.news/api",
+    API_URL:
+      "https://colorado-city-news-dev-4pylwbueb-midgard-marketing.vercel.app/api",
   },
 };
 const dev = {
