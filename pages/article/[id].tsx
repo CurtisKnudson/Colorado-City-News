@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "@components/layout";
 import { config } from "@constants/config";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 
 import { Article as ArticleType } from "types/article";
 import Article from "views/article";
@@ -11,6 +11,8 @@ export interface DynamicArticleProps {
   name: string;
   image: string;
 }
+
+export interface StaticPaths {}
 
 const DynamicArticle = ({ name, image, article }: DynamicArticleProps) => {
   return (
@@ -22,16 +24,32 @@ const DynamicArticle = ({ name, image, article }: DynamicArticleProps) => {
 
 export default DynamicArticle;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: ["/article/chicago"],
-    fallback: true,
-  };
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   // const url = config.url.API_URL;
+//   const res = await fetch(`/api/article/getAllArticles`).then((res) => {
+//     return res.json();
+//   });
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   console.log(res);
+
+//   // if (!res) {
+//   return {
+//     paths: [{ params: { id: "chicago" } }],
+//     fallback: false,
+//   };
+//   // }
+
+//   // const paths = res;
+
+//   // return {
+//   //   paths,
+//   //   fallback: true,
+//   // };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const url = config.url.API_URL;
-  const res = params && (await fetch(`${url}/article/${params.slug}`));
+  const res = params && (await fetch(`${url}/article/${params.id}`));
   const resObj = res && (await res.json());
 
   const { name, image, publishedArticles } = resObj;

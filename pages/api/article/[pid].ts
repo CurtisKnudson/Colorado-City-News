@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .toArray();
 
       const url = articles[0].publishedArticles.map((obj: any) => ({
-        params: { slug: obj.url },
+        params: { id: obj.url },
       }));
 
       res.json(url);

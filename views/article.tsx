@@ -1,6 +1,6 @@
 import ReadOnly from "@components/wysiwyg/readOnly";
 import Image from "next/image";
-import { DynamicArticleProps } from "pages/article/[slug]";
+import { DynamicArticleProps } from "pages/article/[id]";
 import React from "react";
 
 const Article = ({ article, name, image }: DynamicArticleProps) => {
