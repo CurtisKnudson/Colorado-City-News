@@ -4,7 +4,7 @@ import { ChipBar } from "@components/chipBar";
 
 const FrontPage = () => {
   setTimeout(() => {
-    console.log("is this working");
+    console.log("is this working", process.env.NEXTAUTH_URL);
   }, 10000);
   return (
     <>
