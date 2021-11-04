@@ -1,26 +1,33 @@
 import * as React from "react";
 import { useMemo, useState, useCallback, useEffect } from "react";
-import { createEditor } from "slate";
+import { createEditor, Descendant } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
+import { BaseEditor } from "slate";
+import { ReactEditor } from "slate-react";
 import { CustomEditor } from "components/wysiwyg/customEditor";
+
+type CustomElement = { type: "paragraph"; children: CustomText[] };
+type CustomText = { text: string };
+
+declare module "slate" {
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor;
+    Element: CustomElement;
+    Text: CustomText;
+  }
+}
 
 const Editor = () => {
   const editor = useMemo(() => withReact(createEditor()), []);
 
-  const [value, setValue] = useState([
+  const initialValue: CustomElement[] = [
     {
       type: "paragraph",
-      children: [{ text: "Write your article here!" }],
+      children: [{ text: "A line of text in a paragraph." }],
     },
-  ]);
+  ];
 
-  useEffect(() => {
-    if (
-      JSON.parse(localStorage.getItem("content"))[0].children[0].text.length > 0
-    ) {
-      setValue(JSON.parse(localStorage.getItem("content")));
-    }
-  }, []);
+  const [value, setValue] = useState<Descendant[]>(initialValue);
 
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -94,7 +101,18 @@ const Editor = () => {
   );
 };
 
-const CodeElement = (props) => {
+const CodeElement = (props: {
+  attributes: JSX.IntrinsicAttributes &
+    React.ClassAttributes<HTMLPreElement> &
+    React.HTMLAttributes<HTMLPreElement>;
+  children:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
+}) => {
   return (
     <pre {...props.attributes}>
       <code>{props.children}</code>
@@ -102,11 +120,34 @@ const CodeElement = (props) => {
   );
 };
 
-const DefaultElement = (props) => {
+const DefaultElement = (props: {
+  attributes: JSX.IntrinsicAttributes &
+    React.ClassAttributes<HTMLParagraphElement> &
+    React.HTMLAttributes<HTMLParagraphElement>;
+  children:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
+}) => {
   return <p {...props.attributes}>{props.children}</p>;
 };
 
-const Leaf = (props) => {
+const Leaf = (props: {
+  attributes: JSX.IntrinsicAttributes &
+    React.ClassAttributes<HTMLSpanElement> &
+    React.HTMLAttributes<HTMLSpanElement>;
+  leaf: string;
+  children:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
+}) => {
   return (
     <span
       {...props.attributes}
