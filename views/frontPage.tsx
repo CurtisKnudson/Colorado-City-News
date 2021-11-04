@@ -3,8 +3,8 @@ import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 
 const FrontPage = () => {
-  window.setTimeout(() => {
-    console.log("Do you see me? ");
+  setTimeout(() => {
+    console.log("is this working");
   }, 10000);
   return (
     <>
