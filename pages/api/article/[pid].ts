@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         params: { id: obj.url },
       }));
 
-      res.json(url);
+      res.status(200).send(url);
 
       return;
     }
