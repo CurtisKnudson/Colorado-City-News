@@ -1,8 +1,7 @@
-/* jshint ignore:start */
 import { Editor, Transforms, Text, BaseEditor } from "slate";
 
 export const CustomEditor = {
-  isBoldMarkActive(editor: BaseEditor) {
+  isBoldMarkActive(editor) {
     const [match] = Editor.nodes(editor, {
       match: (n) => n.bold === true,
       universal: true,
@@ -11,7 +10,7 @@ export const CustomEditor = {
     return !!match;
   },
 
-  isCodeBlockActive(editor: BaseEditor) {
+  isCodeBlockActive(editor) {
     const [match] = Editor.nodes(editor, {
       match: (n) => n.type === "code",
     });
@@ -19,7 +18,7 @@ export const CustomEditor = {
     return !!match;
   },
 
-  toggleBoldMark(editor: BaseEditor) {
+  toggleBoldMark(editor) {
     const isActive = CustomEditor.isBoldMarkActive(editor);
     Transforms.setNodes(
       editor,
@@ -28,7 +27,7 @@ export const CustomEditor = {
     );
   },
 
-  toggleCodeBlock(editor: BaseEditor) {
+  toggleCodeBlock(editor) {
     const isActive = CustomEditor.isCodeBlockActive(editor);
     Transforms.setNodes(
       editor,

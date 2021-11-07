@@ -101,18 +101,7 @@ const Editor = () => {
   );
 };
 
-const CodeElement = (props: {
-  attributes: JSX.IntrinsicAttributes &
-    React.ClassAttributes<HTMLPreElement> &
-    React.HTMLAttributes<HTMLPreElement>;
-  children:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
-}) => {
+export const CodeElement = (props: any) => {
   return (
     <pre {...props.attributes}>
       <code>{props.children}</code>
@@ -120,34 +109,15 @@ const CodeElement = (props: {
   );
 };
 
-const DefaultElement = (props: {
-  attributes: JSX.IntrinsicAttributes &
-    React.ClassAttributes<HTMLParagraphElement> &
-    React.HTMLAttributes<HTMLParagraphElement>;
-  children:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
-}) => {
-  return <p {...props.attributes}>{props.children}</p>;
+export const DefaultElement = (props: any) => {
+  return (
+    <p className="body1-light opacity-60 tracking-wide " {...props.attributes}>
+      {props.children}
+    </p>
+  );
 };
 
-const Leaf = (props: {
-  attributes: JSX.IntrinsicAttributes &
-    React.ClassAttributes<HTMLSpanElement> &
-    React.HTMLAttributes<HTMLSpanElement>;
-  leaf: string;
-  children:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
-}) => {
+export const Leaf = (props: any) => {
   return (
     <span
       {...props.attributes}

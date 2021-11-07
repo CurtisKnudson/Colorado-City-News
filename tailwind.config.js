@@ -14,6 +14,7 @@ module.exports = {
     "./components/profile/setUserInfo.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
+    "./components/wysiwyg/editor.tsx",
     "./icons/camera.tsx",
     "./icons/menu.tsx",
     "./icons/menuOpen.tsx",
@@ -74,6 +75,10 @@ module.exports = {
         },
         ".body1": {
           fontFamily: "Merriweather-Regular",
+          fontSize: "16px",
+        },
+        ".body1-light": {
+          fontFamily: "Merriweather-Light",
           fontSize: "16px",
         },
         ".subtitle2": {
