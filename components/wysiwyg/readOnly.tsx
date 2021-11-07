@@ -1,9 +1,20 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { createEditor, Descendant } from "slate";
+import { createEditor, Descendant, BaseEditor } from "slate";
 import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import { CodeElement, DefaultElement, Leaf } from "./editor";
 
-const ReadOnly = ({ content }: { content: Descendant[] }) => {
+type CustomElement = { type: "paragraph"; children: CustomText[] };
+type CustomText = { text: string };
+
+declare module "slate" {
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor;
+    Element: CustomElement;
+    Text: CustomText;
+  }
+}
+
+const ReadOnly = ({ content }: { content: CustomElement[] }) => {
   const [value, setValue] = useState<Descendant[]>(content);
   const editor = useMemo(() => withReact(createEditor() as ReactEditor), []);
 
@@ -27,6 +38,9 @@ const ReadOnly = ({ content }: { content: Descendant[] }) => {
         readOnly
         renderElement={renderElement}
         renderLeaf={renderLeaf}
+        spellCheck="false"
+        autoCorrect="false"
+        autoCapitalize="false"
       />
     </Slate>
   );
