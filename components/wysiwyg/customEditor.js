@@ -1,5 +1,4 @@
-/* jshint ignore:start */
-import { Editor, Transforms, Text } from "slate";
+import { Editor, Transforms, Text, BaseEditor } from "slate";
 
 export const CustomEditor = {
   isBoldMarkActive(editor) {
@@ -37,5 +36,3 @@ export const CustomEditor = {
     );
   },
 };
-
-/* jshint ignore:end */
