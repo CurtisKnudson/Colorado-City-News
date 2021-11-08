@@ -1,7 +1,7 @@
-import Editor from "@components/wysiwyg/editor";
+import SlateEditor from "@components/wysiwyg/editor";
 import { Layout } from "@components/layout";
 import { useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import ArticleContext, { useArticleContext } from "@providers/article";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
@@ -73,7 +73,7 @@ const EditorView = () => {
               />
             </div>
 
-            <Editor />
+            <SlateEditor />
           </>
         ) : (
           <>
