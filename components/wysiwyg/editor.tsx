@@ -58,11 +58,11 @@ const SlateEditor = ({
   readOnly,
   content,
 }: {
-  readOnly: boolean;
-  content: CustomElement[];
+  readOnly?: boolean;
+  content?: CustomElement[];
 }) => {
   const [value, setValue] = useState<Descendant[]>(
-    readOnly ? content : initialValue
+    readOnly ? (content ? content : initialValue) : initialValue
   );
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
