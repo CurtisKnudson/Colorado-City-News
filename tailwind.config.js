@@ -116,7 +116,14 @@ module.exports = {
           fontSize: "96px",
         },
         ".text-black-60": {
-          color: "rgba(0,0,0,0.6)",
+          color: "#666666",
+        },
+
+        ".merriweather": {
+          fontFamily: "Merriweather-Regular",
+        },
+        ".merriweather-light:": {
+          fontFamily: "Merriweather-Light",
         },
       };
 
