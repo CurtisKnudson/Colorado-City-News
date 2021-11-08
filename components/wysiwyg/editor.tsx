@@ -168,7 +168,11 @@ const Element = ({ attributes, children, element }) => {
         </blockquote>
       );
     case "bulleted-list":
-      return <ul {...attributes}>{children}</ul>;
+      return (
+        <ul className="list-disc" {...attributes}>
+          {children}
+        </ul>
+      );
     case "heading-one":
       return (
         <h1 className="" {...attributes}>
@@ -178,9 +182,17 @@ const Element = ({ attributes, children, element }) => {
     case "heading-two":
       return <h2 {...attributes}>{children}</h2>;
     case "list-item":
-      return <li {...attributes}>{children}</li>;
+      return (
+        <li className="mx-4" {...attributes}>
+          {children}
+        </li>
+      );
     case "numbered-list":
-      return <ol {...attributes}>{children}</ol>;
+      return (
+        <ol className="list-decimal" {...attributes}>
+          {children}
+        </ol>
+      );
     default:
       return (
         <p className="merriweather-light tracking-wide " {...attributes}>
