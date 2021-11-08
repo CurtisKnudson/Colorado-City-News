@@ -14,7 +14,9 @@ module.exports = {
     "./components/profile/setUserInfo.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
+    "./components/wysiwyg/button.tsx",
     "./components/wysiwyg/editor.tsx",
+    "./components/wysiwyg/toolbar.tsx",
     "./icons/camera.tsx",
     "./icons/menu.tsx",
     "./icons/menuOpen.tsx",
@@ -114,7 +116,14 @@ module.exports = {
           fontSize: "96px",
         },
         ".text-black-60": {
-          color: "rgba(0,0,0,0.6)",
+          color: "#666666",
+        },
+
+        ".merriweather": {
+          fontFamily: "Merriweather-Regular",
+        },
+        ".merriweather-light": {
+          fontFamily: "Merriweather-Light",
         },
       };
 

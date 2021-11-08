@@ -1,4 +1,4 @@
-import ReadOnly from "@components/wysiwyg/readOnly";
+import SlateEditor from "@components/wysiwyg/editor";
 import Image from "next/image";
 import { DynamicArticleProps } from "pages/article/[id]";
 import React from "react";
@@ -25,7 +25,7 @@ const Article = ({ article, name, image }: DynamicArticleProps) => {
         </div>
       </div>
       <div className="mx-4">
-        <ReadOnly content={article.content} />
+        <SlateEditor content={article.content} readOnly />
       </div>
     </>
   );
