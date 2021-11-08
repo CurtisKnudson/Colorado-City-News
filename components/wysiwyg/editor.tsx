@@ -163,7 +163,7 @@ const Element = ({ attributes, children, element }) => {
   switch (element.type) {
     case "block-quote":
       return (
-        <blockquote className="green" {...attributes}>
+        <blockquote className="mx-8" {...attributes}>
           {children}
         </blockquote>
       );
