@@ -122,7 +122,7 @@ module.exports = {
         ".merriweather": {
           fontFamily: "Merriweather-Regular",
         },
-        ".merriweather-light:": {
+        ".merriweather-light": {
           fontFamily: "Merriweather-Light",
         },
       };
