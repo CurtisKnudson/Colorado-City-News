@@ -81,7 +81,7 @@ const EditorView = () => {
             <Link href="/">Return To Home</Link>
           </>
         )}
-        <button className=" border cursor-pointer " onClick={handlePublish}>
+        <button className="border cursor-pointer" onClick={handlePublish}>
           PUBLISH
         </button>
       </Layout>
@@ -100,8 +100,6 @@ export const EditorInput = ({
   value: any;
   handleChange: any;
 }) => {
-  const [articleData, setArticleData] = useArticleContext();
-
   return (
     <div className="flex items-center my-2">
       <input

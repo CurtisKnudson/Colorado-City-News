@@ -80,7 +80,7 @@ const SlateEditor = ({
       }}
     >
       {readOnly ? (
-        <span></span>
+        <> </>
       ) : (
         <Toolbar>
           <MarkButton format="bold" Icon={Bold} />
@@ -132,9 +132,7 @@ const toggleBlock = (editor, format) => {
   const isActive = isBlockActive(editor, format);
   const isList = LIST_TYPES.includes(format);
   Transforms.unwrapNodes(editor, {
-    // @ts-ignore
     match: (n) =>
-      // @ts-ignore
       !Editor.isEditor(n) &&
       SlateElement.isElement(n) &&
       LIST_TYPES.includes(n.type),
@@ -147,7 +145,6 @@ const toggleBlock = (editor, format) => {
 
   if (!isActive && isList) {
     const block = { type: format, children: [] };
-    // @ts-ignore
     Transforms.wrapNodes(editor, block);
   }
 };
@@ -183,7 +180,6 @@ const isMarkActive = (editor: BaseEditor & ReactEditor, format: any) => {
 
 // @ts-ignore
 const Element = ({ attributes, children, element }) => {
-  console.log(element.type);
   switch (element.type) {
     case "block-quote":
       return (
@@ -192,11 +188,7 @@ const Element = ({ attributes, children, element }) => {
         </blockquote>
       );
     case "bulleted-list":
-      return (
-        <ul className="list-disc" {...attributes}>
-          {children}
-        </ul>
-      );
+      return <ul {...attributes}>{children}</ul>;
     case "heading-one":
       return (
         <h1 className="" {...attributes}>
