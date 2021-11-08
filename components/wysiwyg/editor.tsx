@@ -54,8 +54,16 @@ const initialValue: Descendant[] = [
   },
 ];
 
-const SlateEditor = () => {
-  const [value, setValue] = useState<Descendant[]>(initialValue);
+const SlateEditor = ({
+  readOnly,
+  content,
+}: {
+  readOnly: boolean;
+  content: CustomElement[];
+}) => {
+  const [value, setValue] = useState<Descendant[]>(
+    readOnly ? content : initialValue
+  );
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -71,32 +79,48 @@ const SlateEditor = () => {
         localStorage.setItem("content", content);
       }}
     >
-      <Toolbar>
-        <MarkButton format="bold" Icon={Bold} />
-        <MarkButton format="italic" Icon={Itallic} />
-        <MarkButton format="underline" Icon={Underline} />
-        <MarkButton format="code" Icon={Code} />
-        <BlockButton format="heading-one" Icon={H1} />
-        <BlockButton format="heading-two" Icon={H2} />
-        <BlockButton format="block-quote" Icon={Blockquote} />
-        <BlockButton format="numbered-list" Icon={Ol} />
-        <BlockButton format="bulleted-list" Icon={Ul} />
-      </Toolbar>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        placeholder="Enter some rich text..."
-        onKeyDown={(event) => {
-          for (const hotkey in HOTKEYS) {
-            if (isHotkey(hotkey, event as any)) {
-              event.preventDefault();
-              // @ts-ignore
-              const mark = HOTKEYS[hotkey];
-              toggleMark(editor, mark);
+      {readOnly ? (
+        <span></span>
+      ) : (
+        <Toolbar>
+          <MarkButton format="bold" Icon={Bold} />
+          <MarkButton format="italic" Icon={Itallic} />
+          <MarkButton format="underline" Icon={Underline} />
+          <MarkButton format="code" Icon={Code} />
+          <BlockButton format="heading-one" Icon={H1} />
+          <BlockButton format="heading-two" Icon={H2} />
+          <BlockButton format="block-quote" Icon={Blockquote} />
+          <BlockButton format="numbered-list" Icon={Ol} />
+          <BlockButton format="bulleted-list" Icon={Ul} />
+        </Toolbar>
+      )}
+
+      {readOnly ? (
+        <Editable
+          readOnly
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          spellCheck="false"
+          autoCorrect="false"
+          autoCapitalize="false"
+        />
+      ) : (
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          placeholder="Enter some rich text..."
+          onKeyDown={(event) => {
+            for (const hotkey in HOTKEYS) {
+              if (isHotkey(hotkey, event as any)) {
+                event.preventDefault();
+                // @ts-ignore
+                const mark = HOTKEYS[hotkey];
+                toggleMark(editor, mark);
+              }
             }
-          }
-        }}
-      />
+          }}
+        />
+      )}
     </Slate>
   );
 };
@@ -195,7 +219,10 @@ const Element = ({ attributes, children, element }) => {
       );
     default:
       return (
-        <p className="merriweather-light tracking-wide " {...attributes}>
+        <p
+          className="merriweather-light tracking-wide text-black-60"
+          {...attributes}
+        >
           {children}
         </p>
       );
@@ -206,7 +233,7 @@ const Element = ({ attributes, children, element }) => {
 
 export const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
-    children = <strong className="font-bold">{children}</strong>;
+    children = <strong className="font-bold text-black">{children}</strong>;
   }
 
   if (leaf.code) {
