@@ -60,7 +60,7 @@ const EditorView = () => {
                 handleChange={handleChange}
               />
               <EditorInput
-                placeholder="Image Url"
+                placeholder="Image Url 1800x1200"
                 name="image"
                 value={articleData.image}
                 handleChange={handleChange}
