@@ -1,20 +1,42 @@
 import React from "react";
-
-// components
+import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
+import { ChipBar } from "@components/chipBar";
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
+import { Article } from "types/article";
+import { useAsyncValue } from "@mediator/observables/hooks";
 import { Layout } from "@components/layout";
-import FrontPage from "views/frontPage";
 
-// constants
-import { config } from "@constants/config";
-// types
-import { GetStaticProps } from "next";
+export interface FeaturedArticle {
+  featuredArticle: Article;
+  name: string;
+  image: string;
+}
 
-export default function Home() {
+const FrontPage = () => {
+  const mediator = useMediator();
+  // mediator.getFeaturedArticle();
+
+  const featuredArticle: FeaturedArticle = useAsyncValue(
+    mediator.featuredArticle
+  );
+
+  console.log({
+    text: "I have been hit",
+    featuredArticle,
+  });
+  React.useEffect(() => {
+    mediator.getFeaturedArticle();
+  }, [mediator]);
+
   return (
     <>
       <Layout>
-        <FrontPage />
+        <ChipBar />
+        <FeaturedArticleCard featuredArticle={featuredArticle} />
+        <ArticleCard />
       </Layout>
     </>
   );
-}
+};
+
+export default FrontPage;

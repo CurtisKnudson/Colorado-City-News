@@ -6,6 +6,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { pid } = req.query;
 
   if (req.method === "GET") {
+    if (pid === "getFeaturedArticle") {
+      const query = { publishedArticles: { $exists: true } };
+      const options = {
+        projection: {
+          _id: 0,
+          publishedArticles: 1,
+          name: 1,
+          image: 1,
+        },
+        sort: { "publishedArticles.date": 1 },
+      };
+
+      let data = await db.collection("users").find(query, options).toArray();
+
+      const featuredArticle = data[0].publishedArticles.sort(function (
+        a: any,
+        b: any
+      ) {
+        a = a.date.split("/").reverse().join("");
+        b = b.date.split("/").reverse().join("");
+        return a > b ? -1 : a < b ? 1 : 0;
+      });
+
+      res.json({
+        ...featuredArticle[0],
+        authorImage: data[0].image,
+      });
+
+      return;
+    }
     if (pid === "getAllArticles") {
       const query = { publishedArticles: { $exists: true } };
       const options = { projection: { _id: 0, "publishedArticles.url": 1 } };
