@@ -17,13 +17,13 @@ const EditorView = () => {
     setArticleData({
       ...articleData,
       author: userProfileData.name,
-      date: new Date().toLocaleDateString(),
+      date: new Date(),
       url: articleData.title.replace(/\s+/g, "-").toLowerCase(),
     });
     let article = {
       ...articleData,
       author: userProfileData.name,
-      date: new Date().toLocaleDateString(),
+      date: new Date(),
       content: JSON.parse(window!.localStorage!.getItem!("content")!),
       url: articleData.title.replace(/\s+/g, "-").toLowerCase(),
     };

@@ -1,6 +1,6 @@
 export interface Article {
   author: string;
-  date: string;
+  date: Date | string;
   title: string;
   subTitle: string;
   image: string;

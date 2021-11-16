@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
-import { useAsyncValue } from "@mediator/observables/hooks";
+
 import { Article } from "../../types/article";
 import Link from "next/link";
-import { GetServerSideProps } from "next";
 
-interface FeaturedArticle {
-  featuredArticle: Article;
-  name: string;
+interface FeaturedArticle extends Article {
   image: string;
 }
 
@@ -17,23 +13,23 @@ export const FeaturedArticleCard = ({
 }: {
   featuredArticle: FeaturedArticle;
 }) => {
-  console.log(featuredArticle);
   if (!featuredArticle) {
     return <GhostFeaturedArticleCard />;
   }
-
   return (
-    <Link href={"https://picsum.photos/1800/1200"}>
+    <Link href={`article/${featuredArticle.url}`}>
       <div className="cursor-pointer">
         <Image
-          src={"https://picsum.photos/1800/1200"}
+          src={featuredArticle.image}
           priority
           width="1800"
           height="1200"
         />
         <div className="flex flex-col">
           <span className="font-lfBold text-sm my-2">World</span>
-          <span className="font-lfRegular text-4xl">{"test"}</span>
+          <span className="font-lfRegular text-4xl">
+            {featuredArticle.title}
+          </span>
         </div>
       </div>
     </Link>

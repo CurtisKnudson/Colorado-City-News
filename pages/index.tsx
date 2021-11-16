@@ -6,24 +6,16 @@ import { Article } from "types/article";
 import { useAsyncValue } from "@mediator/observables/hooks";
 import { Layout } from "@components/layout";
 
-export interface FeaturedArticle {
-  featuredArticle: Article;
-  name: string;
+export interface FeaturedArticle extends Article {
   image: string;
 }
 
 const FrontPage = () => {
   const mediator = useMediator();
-  // mediator.getFeaturedArticle();
-
   const featuredArticle: FeaturedArticle = useAsyncValue(
     mediator.featuredArticle
   );
 
-  console.log({
-    text: "I have been hit",
-    featuredArticle,
-  });
   React.useEffect(() => {
     mediator.getFeaturedArticle();
   }, [mediator]);

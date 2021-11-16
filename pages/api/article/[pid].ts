@@ -20,14 +20,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       let data = await db.collection("users").find(query, options).toArray();
 
-      const featuredArticle = data[0].publishedArticles.sort(function (
-        a: any,
-        b: any
-      ) {
-        a = a.date.split("/").reverse().join("");
-        b = b.date.split("/").reverse().join("");
-        return a > b ? -1 : a < b ? 1 : 0;
-      });
+      // @ts-ignore
+
+      const featuredArticle = data[0].publishedArticles.sort(
+        (a: any, b: any) => {
+          return Date.parse(b.date) - Date.parse(a.date);
+        }
+      );
 
       res.json({
         ...featuredArticle[0],
