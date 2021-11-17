@@ -1,91 +1,107 @@
+import React, { useState } from "react";
+import Link from "next/link";
 import SlateEditor from "@components/wysiwyg/editor";
 import { Layout } from "@components/layout";
 import { useSession } from "next-auth/react";
-import React from "react";
-import Link from "next/link";
-import ArticleContext, { useArticleContext } from "@providers/article";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
+import { toast } from "react-toastify";
+
+export interface InputData {
+  title: string;
+  subTitle: string;
+  image: string;
+  readTime: string;
+}
 
 const EditorView = () => {
   const { data: session } = useSession();
   const mediator = useMediator();
-  const [articleData, setArticleData] = useArticleContext();
   const [userProfileData] = useUserProfileContext();
+  const [inputData, setInputData] = useState<InputData>({
+    title: "",
+    subTitle: "",
+    image: "",
+    readTime: "",
+  });
 
   const handlePublish = () => {
-    setArticleData({
-      ...articleData,
-      author: userProfileData.name,
-      date: new Date(),
-      url: articleData.title.replace(/\s+/g, "-").toLowerCase(),
-    });
     let article = {
-      ...articleData,
+      ...inputData,
       author: userProfileData.name,
       date: new Date(),
       content: JSON.parse(window!.localStorage!.getItem!("content")!),
-      url: articleData.title.replace(/\s+/g, "-").toLowerCase(),
+      url: inputData.title.replace(/\s+/g, "-").toLowerCase(),
     };
+    if (
+      !article.title ||
+      !article.subTitle ||
+      !article.image ||
+      !article.readTime
+    ) {
+      toast.error("Please fill out all fields");
+      return;
+    }
 
-    mediator.publishArticle(article, userProfileData.email);
+    toast.promise(mediator.publishArticle(article, userProfileData.email), {
+      pending: "Please wait...",
+      success: "Your article has been submitted for review!",
+      error: "There was an error 🤯. Have all inputs been filled out?",
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
-    setArticleData({
-      ...articleData,
+    setInputData({
+      ...inputData,
       [name]: value,
     });
-    window.localStorage.setItem(name, value);
   };
 
   return (
-    <ArticleContext>
-      <Layout>
-        {session ? (
-          <>
-            <div className="flex flex-col">
-              <EditorInput
-                placeholder="Title"
-                name="title"
-                value={articleData.title}
-                handleChange={handleChange}
-              />
-              <EditorInput
-                placeholder="SubTitle"
-                name="subTitle"
-                value={articleData.subTitle}
-                handleChange={handleChange}
-              />
-              <EditorInput
-                placeholder="Image Url 1800x1200"
-                name="image"
-                value={articleData.image}
-                handleChange={handleChange}
-              />
-              <EditorInput
-                placeholder="Estimate read time"
-                name="readTime"
-                value={articleData.readTime}
-                handleChange={handleChange}
-              />
-            </div>
+    <Layout>
+      {session ? (
+        <>
+          <div className="flex flex-col">
+            <EditorInput
+              placeholder="Title"
+              name="title"
+              value={inputData.title}
+              handleChange={handleChange}
+            />
+            <EditorInput
+              placeholder="SubTitle"
+              name="subTitle"
+              value={inputData.subTitle}
+              handleChange={handleChange}
+            />
+            <EditorInput
+              placeholder="Image Url 1800x1200"
+              name="image"
+              value={inputData.image}
+              handleChange={handleChange}
+            />
+            <EditorInput
+              placeholder="Estimate read time"
+              name="readTime"
+              value={inputData.readTime}
+              handleChange={handleChange}
+            />
+          </div>
 
-            <SlateEditor />
-          </>
-        ) : (
-          <>
-            <div>You must be signed in to access the editor</div>
-            <Link href="/">Return To Home</Link>
-          </>
-        )}
-        <button className="border cursor-pointer" onClick={handlePublish}>
-          PUBLISH
-        </button>
-      </Layout>
-    </ArticleContext>
+          <SlateEditor />
+        </>
+      ) : (
+        <>
+          <div>You must be signed in to access the editor</div>
+          <Link href="/">Return To Home</Link>
+        </>
+      )}
+      <button className="border cursor-pointer" onClick={handlePublish}>
+        PUBLISH
+      </button>
+    </Layout>
   );
 };
 
@@ -114,12 +130,4 @@ export const EditorInput = ({
   );
 };
 
-export const EditorWrapper = () => {
-  return (
-    <ArticleContext>
-      <EditorView />
-    </ArticleContext>
-  );
-};
-
-export default EditorWrapper;
+export default EditorView;

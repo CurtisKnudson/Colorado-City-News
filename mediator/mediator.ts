@@ -1,3 +1,4 @@
+import { MediatorStatus } from "types/mediator/status";
 import { ApiInterface } from "types/api";
 import { Article } from "types/article";
 import { MediatorInterface } from "types/mediator/mediator";
@@ -24,9 +25,13 @@ export class Mediator implements MediatorInterface {
   }
 
   async publishArticle(article: Article, userEmail: User["email"]) {
-    const res = await this.api.publishArticle(article, userEmail);
-
-    return res;
+    if (!article) {
+      throw new Error("Article is required");
+    }
+    if (!userEmail) {
+      throw new Error("User email is required");
+    }
+    return await this.api.publishArticle(article, userEmail);
   }
 
   async getFeaturedArticle() {

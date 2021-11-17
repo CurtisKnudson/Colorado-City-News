@@ -6,6 +6,6 @@ export interface MediatorInterface {
   featuredArticle: any;
   getUserByEmail(email: string): Promise<User>;
   updateUserProfile(userProfileData: User): Promise<User>;
-  publishArticle(article: Article, userEmail: User["email"]): Promise<Article>;
+  publishArticle(article: Article, userEmail: User["email"]): Promise<any>;
   getFeaturedArticle(): Promise<Article>;
 }
