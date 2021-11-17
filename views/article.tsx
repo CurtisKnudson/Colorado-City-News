@@ -27,6 +27,7 @@ const Article = ({ article, name, image }: DynamicArticleProps) => {
       <div className="mx-4">
         <SlateEditor content={article.content} readOnly />
       </div>
+      <hr className="mx-4 mt-8" />
     </>
   );
 };

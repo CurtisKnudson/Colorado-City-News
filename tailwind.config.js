@@ -8,6 +8,7 @@ module.exports = {
     "/components/authentication/components/signIn.tsx",
     "./components/chipBar/chip.tsx",
     "./components/chipBar/chipBar.tsx",
+    "./components/comments/index.tsx",
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
     "./components/profile/avater.jsx",

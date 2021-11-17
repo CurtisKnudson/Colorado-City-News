@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 export interface InputData {
   title: string;
@@ -27,12 +28,18 @@ const EditorView = () => {
 
   const handlePublish = () => {
     let article = {
-      ...inputData,
+      id: uuidv4(),
       author: userProfileData.name,
       date: new Date(),
+      url: inputData.title
+        .trim()
+        .replace(/[^\w\s]|_/g, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase(),
+      ...inputData,
       content: JSON.parse(window!.localStorage!.getItem!("content")!),
-      url: inputData.title.replace(/\s+/g, "-").toLowerCase(),
     };
+    window.localStorage.removeItem("content");
     if (
       !article.title ||
       !article.subTitle ||

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
@@ -16,7 +16,7 @@ const FrontPage = () => {
     mediator.featuredArticle
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     mediator.getFeaturedArticle();
   }, [mediator]);
 
