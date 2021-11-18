@@ -1,3 +1,4 @@
+import { ArticleComment } from "types/article";
 import { connectToDatabase } from "database/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -6,6 +7,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { pid } = req.query;
 
   if (req.method === "GET") {
+    if (pid === "getArticleCommentsByArticleId") {
+      const getArticleCommentsQuery = {
+        id: "5d2d066e-bca5-47db-8d26-42df910186bc",
+      };
+      const articleCommentsOptions = {
+        projection: {
+          _id: 0,
+          comments: 1,
+        },
+      };
+      const article = await db
+        .collection("articles")
+        .findOne(getArticleCommentsQuery, articleCommentsOptions);
+
+      res.json(article.comments);
+      return;
+    }
     if (pid === "getFeaturedArticle") {
       const query = { publishedArticles: { $exists: true } };
       const options = {
@@ -72,8 +90,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
-    let { article, userEmail } = JSON.parse(req.body);
-    let filter = {
+    if (pid === "addCommentToArticle") {
+      const comment: ArticleComment = JSON.parse(req.body);
+
+      const addCommentToArticleQuery = {
+        id: comment.articleId,
+      };
+      const databaseComment = {
+        $push: {
+          comments: comment,
+        },
+      };
+
+      const request = await db
+        .collection("articles")
+        .findOneAndUpdate(addCommentToArticleQuery, databaseComment);
+
+      res.json(request);
+      return;
+    }
+    const { article, userEmail } = JSON.parse(req.body);
+    const publishArticleByEmailQuery = {
       email: userEmail,
     };
 
@@ -83,9 +120,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     };
 
+    await db.collection("articles").insertOne(article);
+
     let publishedArticle = await db
       .collection("users")
-      .findOneAndUpdate(filter, databaseArticle, { returnDocument: "after" })
+      .findOneAndUpdate(publishArticleByEmailQuery, databaseArticle, {
+        returnDocument: "after",
+      })
       .then((res: any) => {
         res;
       })
