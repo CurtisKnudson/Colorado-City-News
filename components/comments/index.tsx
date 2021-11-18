@@ -1,43 +1,56 @@
 import * as React from "react";
-import { useUserProfileContext } from "@providers/profile";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
+import { useAsyncValue } from "@mediator/observables/hooks";
+import { v4 as uuidv4 } from "uuid";
+import { ArticleComment } from "types/article";
 
-const Comments = ({ articleId }: any) => {
+const Comments = ({ articleId }: { articleId: string }) => {
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
-  // Mediator call to get comments with Id's associted with articleId
-
-  // Ability to add comments that are associated to the article Id and User
-
-  //   Ability to upvote downvote comments
-
-  // Ability to filter comments by user preference. Most Popular, Most Recent, Top Rated
+  const mediator = useMediator();
+  const comments: ArticleComment[] | null = useAsyncValue(
+    mediator.articleComments
+  );
 
   const handleChange = (e: any) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!session) {
       toast.error("You must be logged in to comment");
       return;
     }
-    toast("Wow you are logged in");
-    //   Mediator call to add comment to article
-
-    const submittedComment = {
+    const commentData: ArticleComment = {
       articleId,
+      id: uuidv4(),
+      date: new Date(),
+      author: session.user?.name ? session.user!.name! : session.user!.email!,
       comment,
+      image: session.user?.image ? session.user.image : "/no-picture.jpeg",
     };
+
+    toast.promise(mediator.addCommentToArticle(commentData), {
+      pending: "Please wait...",
+      success: "Your comment has been added succesfully!",
+      error:
+        "There was an error 🤯.  If the problem persists contact admin@coloradocity.news",
+    });
+
+    setComment("");
   };
 
-  //   UseEffect to make sure that when a comment is added it pulls the list of comments again associated with this article
+  useEffect(() => {
+    mediator.getArticleCommentsByArticleId(articleId);
+  }, [mediator]);
 
   return (
     <div className=" mx-4 mt-4 mb-32">
       <div className="h3Headline mb-4">Comments</div>
+      <div>{comments && <>{comments.map((comment) => comment.comment)}</>}</div>
       {session && (
         <span className="text-gray-500 subtitle2">
           {" "}
@@ -55,12 +68,10 @@ const Comments = ({ articleId }: any) => {
           className="w-full border focus:border-gray-500 rounded p-2 h-auto outline-none"
           value={comment}
           onChange={handleChange}
-        >
-          children?
-        </textarea>
+        ></textarea>
         <img
           className="w-12 h-12 ml-2"
-          src={session ? session.user!.image! : "/no-picture"}
+          src={session ? session.user!.image! : "/no-picture.jpeg"}
           alt=""
         />
       </div>

@@ -1,6 +1,7 @@
 import { config } from "@constants/config";
+import { delayWithValue } from "@utils/delayValue";
 import { ApiInterface } from "types/api";
-import { Article } from "types/article";
+import { Article, ArticleComment } from "types/article";
 import { User } from "types/user";
 
 const url = config.url.API_URL;
@@ -50,5 +51,35 @@ export class Api implements ApiInterface {
     const featuredArticle = await fetch(getUrl).then((res) => res.json());
 
     return featuredArticle;
+  }
+
+  async getArticleCommentsByArticleId(articleId: string) {
+    const getUrl = `${url}/article/getArticleCommentsByArticleId`;
+
+    let getObject = {
+      method: "GET",
+      headers: {
+        body: articleId,
+      },
+    };
+
+    const comments: ArticleComment[] = await fetch(getUrl, getObject).then(
+      (res) => {
+        return res.json();
+      }
+    );
+    return comments;
+  }
+
+  async addCommentToArticle(comment: ArticleComment) {
+    const postUrl = `${url}/article/addCommentToArticle`;
+
+    let postObject = {
+      method: "POST",
+      body: JSON.stringify(comment),
+    };
+
+    const request = await fetch(postUrl, postObject).then((res) => res);
+    return request;
   }
 }

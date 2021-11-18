@@ -9,3 +9,12 @@ export interface Article {
   content: any;
   url: string;
 }
+
+export interface ArticleComment {
+  articleId: string;
+  id: string;
+  date: Date;
+  author: string;
+  comment: string;
+  image: string;
+}

@@ -1,4 +1,4 @@
-import { Article } from "types/article";
+import { Article, ArticleComment } from "types/article";
 import { User } from "types/user";
 
 export interface ApiInterface {
@@ -6,4 +6,6 @@ export interface ApiInterface {
   updateUserProfile(userProfileData: User): Promise<User>;
   publishArticle(article: Article, userEmail: User["email"]): Promise<any>;
   getFeaturedArticle(): Promise<any>;
+  getArticleCommentsByArticleId(articleId: string): Promise<ArticleComment[]>;
+  addCommentToArticle(comment: ArticleComment): Promise<any>;
 }
