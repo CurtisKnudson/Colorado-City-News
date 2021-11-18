@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     if (pid === "getArticleCommentsByArticleId") {
       const getArticleCommentsQuery = {
-        id: "5d2d066e-bca5-47db-8d26-42df910186bc",
+        id: req.headers.body,
       };
       const articleCommentsOptions = {
         projection: {
@@ -21,7 +21,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .collection("articles")
         .findOne(getArticleCommentsQuery, articleCommentsOptions);
 
-      res.json(article.comments);
+      if (article) {
+        res.json(article.comments);
+        return;
+      }
+      res.json([
+        {
+          comment: "No comments found",
+        },
+      ]);
       return;
     }
     if (pid === "getFeaturedArticle") {

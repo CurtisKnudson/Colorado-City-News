@@ -11,9 +11,9 @@ const Comments = ({ articleId }: { articleId: string }) => {
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
   const mediator = useMediator();
-  const comments: ArticleComment[] = useAsyncValue(mediator.articleComments);
-
-  console.log(typeof comments);
+  const comments: ArticleComment[] | null = useAsyncValue(
+    mediator.articleComments
+  );
 
   const handleChange = (e: any) => {
     setComment(e.target.value);
@@ -50,7 +50,7 @@ const Comments = ({ articleId }: { articleId: string }) => {
   return (
     <div className=" mx-4 mt-4 mb-32">
       <div className="h3Headline mb-4">Comments</div>
-      <div>{comments.map((comment) => comment.comment)}</div>
+      <div>{comments && <>{comments.map((comment) => comment.comment)}</>}</div>
       {session && (
         <span className="text-gray-500 subtitle2">
           {" "}
@@ -68,12 +68,10 @@ const Comments = ({ articleId }: { articleId: string }) => {
           className="w-full border focus:border-gray-500 rounded p-2 h-auto outline-none"
           value={comment}
           onChange={handleChange}
-        >
-          children?
-        </textarea>
+        ></textarea>
         <img
           className="w-12 h-12 ml-2"
-          src={session ? session.user!.image! : "/no-picture"}
+          src={session ? session.user!.image! : "/no-picture.jpeg"}
           alt=""
         />
       </div>
