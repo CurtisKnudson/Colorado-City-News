@@ -8,7 +8,7 @@ const Comment = ({
   index: number;
 }) => {
   return (
-    <div key={index} className="flex">
+    <div key={index} className="flex items-center justify-between my-2">
       <div>{comment.comment}</div>
       <img
         src={comment.image}
