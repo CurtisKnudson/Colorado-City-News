@@ -21,15 +21,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .collection("articles")
         .findOne(getArticleCommentsQuery, articleCommentsOptions);
 
-      if (article) {
-        res.json(article.comments);
-        return;
+      if (!article) {
+        res.status(204).json({
+          message: "No Comments found for this article",
+        });
       }
-      res.json([
-        {
-          comment: "No comments found",
-        },
-      ]);
+      res.json(article.comments);
       return;
     }
     if (pid === "getFeaturedArticle") {
