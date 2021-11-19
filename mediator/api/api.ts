@@ -1,5 +1,4 @@
 import { config } from "@constants/config";
-import { delayWithValue } from "@utils/delayValue";
 import { ApiInterface } from "types/api";
 import { Article, ArticleComment } from "types/article";
 import { User } from "types/user";
@@ -63,11 +62,17 @@ export class Api implements ApiInterface {
       },
     };
 
-    const comments: ArticleComment[] = await fetch(getUrl, getObject).then(
-      (res) => {
-        return res.json();
+    const comments: ArticleComment[] | null | undefined = await fetch(
+      getUrl,
+      getObject
+    ).then((res) => {
+      if (res.status === 204) {
+        return null;
       }
-    );
+      const comments = res.json();
+      return comments;
+    });
+
     return comments;
   }
 

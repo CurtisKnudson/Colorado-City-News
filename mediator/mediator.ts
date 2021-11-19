@@ -8,7 +8,9 @@ export class Mediator implements MediatorInterface {
   private api: ApiInterface;
 
   featuredArticle = new ObservableValue(null);
-  articleComments = new ObservableValue<ArticleComment[] | null>([]);
+  articleComments = new ObservableValue<ArticleComment[] | null | undefined>(
+    null
+  );
 
   constructor(api: ApiInterface) {
     this.api = api;
@@ -42,11 +44,7 @@ export class Mediator implements MediatorInterface {
 
   async getArticleCommentsByArticleId(articleId: string) {
     await this.api.getArticleCommentsByArticleId(articleId).then((res) => {
-      if (res) {
-        this.articleComments.setValue(res);
-        return;
-      }
-      this.articleComments.setValue([]);
+      this.articleComments.setValue(res);
     });
   }
 

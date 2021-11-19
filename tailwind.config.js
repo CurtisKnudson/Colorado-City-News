@@ -9,6 +9,7 @@ module.exports = {
     "./components/chipBar/chip.tsx",
     "./components/chipBar/chipBar.tsx",
     "./components/comments/index.tsx",
+    "./components/comments/comment.tsx",
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
     "./components/profile/avater.jsx",
