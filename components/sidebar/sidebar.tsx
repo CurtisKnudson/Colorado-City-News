@@ -12,7 +12,7 @@ export const Sidebar = ({ children }: any) => {
   return (
     <div className="">
       <div
-        className={` bg-white cursor-pointer truncate h-screen rounded duration-75 transition-width z-50 ${
+        className={` bg-white cursor-pointer truncate h-screen duration-75 transition-width z-50 ${
           navOpen ? "w-10/12" : "w-0"
         } fixed `}
       >
@@ -25,7 +25,7 @@ export const Sidebar = ({ children }: any) => {
           {session && (
             <>
               <span>
-                <small>Signed in as</small>
+                <small>Signed in as:</small>
                 <br />
                 <strong>
                   {session.user
@@ -33,10 +33,14 @@ export const Sidebar = ({ children }: any) => {
                     : "User not found"}
                 </strong>
               </span>
+              <div className="mt-4">
+                <Link href="/write/editor">Editor</Link>
+              </div>
+              <div className="mt-4">
+                <Link href="/user/profile">Profile</Link>
+              </div>
 
-              <Link href="/write/editor">Editor</Link>
-              <Link href="/user/profile">Profile</Link>
-              <hr />
+              <hr className="mt-8" />
 
               <button onClick={() => signOut()}>Sign Out</button>
             </>
