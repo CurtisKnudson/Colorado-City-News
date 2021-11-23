@@ -42,7 +42,7 @@ export const AuthorCard = ({
   image: string;
 }) => {
   return (
-    <div className="flex items-center mt-4 mb-8">
+    <div className="flex items-center mt-4 mb-4">
       <img src={image} alt="Author Image" className="rounded-full w-12" />
       <span className="mx-4 subtitle2">
         <span className="text-gray-600">by</span>

@@ -1,10 +1,12 @@
 import React from "react";
+import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import { Layout } from "@components/layout";
 import { Avatar, UserInfo } from "@components/profile";
 import { toast } from "react-toastify";
 import { useUserProfileContext } from "@providers/profile";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
+import { connectToDatabase } from "@database/mongodb";
 
 const Profile = () => {
   const mediator = useMediator();
@@ -72,3 +74,14 @@ const Profile = () => {
 };
 
 export default Profile;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { db } = await connectToDatabase();
+  const { id } = context.query;
+
+  return {
+    props: {
+      test: "test",
+    },
+  };
+};

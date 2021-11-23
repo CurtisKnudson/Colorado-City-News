@@ -29,6 +29,8 @@ const DynamicArticle = ({ name, image, article }: DynamicArticleProps) => {
 
 export default DynamicArticle;
 
+// TODO: Add Logic from Backend that this endpoint is hitting into this function
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const url = config.url.API_URL;
 

@@ -114,6 +114,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.json(request);
       return;
     }
+    // TODO: Make so that duplicate URL strings are not allowed
+    // Search for URL in database and throw error if it exists.
     const { article, userEmail } = JSON.parse(req.body);
     const publishArticleByEmailQuery = {
       email: userEmail,
