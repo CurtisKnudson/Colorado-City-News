@@ -9,10 +9,8 @@ export const Sidebar = ({ children }: any) => {
     required: false,
   });
 
-  console.log(navOpen);
-
   return (
-    <div onBlur={() => setNavOpen(false)}>
+    <div>
       <div
         className={` bg-white cursor-pointer truncate h-screen duration-75 transition-width z-50 ${
           navOpen ? "w-10/12" : "w-0"
