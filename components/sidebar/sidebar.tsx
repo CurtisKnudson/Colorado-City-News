@@ -4,13 +4,15 @@ import Link from "next/link";
 import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
-  const [navOpen] = useSideBarOpenContext();
+  const [navOpen, setNavOpen] = useSideBarOpenContext();
   const { data: session } = useSession({
     required: false,
   });
 
+  console.log(navOpen);
+
   return (
-    <div className="">
+    <div onBlur={() => setNavOpen(false)}>
       <div
         className={` bg-white cursor-pointer truncate h-screen duration-75 transition-width z-50 ${
           navOpen ? "w-10/12" : "w-0"
@@ -33,13 +35,16 @@ export const Sidebar = ({ children }: any) => {
                     : "User not found"}
                 </strong>
               </span>
-              <div className="mt-4">
-                <Link href="/write/editor">Editor</Link>
-              </div>
-              <div className="mt-4">
-                <Link href="/user/profile">Profile</Link>
-              </div>
-
+              <MenuItem
+                url="/user/profile"
+                label="Profile"
+                setNavOpen={setNavOpen}
+              />
+              <MenuItem
+                url="/write/editor"
+                label="Editor"
+                setNavOpen={setNavOpen}
+              />
               <hr className="mt-8" />
 
               <button onClick={() => signOut()}>Sign Out</button>
@@ -48,6 +53,22 @@ export const Sidebar = ({ children }: any) => {
         </div>
       </div>
       <div className="mx-4"> {children}</div>
+    </div>
+  );
+};
+
+const MenuItem = ({
+  url,
+  label,
+  setNavOpen,
+}: {
+  url: string;
+  label: string;
+  setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <div className="mt-4" onClick={() => setNavOpen(false)}>
+      <Link href={url}>{label}</Link>
     </div>
   );
 };
