@@ -21,8 +21,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .collection("articles")
         .findOne(getArticleCommentsQuery, articleCommentsOptions);
 
-      console.log(article);
-
       if (Object.keys(article).length === 0) {
         res.status(204).json({
           message: "No Comments found for this article",
