@@ -1,7 +1,7 @@
+import * as React from "react";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen] = useSideBarOpenContext();
@@ -10,7 +10,7 @@ export const Sidebar = ({ children }: any) => {
   });
 
   return (
-    <div className="">
+    <div>
       <div
         className={` bg-white cursor-pointer truncate h-screen duration-75 transition-width z-50 ${
           navOpen ? "w-10/12" : "w-0"
@@ -20,7 +20,7 @@ export const Sidebar = ({ children }: any) => {
           {!session && (
             <>
               <div className="mt-4">
-                <Link href="/auth/signin">Sign In Page</Link>
+                <MenuItem url="/auth/signin" label="Sign In" />
               </div>
             </>
           )}
@@ -35,25 +35,24 @@ export const Sidebar = ({ children }: any) => {
                     : "User not found"}
                 </strong>
               </span>
-              <div className="mt-4">
-                <Link href="/write/editor">Editor</Link>
-              </div>
-              <div className="mt-4">
-                <Link href="/user/profile">Profile</Link>
-              </div>
-
-              <div className="mt-4">
-                <Link href="/auth/signin">Sign In Page</Link>
-              </div>
+              <MenuItem url="/user/profile" label="Profile" />
+              <MenuItem url="/write/editor" label="Editor" />
 
               <hr className="mt-8" />
-
               <button onClick={() => signOut()}>Sign Out</button>
             </>
           )}
         </div>
       </div>
       <div className="mx-4"> {children}</div>
+    </div>
+  );
+};
+
+export const MenuItem = ({ url, label }: { url: string; label: string }) => {
+  return (
+    <div className="mt-4">
+      <Link href={url}>{label}</Link>
     </div>
   );
 };
