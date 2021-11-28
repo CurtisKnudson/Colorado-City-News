@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Layout } from "@components/layout";
 import { CtxOrReq } from "next-auth/lib/client";
-import { getCsrfToken } from "next-auth/react";
+import { getCsrfToken, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 const SignIn = ({ csrfToken }: any) => {
+  const { data: session, status } = useSession();
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: any) => {
@@ -17,12 +18,19 @@ const SignIn = ({ csrfToken }: any) => {
         },
         body: JSON.stringify({ email, csrfToken }),
       });
-      toast(`An Email has been sent to ${email}`);
+      toast(`An e-mail has been sent to ${email}`);
       setEmail("");
       return;
     }
     toast.error("Please enter an email address");
   };
+  if (status === "authenticated") {
+    return (
+      <Layout>
+        <div className="mt-28 center-all">You are already signed in</div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

@@ -1,5 +1,5 @@
 import useSideBarOpenContext from "@providers/sidebarContext";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -19,7 +19,9 @@ export const Sidebar = ({ children }: any) => {
         <div className="flex flex-col pl-4">
           {!session && (
             <>
-              <button onClick={() => signIn()}>Sign In</button>
+              <div className="mt-4">
+                <Link href="/auth/signin">Sign In Page</Link>
+              </div>
             </>
           )}
           {session && (
