@@ -5,7 +5,7 @@ import { connectToDatabase } from "@database/mongodb";
 import { ObjectId } from "mongodb";
 
 export default async function auth(req, res) {
-  let { db } = await connectToDatabase();
+  const { db } = await connectToDatabase();
   return await NextAuth(req, res, {
     providers: [
       EmailProvider({
@@ -29,6 +29,7 @@ export default async function auth(req, res) {
     session: {
       jwt: true,
     },
+
     theme: "auto",
     debug: true,
   });

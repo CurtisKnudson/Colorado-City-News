@@ -1,10 +1,10 @@
-import useSideBarOpenContext from "@providers/sidebarContext";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
 import * as React from "react";
+import useSideBarOpenContext from "@providers/sidebarContext";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export const Sidebar = ({ children }: any) => {
-  const [navOpen, setNavOpen] = useSideBarOpenContext();
+  const [navOpen] = useSideBarOpenContext();
   const { data: session } = useSession({
     required: false,
   });
@@ -19,7 +19,9 @@ export const Sidebar = ({ children }: any) => {
         <div className="flex flex-col pl-4">
           {!session && (
             <>
-              <button onClick={() => signIn()}>Sign In</button>
+              <div className="mt-4">
+                <MenuItem url="/auth/signin" label="Sign In" />
+              </div>
             </>
           )}
           {session && (
@@ -33,18 +35,10 @@ export const Sidebar = ({ children }: any) => {
                     : "User not found"}
                 </strong>
               </span>
-              <MenuItem
-                url="/user/profile"
-                label="Profile"
-                setNavOpen={setNavOpen}
-              />
-              <MenuItem
-                url="/write/editor"
-                label="Editor"
-                setNavOpen={setNavOpen}
-              />
-              <hr className="mt-8" />
+              <MenuItem url="/user/profile" label="Profile" />
+              <MenuItem url="/write/editor" label="Editor" />
 
+              <hr className="mt-8" />
               <button onClick={() => signOut()}>Sign Out</button>
             </>
           )}
@@ -55,17 +49,9 @@ export const Sidebar = ({ children }: any) => {
   );
 };
 
-const MenuItem = ({
-  url,
-  label,
-  setNavOpen,
-}: {
-  url: string;
-  label: string;
-  setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+export const MenuItem = ({ url, label }: { url: string; label: string }) => {
   return (
-    <div className="mt-4" onClick={() => setNavOpen(false)}>
+    <div className="mt-4">
       <Link href={url}>{label}</Link>
     </div>
   );
