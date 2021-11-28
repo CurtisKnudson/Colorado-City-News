@@ -40,6 +40,10 @@ export const Sidebar = ({ children }: any) => {
                 <Link href="/user/profile">Profile</Link>
               </div>
 
+              <div className="mt-4">
+                <Link href="/auth/signin">Sign In Page</Link>
+              </div>
+
               <hr className="mt-8" />
 
               <button onClick={() => signOut()}>Sign Out</button>
