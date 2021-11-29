@@ -1,10 +1,10 @@
-import * as React from "react";
 import useSideBarOpenContext from "@providers/sidebarContext";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
-  const [navOpen] = useSideBarOpenContext();
+  const [navOpen, setNavOpen] = useSideBarOpenContext();
   const { data: session } = useSession({
     required: false,
   });
@@ -19,9 +19,7 @@ export const Sidebar = ({ children }: any) => {
         <div className="flex flex-col pl-4">
           {!session && (
             <>
-              <div className="mt-4">
-                <MenuItem url="/auth/signin" label="Sign In" />
-              </div>
+              <button onClick={() => signIn()}>Sign In</button>
             </>
           )}
           {session && (
@@ -35,10 +33,18 @@ export const Sidebar = ({ children }: any) => {
                     : "User not found"}
                 </strong>
               </span>
-              <MenuItem url="/user/profile" label="Profile" />
-              <MenuItem url="/write/editor" label="Editor" />
-
+              <MenuItem
+                url="/user/profile"
+                label="Profile"
+                setNavOpen={setNavOpen}
+              />
+              <MenuItem
+                url="/write/editor"
+                label="Editor"
+                setNavOpen={setNavOpen}
+              />
               <hr className="mt-8" />
+
               <button onClick={() => signOut()}>Sign Out</button>
             </>
           )}
@@ -49,9 +55,17 @@ export const Sidebar = ({ children }: any) => {
   );
 };
 
-export const MenuItem = ({ url, label }: { url: string; label: string }) => {
+const MenuItem = ({
+  url,
+  label,
+  setNavOpen,
+}: {
+  url: string;
+  label: string;
+  setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
-    <div className="mt-4">
+    <div className="mt-4" onClick={() => setNavOpen(false)}>
       <Link href={url}>{label}</Link>
     </div>
   );
