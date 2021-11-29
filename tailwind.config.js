@@ -25,7 +25,6 @@ module.exports = {
     "./icons/search.tsx",
     "./icons/share.tsx",
     "./icons/sidebarMenuIcon.tsx",
-    "./pages/auth/signin.tsx",
     "./pages/index.tsx",
     "./pages/article/[slug].tsx",
     "./pages/user/profile.tsx",
@@ -55,9 +54,6 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities }) {
       const newUtilities = {
-        ".accent": {
-          color: "#6b38fb",
-        },
         ".center-all": {
           display: "flex",
           justifyContent: "center",
