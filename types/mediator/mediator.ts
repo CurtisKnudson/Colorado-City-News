@@ -11,4 +11,5 @@ export interface MediatorInterface {
   addCommentToArticle(comment: ArticleComment): Promise<any>;
   // TODO: Make sure that I make so this returns a comment in the promise
   getArticleCommentsByArticleId(articleId: string): Promise<any>;
+  addProfileUrl(email: string, profileUrl: string): Promise<User>;
 }

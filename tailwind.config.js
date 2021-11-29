@@ -13,7 +13,7 @@ module.exports = {
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
     "./components/profile/avater.jsx",
-    "./components/profile/setUserInfo.tsx",
+    "./components/profile/userInfo.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./components/wysiwyg/button.tsx",

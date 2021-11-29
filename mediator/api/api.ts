@@ -30,6 +30,17 @@ export class Api implements ApiInterface {
     return completedUser;
   }
 
+  async addProfileUrl(email: string, profileUrl: string) {
+    const postUrl = `${url}/user/addProfileUrl`;
+
+    let postObject = {
+      method: "POST",
+      body: JSON.stringify({ email, profileUrl }),
+    };
+
+    return await fetch(postUrl, postObject).then((res) => res.json());
+  }
+
   async publishArticle(article: Article, userEmail: User["email"]) {
     let postUrl = `${url}/article/${article.url}`;
     let postObject = {

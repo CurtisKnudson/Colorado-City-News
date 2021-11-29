@@ -5,5 +5,6 @@ export interface User {
   image: string;
   createdAt?: string;
   emailVerified?: string;
-  updatedAt?: string;
+  publishedArticles?: any[];
+  profileUrl?: string;
 }

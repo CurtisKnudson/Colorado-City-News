@@ -1,13 +1,34 @@
+import * as React from "react";
+import Link from "next/link";
+import { useUserProfileContext } from "@providers/profile";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import * as React from "react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
+  const [userProfileData] = useUserProfileContext();
   const { data: session } = useSession({
     required: false,
   });
+
+  const makeId = () => {
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    for (let i = 0; i < 8; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
+  const userProfileUrl = userProfileData.profileUrl
+    ? `/user/${userProfileData.profileUrl}`
+    : userProfileData.name
+    ? `/user/${userProfileData.name
+        .replace(/\s/g, "")
+        .toLowerCase()}-${makeId()}`
+    : `/user/${makeId()}`;
 
   return (
     <div>
@@ -34,7 +55,7 @@ export const Sidebar = ({ children }: any) => {
                 </strong>
               </span>
               <MenuItem
-                url="/user/profile"
+                url={userProfileUrl}
                 label="Profile"
                 setNavOpen={setNavOpen}
               />

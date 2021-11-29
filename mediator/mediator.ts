@@ -26,6 +26,12 @@ export class Mediator implements MediatorInterface {
     return res;
   }
 
+  async addProfileUrl(email: string, profileUrl: string) {
+    const res: User = await this.api.addProfileUrl(email, profileUrl);
+
+    return res;
+  }
+
   async publishArticle(article: Article, userEmail: User["email"]) {
     if (!article) {
       throw new Error("Article is required");

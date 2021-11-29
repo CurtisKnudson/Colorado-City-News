@@ -25,13 +25,7 @@ const UserProfileContext: React.FC = ({ children }: any) => {
   useEffect(() => {
     if (session) {
       mediator.getUserByEmail(session!.user!.email!).then((res) => {
-        setUserProfileData({
-          ...userProfileData,
-          name: res.name ? res.name : "",
-          email: res.email ? res.email : "",
-          image: res.image ? res.image : "",
-          _id: res._id ? res._id : "",
-        });
+        setUserProfileData(res);
       });
     }
   }, [session]);
