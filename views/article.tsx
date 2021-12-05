@@ -1,9 +1,10 @@
 import SlateEditor from "@components/wysiwyg/editor";
 import Image from "next/image";
+import Link from "next/link";
 import { DynamicArticleProps } from "pages/article/[id]";
 import React from "react";
 
-const Article = ({ article, name, image }: DynamicArticleProps) => {
+const Article = ({ article, name, image, profileUrl }: DynamicArticleProps) => {
   return (
     <>
       <div>
@@ -21,7 +22,7 @@ const Article = ({ article, name, image }: DynamicArticleProps) => {
           <span className="text-black-60 subtitle2 my-2">
             {article.subTitle}
           </span>
-          <AuthorCard name={name} image={image} />
+          <AuthorCard name={name} image={image} profileUrl={profileUrl} />
         </div>
       </div>
       <div className="mx-4">
@@ -37,9 +38,11 @@ export default Article;
 export const AuthorCard = ({
   name,
   image,
+  profileUrl,
 }: {
   name: string;
   image: string;
+  profileUrl: string;
 }) => {
   return (
     <div className="flex items-center mt-4 mb-8">
@@ -47,7 +50,7 @@ export const AuthorCard = ({
       <span className="mx-4 subtitle2">
         <span className="text-gray-600">by</span>
         <span className="border-b-2 font-bold border-gray-600 mx-2 cursor-pointer">
-          {name}
+          <Link href={`/user/${profileUrl}`}>{name}</Link>
         </span>
       </span>
     </div>

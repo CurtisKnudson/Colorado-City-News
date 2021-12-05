@@ -83,6 +83,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         publishedArticles: { $elemMatch: { url: pid } },
         name: 1,
         image: 1,
+        profileUrl: 1,
       },
     };
     let article = await db
