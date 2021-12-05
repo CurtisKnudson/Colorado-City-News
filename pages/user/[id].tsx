@@ -108,7 +108,6 @@ const Profile = () => {
     );
   }
 
-  console.log(nonUserProfile);
   return (
     <>
       {nonUserProfile ? (
