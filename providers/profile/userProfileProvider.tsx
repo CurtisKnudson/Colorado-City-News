@@ -20,6 +20,7 @@ const UserProfileContext: React.FC = ({ children }: any) => {
     name: "",
     email: "",
     image: "",
+    profileUrl: "",
   });
 
   useEffect(() => {
