@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Layout } from "@components/layout";
@@ -6,24 +6,38 @@ import { Avatar, UserInfo } from "@components/profile";
 import { toast } from "react-toastify";
 import { useUserProfileContext } from "@providers/profile";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
-import { User } from "types/user";
+import { LOADING, NOTFOUND } from "@constants/authentication";
+import { useAsyncValue } from "@mediator/observables/hooks";
+import Loading from "@components/loading";
+import { NonUserProfile } from "types/user";
+import { UserNotFound } from "@components/undraw/userNotFound";
 
 const Profile = () => {
   const router = useRouter();
-  const mediator = useMediator();
-  const { status, data: session } = useSession({
-    required: true,
-  });
   const { id } = router.query;
-
+  const { status, data: session } = useSession();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
+  const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
+  const mediator = useMediator();
+  const nonUserProfile: NonUserProfile | null = useAsyncValue(
+    mediator.nonUserProfile
+  );
+
+  useEffect(() => {
+    if (typeof id === "string") {
+      mediator.viewAnotherUserByProfileUrl(id);
+    }
+    setIsCurrentUserProfile(
+      session?.user.profileUrl === undefined
+        ? false
+        : session.user.profileUrl === id
+        ? true
+        : false
+    );
+  }, [id, session, mediator]);
 
   const handleSave = async () => {
-    if (
-      userProfileData.name &&
-      userProfileData.email &&
-      userProfileData.image
-    ) {
+    if (userProfileData.name && userProfileData.email) {
       const userProfile = async () => {
         let userProfile = await mediator
           .updateUserProfile(userProfileData)
@@ -36,6 +50,13 @@ const Profile = () => {
           });
         return userProfile;
       };
+      if (userProfileData.profileUrl !== session?.user.profileUrl) {
+        window.history.pushState(
+          "",
+          "New Profile Url",
+          `/user/${userProfileData.profileUrl}`
+        );
+      }
       toast
         .promise(userProfile, {
           pending: "Please wait...",
@@ -53,26 +74,11 @@ const Profile = () => {
     return;
   };
 
-  useEffect(() => {
-    if (session?.user?.email) {
-      mediator.getUserByEmail(session.user!.email).then((res: User) => {
-        if (!res.profileUrl && typeof id === "string" && session?.user?.email) {
-          mediator.addProfileUrl(session.user.email, id).then((res) => {
-            console.log(res);
-          });
-        }
-      });
-    }
-  }, [mediator, id, session]);
-
-  if (status === "loading") {
-    return (
-      <Layout>
-        <div>Loading please wait</div>
-      </Layout>
-    );
+  if (status === LOADING) {
+    return <Loading />;
   }
-  if (status === "authenticated") {
+
+  if (isCurrentUserProfile) {
     return (
       <Layout>
         <>
@@ -88,6 +94,39 @@ const Profile = () => {
       </Layout>
     );
   }
+
+  if (nonUserProfile?.message === NOTFOUND) {
+    return (
+      <Layout>
+        <div className="h5Headline mt-8">
+          We couldn't find the user you're looking for... Do they exist?
+        </div>
+        <div className="mt-16">
+          <UserNotFound />
+        </div>
+      </Layout>
+    );
+  }
+
+  console.log(nonUserProfile);
+  return (
+    <>
+      {nonUserProfile ? (
+        <>
+          <Layout>
+            <Avatar viewOnly nonUserImage={nonUserProfile.image} />
+            <UserInfo
+              id={typeof id === "string" ? id : ""}
+              viewOnly
+              nonUserProfile={nonUserProfile}
+            />
+          </Layout>
+        </>
+      ) : (
+        <Loading />
+      )}
+    </>
+  );
 };
 
 export default Profile;

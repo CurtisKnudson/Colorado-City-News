@@ -6,5 +6,16 @@ export interface User {
   createdAt?: string;
   emailVerified?: string;
   publishedArticles?: any[];
-  profileUrl?: string;
+  profileUrl: string;
+}
+
+export interface NonUserProfile {
+  name: string;
+  image: string;
+  profileUrl: string;
+  publishedArticles?: any[];
+  // TODO: Make so that this represents the typescritp for an actual comment when that is properly defined
+  comments?: any;
+  status?: string;
+  message?: string;
 }

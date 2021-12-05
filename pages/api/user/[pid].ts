@@ -6,6 +6,37 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { pid } = req.query;
   if (typeof pid === "string") {
     if (req.method === "GET") {
+      if (pid === "viewAnotherUserByProfileUrl") {
+        const filter = {
+          profileUrl: req.headers.body,
+        };
+        const options = {
+          projection: {
+            _id: 0,
+            name: 1,
+            image: 1,
+            profileUrl: 1,
+            comments: 1,
+            publishedArticles: 1,
+          },
+          sort: { "publishedArticles.date": 1 },
+        };
+
+        const user = await db
+          .collection("users")
+          .findOne(filter, options)
+          .then((res: any) => {
+            if (!res) {
+              return {
+                status: 204,
+                message: "User not found",
+              };
+            }
+            return res;
+          });
+        res.json(user);
+        return;
+      }
       let user = await db
         .collection("users")
         .findOne({ [pid]: req.headers.body });
@@ -16,10 +47,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
       if (pid === "addProfileUrl") {
         const { email, profileUrl } = JSON.parse(req.body);
-        res.json({ test: "ive been hit", email, profileUrl });
+        const filter = {
+          email,
+        };
+        const updateDocument = {
+          $set: {
+            profileUrl: profileUrl,
+          },
+        };
+        let user = await db
+          .collection("users")
+          .findOneAndUpdate(filter, updateDocument, { returnDocument: "after" })
+          .then((res: any) => res);
+
+        res.json(user);
+        return;
       }
+
       if (pid === "update") {
-        const { email, name, image } = JSON.parse(req.body);
+        const { email, name, image, profileUrl } = JSON.parse(req.body);
         const filter = {
           email: email,
         };
@@ -51,6 +97,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           $set: {
             name: name,
             image: dbImage,
+            profileUrl: profileUrl,
           },
         };
         let user = await db
