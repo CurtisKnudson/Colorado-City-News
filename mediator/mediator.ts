@@ -1,8 +1,10 @@
+import { ResponseStatus } from "types/mediator/status";
 import { ApiInterface } from "types/api";
 import { Article, ArticleComment } from "types/article";
 import { MediatorInterface } from "types/mediator/mediator";
-import { User } from "types/user";
+import { NonUserProfile, User } from "types/user";
 import { ObservableValue } from "./observables";
+import { NOTFOUND } from "@constants/authentication";
 
 export class Mediator implements MediatorInterface {
   private api: ApiInterface;
@@ -11,6 +13,9 @@ export class Mediator implements MediatorInterface {
   articleComments = new ObservableValue<ArticleComment[] | null | undefined>(
     null
   );
+  nonUserProfile = new ObservableValue<
+    NonUserProfile | null | undefined | string
+  >(null);
 
   constructor(api: ApiInterface) {
     this.api = api;
@@ -24,6 +29,29 @@ export class Mediator implements MediatorInterface {
   async updateUserProfile(userProfileData: User) {
     const res: User = await this.api.updateUserProfile(userProfileData);
     return res;
+  }
+
+  async addProfileUrl(email: string, profileUrl: string) {
+    const res: User = await this.api.addProfileUrl(email, profileUrl);
+
+    return res;
+  }
+
+  async viewAnotherUserByProfileUrl(profileUrl: string) {
+    await this.api
+      .viewAnotherUserByProfileUrl(profileUrl)
+      .then((res: NonUserProfile) => {
+        if (res.status) {
+          this.nonUserProfile.setValue({
+            name: "",
+            image: "",
+            profileUrl: "",
+            message: NOTFOUND,
+          });
+          return;
+        }
+        this.nonUserProfile.setValue(res);
+      });
   }
 
   async publishArticle(article: Article, userEmail: User["email"]) {

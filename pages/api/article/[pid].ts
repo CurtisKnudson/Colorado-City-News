@@ -141,5 +141,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       });
 
     res.json(publishedArticle);
+    return;
   }
 };

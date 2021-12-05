@@ -1,13 +1,18 @@
+import * as React from "react";
+import Link from "next/link";
+import { useUserProfileContext } from "@providers/profile";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import * as React from "react";
+import { useEffect } from "react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
+  const [userProfileData] = useUserProfileContext();
   const { data: session } = useSession({
     required: false,
   });
+
+  const userProfileUrl = `/user/${userProfileData.profileUrl}`;
 
   return (
     <div>
@@ -34,7 +39,7 @@ export const Sidebar = ({ children }: any) => {
                 </strong>
               </span>
               <MenuItem
-                url="/user/profile"
+                url={userProfileUrl}
                 label="Profile"
                 setNavOpen={setNavOpen}
               />

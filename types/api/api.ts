@@ -1,7 +1,8 @@
 import { Article, ArticleComment } from "types/article";
-import { User } from "types/user";
+import { NonUserProfile, User } from "types/user";
 
 export interface ApiInterface {
+  viewAnotherUserByProfileUrl(profileUrl: string): Promise<NonUserProfile>;
   getUserByEmail(email: string): Promise<User>;
   updateUserProfile(userProfileData: User): Promise<User>;
   publishArticle(article: Article, userEmail: User["email"]): Promise<any>;
@@ -10,4 +11,5 @@ export interface ApiInterface {
     articleId: string
   ): Promise<ArticleComment[] | null | undefined>;
   addCommentToArticle(comment: ArticleComment): Promise<any>;
+  addProfileUrl(email: string, profileUrl: string): Promise<User>;
 }

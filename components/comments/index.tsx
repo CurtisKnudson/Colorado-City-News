@@ -8,6 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 import { ArticleComment } from "types/article";
 import Comment from "./comment";
 
+// TODO: Make so that picture associated to comment will update when the user updates their profile picture. No static images.
+
+// TODO: Make so that comments are added underneath a user in the database
+
 const Comments = ({ articleId }: { articleId: string }) => {
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
