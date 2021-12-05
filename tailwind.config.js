@@ -12,7 +12,7 @@ module.exports = {
     "./components/comments/comment.tsx",
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
-    "./components/profile/avater.jsx",
+    "./components/profile/avater.tsx",
     "./components/profile/userInfo.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",

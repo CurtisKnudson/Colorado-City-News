@@ -1,10 +1,9 @@
-import { ResponseStatus } from "types/mediator/status";
 import { ApiInterface } from "types/api";
 import { Article, ArticleComment } from "types/article";
 import { MediatorInterface } from "types/mediator/mediator";
 import { NonUserProfile, User } from "types/user";
 import { ObservableValue } from "./observables";
-import { NOTFOUND } from "@constants/authentication";
+import { NOTFOUND } from "constants/authentication";
 
 export class Mediator implements MediatorInterface {
   private api: ApiInterface;
