@@ -1,5 +1,6 @@
 export interface User {
   _id: string;
+  id?: string;
   name: string;
   email: string;
   image: string;
@@ -7,6 +8,7 @@ export interface User {
   emailVerified?: string;
   publishedArticles?: any[];
   profileUrl: string;
+  userId: string;
 }
 
 export interface NonUserProfile {

@@ -4,6 +4,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import { connectToDatabase } from "@database/mongodb";
 import { ObjectId } from "mongodb";
 import { makeId } from "@utils/makeId";
+import { v4 as uuidv4 } from "uuid";
 
 export default async function auth(req, res) {
   let { db } = await connectToDatabase();
@@ -31,37 +32,47 @@ export default async function auth(req, res) {
       jwt: true,
     },
     callbacks: {
-      async session({ session }) {
+      async signIn({ user, email }) {
+        if (email.verificationRequest) {
+          return true;
+        }
+        if (user.profileUrl) {
+          return true;
+        }
+        const profileUrl = makeId();
+        const id = uuidv4();
+
+        const filter = {
+          email: user.email,
+        };
+        const updateDocument = {
+          $set: {
+            profileUrl,
+            userId: id,
+          },
+        };
+        await db.collection("users").findOneAndUpdate(filter, updateDocument);
+
+        return true;
+      },
+      async session({ session, user }) {
         const query = { email: session.user.email };
         const options = {
           projection: {
             profileUrl: 1,
+            userId: 1,
           },
         };
         const dbUser = await db.collection("users").findOne(query, options);
+
         return {
           ...session,
           user: {
             ...session.user,
             profileUrl: dbUser.profileUrl,
-            _id: dbUser._id,
+            userId: dbUser.userId,
           },
         };
-      },
-      async signIn({ user }) {
-        if (!user.profileUrl) {
-          const id = makeId();
-          const filter = {
-            email: user.email,
-          };
-          const updateDocument = {
-            $set: {
-              profileUrl: id,
-            },
-          };
-          await db.collection("users").findOneAndUpdate(filter, updateDocument);
-        }
-        return true;
       },
     },
     theme: "auto",
