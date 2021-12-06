@@ -1,8 +1,8 @@
-import SlateEditor from "@components/wysiwyg/editor";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import SlateEditor from "@components/wysiwyg/editor";
 import { DynamicArticleProps } from "pages/article/[id]";
-import React from "react";
 
 const Article = ({ article, name, image, profileUrl }: DynamicArticleProps) => {
   return (

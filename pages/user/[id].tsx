@@ -11,6 +11,7 @@ import { useAsyncValue } from "@mediator/observables/hooks";
 import Loading from "@components/loading";
 import { NonUserProfile } from "types/user";
 import { UserNotFound } from "@components/undraw/userNotFound";
+import RecentActivity from "@components/profile/recentActivity";
 
 const Profile = () => {
   const router = useRouter();
@@ -51,11 +52,7 @@ const Profile = () => {
         return userProfile;
       };
       if (userProfileData.profileUrl !== session?.user.profileUrl) {
-        window.history.pushState(
-          "",
-          "New Profile Url",
-          `/user/${userProfileData.profileUrl}`
-        );
+        window.location.assign(`/user/${userProfileData.profileUrl}`);
       }
       toast
         .promise(userProfile, {
@@ -83,13 +80,24 @@ const Profile = () => {
       <Layout>
         <>
           <Avatar />
-          <UserInfo id={typeof id === "string" ? id : ""} />
+          <UserInfo pageId={typeof id === "string" ? id : ""} />
           <div
             className="cursor-pointer border rounded w-14 center-all mx-auto mt-4"
             onClick={handleSave}
           >
             Save
           </div>
+          <hr className="mt-8" />
+          <RecentActivity
+            publishedArticles={
+              nonUserProfile?.publishedArticles
+                ? nonUserProfile.publishedArticles
+                : undefined
+            }
+            comments={
+              nonUserProfile?.comments ? nonUserProfile.comments : undefined
+            }
+          />
         </>
       </Layout>
     );
@@ -115,9 +123,21 @@ const Profile = () => {
           <Layout>
             <Avatar viewOnly nonUserImage={nonUserProfile.image} />
             <UserInfo
-              id={typeof id === "string" ? id : ""}
+              pageId={typeof id === "string" ? id : ""}
               viewOnly
               nonUserProfile={nonUserProfile}
+            />
+            <hr className="mx-4 mt-8" />
+            <RecentActivity
+              publishedArticles={
+                nonUserProfile?.publishedArticles
+                  ? nonUserProfile.publishedArticles
+                  : undefined
+              }
+              comments={
+                nonUserProfile?.comments ? nonUserProfile.comments : undefined
+              }
+              viewOnly
             />
           </Layout>
         </>

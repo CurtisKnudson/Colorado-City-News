@@ -13,12 +13,16 @@ export interface ProfileInput {
 }
 
 export interface UserInfoProps {
-  id?: string;
+  pageId?: string;
   viewOnly?: boolean;
   nonUserProfile?: NonUserProfile;
 }
 
-export const UserInfo = ({ id, viewOnly, nonUserProfile }: UserInfoProps) => {
+export const UserInfo = ({
+  pageId,
+  viewOnly,
+  nonUserProfile,
+}: UserInfoProps) => {
   const [userProfileData, setUserProfileData] = useUserProfileContext();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -71,7 +75,7 @@ export const UserInfo = ({ id, viewOnly, nonUserProfile }: UserInfoProps) => {
             name="profileUrl"
             onChange={handleChange}
             value={userProfileData.profileUrl ? userProfileData.profileUrl : ""}
-            placeholder={id ? id : ""}
+            placeholder={pageId ? pageId : ""}
             className="w-full"
           />
           <div className="text-gray-500 italic text-xs mt-8">

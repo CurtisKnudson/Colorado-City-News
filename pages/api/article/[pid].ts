@@ -101,7 +101,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const comment: ArticleComment = JSON.parse(req.body);
 
       const addCommentToArticleQuery = {
-        id: comment.articleId,
+        id: comment.article.id,
       };
       const databaseComment = {
         $push: {
@@ -112,6 +112,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const request = await db
         .collection("articles")
         .findOneAndUpdate(addCommentToArticleQuery, databaseComment);
+
+      const addArticleCommentToUserQuery = {
+        email: comment.authorEmail,
+      };
+      const databaseUserComment = {
+        $push: {
+          comments: comment,
+        },
+      };
+
+      await db
+        .collection("users")
+        .findOneAndUpdate(addArticleCommentToUserQuery, databaseUserComment);
 
       res.json(request);
       return;

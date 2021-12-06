@@ -11,10 +11,12 @@ export interface Article {
 }
 
 export interface ArticleComment {
-  articleId: string;
+  article: Article;
   id: string;
   date: Date;
-  author: string;
   comment: string;
-  image: string;
+  authorId: string;
+  authorEmail: string;
+  authorName: string;
+  authorImage: string;
 }
