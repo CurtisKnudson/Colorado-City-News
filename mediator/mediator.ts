@@ -77,7 +77,7 @@ export class Mediator implements MediatorInterface {
 
   async addCommentToArticle(comment: ArticleComment) {
     return await this.api.addCommentToArticle(comment).then(() => {
-      this.getArticleCommentsByArticleId(comment.articleId);
+      this.getArticleCommentsByArticleId(comment.article.id);
     });
   }
 

@@ -11,7 +11,7 @@ const Comment = ({
     <div key={index} className="flex items-center justify-between my-2">
       <div>{comment.comment}</div>
       <img
-        src={comment.image}
+        src={comment.authorImage}
         alt="User profile picture"
         className="w-12 h-12"
       />

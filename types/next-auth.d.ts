@@ -10,6 +10,7 @@ declare module "next-auth" {
       image?: string;
       name?: string;
       profileUrl?: string;
+      userId?: string;
       _id: string;
     };
   }

@@ -14,6 +14,7 @@ module.exports = {
     "./components/layout/layout.tsx",
     "./components/profile/avater.tsx",
     "./components/profile/userInfo.tsx",
+    "./components/profile/recentActivity.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./components/wysiwyg/button.tsx",

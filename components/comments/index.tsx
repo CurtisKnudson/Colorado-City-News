@@ -7,15 +7,23 @@ import { useAsyncValue } from "@mediator/observables/hooks";
 import { v4 as uuidv4 } from "uuid";
 import { ArticleComment } from "types/article";
 import Comment from "./comment";
+import { useUserProfileContext } from "@providers/profile";
+import { Article as ArticleType } from "types/article";
 
 // TODO: Make so that picture associated to comment will update when the user updates their profile picture. No static images.
 
 // TODO: Make so that comments are added underneath a user in the database
 
-const Comments = ({ articleId }: { articleId: string }) => {
+interface CommentsProps {
+  article: ArticleType;
+}
+
+const Comments = ({ article }: CommentsProps) => {
+  const [userProfileData] = useUserProfileContext();
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
   const mediator = useMediator();
+
   const comments: ArticleComment[] | null = useAsyncValue(
     mediator.articleComments
   );
@@ -29,13 +37,23 @@ const Comments = ({ articleId }: { articleId: string }) => {
       toast.error("You must be logged in to comment");
       return;
     }
+    if (!userProfileData.name) {
+      toast.error(
+        "You must have a name associated to your account before you can comment. Please complete your profile"
+      );
+      return;
+    }
     const commentData: ArticleComment = {
-      articleId,
+      article,
       id: uuidv4(),
       date: new Date(),
-      author: session.user?.name ? session.user!.name! : session.user!.email!,
       comment,
-      image: session.user?.image ? session.user.image : "/no-picture.jpeg",
+      authorId: userProfileData.userId,
+      authorEmail: userProfileData.email,
+      authorName: userProfileData.name,
+      authorImage: userProfileData.image
+        ? userProfileData.image
+        : "/no-picture.jpeg",
     };
 
     toast.promise(mediator.addCommentToArticle(commentData), {
@@ -48,7 +66,7 @@ const Comments = ({ articleId }: { articleId: string }) => {
   };
 
   useEffect(() => {
-    mediator.getArticleCommentsByArticleId(articleId);
+    mediator.getArticleCommentsByArticleId(article.id);
   }, [mediator]);
 
   return (
@@ -68,7 +86,9 @@ const Comments = ({ articleId }: { articleId: string }) => {
           <span className="text-gray-500 subtitle2">
             {" "}
             Commenting as{" "}
-            {session.user?.name ? session.user.name : session.user!.email}
+            {session.user?.name
+              ? session.user.name
+              : "You cannot comment without a name associated to your account"}
           </span>
         )}
         <div className="flex items-center">

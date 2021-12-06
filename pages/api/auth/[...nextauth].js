@@ -55,12 +55,14 @@ export default async function auth(req, res) {
 
         return true;
       },
-      async session({ session, user }) {
+      async session({ session }) {
         const query = { email: session.user.email };
         const options = {
           projection: {
             profileUrl: 1,
             userId: 1,
+            name: 1,
+            image: 1,
           },
         };
         const dbUser = await db.collection("users").findOne(query, options);
@@ -71,6 +73,8 @@ export default async function auth(req, res) {
             ...session.user,
             profileUrl: dbUser.profileUrl,
             userId: dbUser.userId,
+            name: dbUser.name,
+            image: dbUser.image,
           },
         };
       },

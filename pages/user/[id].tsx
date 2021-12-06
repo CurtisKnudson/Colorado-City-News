@@ -13,7 +13,6 @@ import { NonUserProfile } from "types/user";
 import { UserNotFound } from "@components/undraw/userNotFound";
 import RecentActivity from "@components/profile/recentActivity";
 
-// TODO: Make so that an article cannot be created until the user has a name associated to their account
 const Profile = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -88,7 +87,17 @@ const Profile = () => {
           >
             Save
           </div>
-          <RecentActivity />
+          <hr className="mt-8" />
+          <RecentActivity
+            publishedArticles={
+              nonUserProfile?.publishedArticles
+                ? nonUserProfile.publishedArticles
+                : undefined
+            }
+            comments={
+              nonUserProfile?.comments ? nonUserProfile.comments : undefined
+            }
+          />
         </>
       </Layout>
     );
@@ -118,7 +127,18 @@ const Profile = () => {
               viewOnly
               nonUserProfile={nonUserProfile}
             />
-            <RecentActivity />
+            <hr className="mx-4 mt-8" />
+            <RecentActivity
+              publishedArticles={
+                nonUserProfile?.publishedArticles
+                  ? nonUserProfile.publishedArticles
+                  : undefined
+              }
+              comments={
+                nonUserProfile?.comments ? nonUserProfile.comments : undefined
+              }
+              viewOnly
+            />
           </Layout>
         </>
       ) : (
