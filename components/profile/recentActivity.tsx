@@ -117,7 +117,7 @@ export const RecentActivityComment = ({
   comment: ArticleCommentsRecentActivity;
 }) => {
   return (
-    <div className="flex flex-col my-2">
+    <div className="flex flex-col my-2 cursor-pointer">
       <Link href={`/article/${comment.article.url}`}>
         <div>
           <span className="text-gray-500 body2 underline cursor-pointer">
@@ -137,7 +137,7 @@ export const RecentActivityArticle = ({
   article: ArticleRecentActivity;
 }) => {
   return (
-    <div className="my-2">
+    <div className="my-2 cursor-pointer">
       <Link href={`/article/${article.url}`}>
         <div className="flex">
           <div className="w-10/12">{article.title}</div>
