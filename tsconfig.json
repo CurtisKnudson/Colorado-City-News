@@ -27,6 +27,6 @@
       },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./yarn-error.log", "./yarn.lock", ".next"]
 
 }
