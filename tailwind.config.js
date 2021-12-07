@@ -12,6 +12,7 @@ module.exports = {
     "./components/comments/comment.tsx",
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
+    "./components/loading/index.tsx",
     "./components/profile/avater.tsx",
     "./components/profile/userInfo.tsx",
     "./components/profile/recentActivity.tsx",

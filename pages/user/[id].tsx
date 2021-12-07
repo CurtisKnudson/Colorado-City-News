@@ -24,19 +24,6 @@ const Profile = () => {
     mediator.nonUserProfile
   );
 
-  useEffect(() => {
-    if (typeof id === "string") {
-      mediator.viewAnotherUserByProfileUrl(id);
-    }
-    setIsCurrentUserProfile(
-      session?.user.profileUrl === undefined
-        ? false
-        : session.user.profileUrl === id
-        ? true
-        : false
-    );
-  }, [id, session, mediator]);
-
   const handleSave = async () => {
     if (userProfileData.name && userProfileData.email) {
       const userProfile = async () => {
@@ -51,6 +38,7 @@ const Profile = () => {
           });
         return userProfile;
       };
+      // @ts-ignore
       if (userProfileData.profileUrl !== session?.user.profileUrl) {
         window.location.assign(`/user/${userProfileData.profileUrl}`);
       }
@@ -70,6 +58,23 @@ const Profile = () => {
     );
     return;
   };
+
+  useEffect(() => {
+    if (typeof id === "string") {
+      mediator.viewAnotherUserByProfileUrl(id);
+    }
+    if (session) {
+      setIsCurrentUserProfile(
+        // @ts-ignore
+        session.user?.profileUrl === undefined
+          ? false
+          : // @ts-ignore
+          session.user.profileUrl === id
+          ? true
+          : false
+      );
+    }
+  }, [id, session, mediator]);
 
   if (status === LOADING) {
     return <Loading />;
