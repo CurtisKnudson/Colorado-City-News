@@ -79,8 +79,10 @@ export const UserInfo = ({
             className="w-full"
           />
           <div className="text-gray-500 italic text-xs mt-8">
-            **If you want to comment, post or interact on this website you must
-            add a name**
+            {userProfileData.name
+              ? null
+              : `' **If you want to comment, post or interact on this website you must
+            add a name**'`}
           </div>
         </>
       )}
