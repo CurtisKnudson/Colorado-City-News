@@ -62,8 +62,6 @@ export class Mediator implements MediatorInterface {
 
     this.featuredArticle.setValue(sortedRequest[0]);
 
-    console.log(sortedRequest);
-
     return request;
   }
 
