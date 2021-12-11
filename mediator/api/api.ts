@@ -56,6 +56,13 @@ export class Api implements ApiInterface {
     return user;
   }
 
+  async getAllArticles() {
+    const getUrl = `${url}/article/getAllArticles`;
+    const articles: Article[] = await fetch(getUrl).then((res) => res.json());
+
+    return articles;
+  }
+
   async publishArticle(article: Article, userEmail: User["email"]) {
     let postUrl = `${url}/article/${article.url}`;
     let postObject = {
@@ -69,13 +76,6 @@ export class Api implements ApiInterface {
     const publishedArticle = await fetch(postUrl, postObject);
 
     return publishedArticle;
-  }
-
-  async getFeaturedArticle() {
-    let getUrl = `${url}/article/getFeaturedArticle`;
-    const featuredArticle = await fetch(getUrl).then((res) => res.json());
-
-    return featuredArticle;
   }
 
   async getArticleCommentsByArticleId(articleId: string) {

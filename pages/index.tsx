@@ -17,7 +17,7 @@ const FrontPage = () => {
   );
 
   useEffect(() => {
-    mediator.getFeaturedArticle();
+    mediator.getAllArticles();
   }, [mediator]);
 
   return (

@@ -2,6 +2,7 @@ const plugin = require("tailwindcss/plugin");
 module.exports = {
   mode: "jit",
   purge: [
+    "./components/article/index.tsx",
     "./components/articleCard/articleCard.tsx",
     "./components/articleCard/featuredArticleCard.tsx",
     "/components/authentication/needsAuthentication.tsx",
