@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from "@components/layout";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Article as ArticleType } from "types/article";
-import Article from "views/article";
+import Article from "@components/article";
 import Comments from "@components/comments";
 import { connectToDatabase } from "@database/mongodb";
 

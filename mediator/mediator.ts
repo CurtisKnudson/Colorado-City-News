@@ -8,7 +8,7 @@ import { NOTFOUND } from "constants/authentication";
 export class Mediator implements MediatorInterface {
   private api: ApiInterface;
 
-  featuredArticle = new ObservableValue(null);
+  featuredArticle = new ObservableValue<Article | null>(null);
   articleComments = new ObservableValue<ArticleComment[] | null | undefined>(
     null
   );
@@ -53,6 +53,20 @@ export class Mediator implements MediatorInterface {
       });
   }
 
+  async getAllArticles() {
+    const request: Article[] = await this.api.getAllArticles();
+
+    const sortedRequest = request.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+
+    this.featuredArticle.setValue(sortedRequest[0]);
+
+    console.log(sortedRequest);
+
+    return request;
+  }
+
   async publishArticle(article: Article, userEmail: User["email"]) {
     if (!article) {
       throw new Error("Article is required");
@@ -61,12 +75,6 @@ export class Mediator implements MediatorInterface {
       throw new Error("User email is required");
     }
     return await this.api.publishArticle(article, userEmail);
-  }
-
-  async getFeaturedArticle() {
-    const res = await this.api.getFeaturedArticle();
-    this.featuredArticle.setValue(res);
-    return res;
   }
 
   async getArticleCommentsByArticleId(articleId: string) {
@@ -83,5 +91,7 @@ export class Mediator implements MediatorInterface {
 
   dispose() {
     this.featuredArticle.dispose();
+    this.articleComments.dispose();
+    this.nonUserProfile.dispose();
   }
 }
