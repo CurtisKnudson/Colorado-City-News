@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { ArticleCard, FeaturedArticleCard } from "@components/articleCard";
+import React, { useEffect, useState } from "react";
+import { Articles, FeaturedArticleCard } from "@components/articleCard";
 import { ChipBar } from "@components/chipBar";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { Article } from "types/article";
@@ -12,12 +12,16 @@ export interface FeaturedArticle extends Article {
 
 const FrontPage = () => {
   const mediator = useMediator();
+  const [articles, setArticles] = useState<Article[]>();
   const featuredArticle: FeaturedArticle = useAsyncValue(
     mediator.featuredArticle
   );
 
   useEffect(() => {
-    mediator.getAllArticles();
+    mediator.getAllArticles().then((res) => {
+      const articlesWithoutFeatured = res.splice(1);
+      setArticles(articlesWithoutFeatured);
+    });
   }, [mediator]);
 
   return (
@@ -25,7 +29,7 @@ const FrontPage = () => {
       <Layout>
         <ChipBar />
         <FeaturedArticleCard featuredArticle={featuredArticle} />
-        <ArticleCard />
+        <Articles articles={articles} />
       </Layout>
     </>
   );

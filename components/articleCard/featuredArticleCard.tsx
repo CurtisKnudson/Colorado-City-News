@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-
 import { Article } from "../../types/article";
 import Link from "next/link";
 
@@ -39,12 +38,7 @@ export const FeaturedArticleCard = ({
 export const GhostFeaturedArticleCard = () => {
   return (
     <div>
-      <Image
-        src="https://picsum.photos/1080/1080"
-        priority
-        width="1080"
-        height="1080"
-      />
+      <Image src="/placeholder.jpg" priority width="1800" height="1200" />
       <div className="flex flex-col">
         <span className="font-lfBold text-sm my-2"></span>
         <span className="font-lfRegular text-4xl"></span>
