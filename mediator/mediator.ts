@@ -62,7 +62,7 @@ export class Mediator implements MediatorInterface {
 
     this.featuredArticle.setValue(sortedRequest[0]);
 
-    return request;
+    return sortedRequest;
   }
 
   async publishArticle(article: Article, userEmail: User["email"]) {
