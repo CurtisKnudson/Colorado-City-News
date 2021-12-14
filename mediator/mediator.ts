@@ -65,14 +65,11 @@ export class Mediator implements MediatorInterface {
     return sortedRequest;
   }
 
-  async publishArticle(article: Article, userEmail: User["email"]) {
+  async publishArticle(article: Article) {
     if (!article) {
       throw new Error("Article is required");
     }
-    if (!userEmail) {
-      throw new Error("User email is required");
-    }
-    return await this.api.publishArticle(article, userEmail);
+    return await this.api.publishArticle(article);
   }
 
   async getArticleCommentsByArticleId(articleId: string) {

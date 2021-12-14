@@ -95,9 +95,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.json(request);
       return;
     }
-    const { article, userEmail } = JSON.parse(req.body);
-    const publishArticleByEmailQuery = {
-      email: userEmail,
+
+    // Logic for publishing a new article
+    const { article }: { article: Article } = JSON.parse(req.body);
+    const publishArticleByUserId = {
+      email: article.authorId,
     };
 
     const databaseArticle = {
@@ -110,7 +112,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     let publishedArticle = await db
       .collection("users")
-      .findOneAndUpdate(publishArticleByEmailQuery, databaseArticle, {
+      .findOneAndUpdate(publishArticleByUserId, databaseArticle, {
         returnDocument: "after",
       })
       .then((res: any) => {

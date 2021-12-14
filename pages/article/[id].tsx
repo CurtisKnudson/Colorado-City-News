@@ -5,32 +5,29 @@ import { Article as ArticleType } from "types/article";
 import Article from "@components/article";
 import Comments from "@components/comments";
 import { connectToDatabase } from "@database/mongodb";
+import { User } from "types/user";
+
+interface DatabaseArticle extends ArticleType {
+  _id?: string;
+}
 
 export interface DynamicArticleProps {
   article: ArticleType;
-  name: string;
-  image: string;
-  profileUrl: string;
+  author: {
+    name: string;
+    image: string;
+    profileUrl: string;
+  };
 }
 
 export interface StaticPaths {}
 
-const DynamicArticle = ({
-  name,
-  image,
-  article,
-  profileUrl,
-}: DynamicArticleProps) => {
+const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
   return (
     <Layout className="mx-0">
       {article && (
         <>
-          <Article
-            article={article}
-            name={name}
-            image={image}
-            profileUrl={profileUrl}
-          />
+          <Article article={article} author={author} />
           <Comments article={article} />
         </>
       )}
@@ -42,12 +39,11 @@ export default DynamicArticle;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { db } = await connectToDatabase();
-  const query = { publishedArticles: { $exists: true } };
-  const options = { projection: { _id: 0, "publishedArticles.url": 1 } };
-  let articles = await db.collection("users").find(query, options).toArray();
 
-  const url = articles[0].publishedArticles.map((obj: any) => ({
-    params: { id: obj.url },
+  const articles = await db.collection("articles").find().toArray();
+
+  const url = articles.map((article: ArticleType) => ({
+    params: { id: article.url },
   }));
 
   const paths = url;
@@ -60,29 +56,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { db } = await connectToDatabase();
-  const query = { "publishedArticles.url": params!.id };
-  const options = {
+  const articleQuery = { url: params!.id };
+
+  const article: DatabaseArticle = await db
+    .collection("articles")
+    .findOne(articleQuery);
+
+  const authorQuery = { userId: article.authorId };
+  const authorOptions = {
     projection: {
       _id: 0,
-      publishedArticles: { $elemMatch: { url: params!.id } },
       name: 1,
       image: 1,
       profileUrl: 1,
     },
   };
-  const databaseArticle = await db
-    .collection("users")
-    .findOne(query, options)
-    .then((res: any) => {
-      return res;
-    });
-
-  const { name, image, publishedArticles, profileUrl } = databaseArticle;
-
-  const article = publishedArticles[0];
 
   delete article._id;
 
+  const author: User = await db
+    .collection("users")
+    .findOne(authorQuery, authorOptions);
+
   // Pass post data to the page via props
-  return { props: { name, image, profileUrl, article } };
+  return { props: { article, author } };
 };

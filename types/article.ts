@@ -1,6 +1,7 @@
 export interface Article {
   id: string;
   author: string;
+  authorId: string;
   date: Date | string;
   title: string;
   subTitle: string;

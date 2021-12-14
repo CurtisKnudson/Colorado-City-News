@@ -30,6 +30,7 @@ const EditorView = () => {
     let article = {
       id: uuidv4(),
       author: userProfileData.name,
+      authorId: userProfileData.userId,
       date: new Date(),
       url: inputData.title
         .trim()
@@ -50,7 +51,7 @@ const EditorView = () => {
       return;
     }
 
-    toast.promise(mediator.publishArticle(article, userProfileData.email), {
+    toast.promise(mediator.publishArticle(article), {
       pending: "Please wait...",
       success: "Your article has been submitted for review!",
       error: "There was an error 🤯. Have all inputs been filled out?",

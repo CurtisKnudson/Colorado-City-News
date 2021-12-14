@@ -5,7 +5,7 @@ export interface ApiInterface {
   viewAnotherUserByProfileUrl(profileUrl: string): Promise<NonUserProfile>;
   getUserByEmail(email: string): Promise<User>;
   updateUserProfile(userProfileData: User): Promise<User>;
-  publishArticle(article: Article, userEmail: User["email"]): Promise<any>;
+  publishArticle(article: Article): Promise<any>;
   getAllArticles(): Promise<Article[]>;
   getArticleCommentsByArticleId(
     articleId: string

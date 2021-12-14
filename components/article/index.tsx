@@ -4,7 +4,8 @@ import Link from "next/link";
 import SlateEditor from "@components/wysiwyg/editor";
 import { DynamicArticleProps } from "pages/article/[id]";
 
-const Article = ({ article, name, image, profileUrl }: DynamicArticleProps) => {
+const Article = ({ article, author }: DynamicArticleProps) => {
+  const { name, profileUrl, image } = author;
   return (
     <>
       <div>
