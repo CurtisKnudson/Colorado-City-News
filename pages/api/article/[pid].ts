@@ -99,7 +99,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Logic for publishing a new article
     const { article }: { article: Article } = JSON.parse(req.body);
     const publishArticleByUserId = {
-      email: article.authorId,
+      userId: article.authorId,
     };
 
     const databaseArticle = {
