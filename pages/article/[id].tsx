@@ -5,32 +5,29 @@ import { Article as ArticleType } from "types/article";
 import Article from "@components/article";
 import Comments from "@components/comments";
 import { connectToDatabase } from "@database/mongodb";
+import { User } from "types/user";
+
+interface DatabaseArticle extends ArticleType {
+  _id?: string;
+}
 
 export interface DynamicArticleProps {
   article: ArticleType;
-  name: string;
-  image: string;
-  profileUrl: string;
+  author: {
+    name: string;
+    image: string;
+    profileUrl: string;
+  };
 }
 
 export interface StaticPaths {}
 
-const DynamicArticle = ({
-  name,
-  image,
-  article,
-  profileUrl,
-}: DynamicArticleProps) => {
+const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
   return (
     <Layout className="mx-0">
       {article && (
         <>
-          <Article
-            article={article}
-            name={name}
-            image={image}
-            profileUrl={profileUrl}
-          />
+          <Article article={article} author={author} />
           <Comments article={article} />
         </>
       )}
@@ -59,29 +56,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { db } = await connectToDatabase();
-  const query = { "publishedArticles.url": params!.id };
-  const options = {
+  const articleQuery = { url: params!.id };
+
+  const article: DatabaseArticle = await db
+    .collection("articles")
+    .findOne(articleQuery);
+
+  const authorQuery = { userId: article.authorId };
+  const authorOptions = {
     projection: {
       _id: 0,
-      publishedArticles: { $elemMatch: { url: params!.id } },
       name: 1,
       image: 1,
       profileUrl: 1,
     },
   };
-  const databaseArticle = await db
-    .collection("users")
-    .findOne(query, options)
-    .then((res: any) => {
-      return res;
-    });
-
-  const { name, image, publishedArticles, profileUrl } = databaseArticle;
-
-  const article = publishedArticles[0];
 
   delete article._id;
 
+  const author: User = await db
+    .collection("users")
+    .findOne(authorQuery, authorOptions);
+
   // Pass post data to the page via props
-  return { props: { name, image, profileUrl, article } };
+  return { props: { article, author } };
 };
