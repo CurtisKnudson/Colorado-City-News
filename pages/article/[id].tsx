@@ -42,12 +42,11 @@ export default DynamicArticle;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { db } = await connectToDatabase();
-  const query = { publishedArticles: { $exists: true } };
-  const options = { projection: { _id: 0, "publishedArticles.url": 1 } };
-  let articles = await db.collection("users").find(query, options).toArray();
 
-  const url = articles[0].publishedArticles.map((obj: any) => ({
-    params: { id: obj.url },
+  const articles = await db.collection("articles").find().toArray();
+
+  const url = articles.map((article: ArticleType) => ({
+    params: { id: article.url },
   }));
 
   const paths = url;

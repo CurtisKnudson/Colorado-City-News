@@ -63,13 +63,12 @@ export class Api implements ApiInterface {
     return articles;
   }
 
-  async publishArticle(article: Article, userEmail: User["email"]) {
+  async publishArticle(article: Article) {
     let postUrl = `${url}/article/${article.url}`;
     let postObject = {
       method: "POST",
       body: JSON.stringify({
         article,
-        userEmail,
       }),
     };
 
