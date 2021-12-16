@@ -32,31 +32,35 @@ export default async function auth(req, res) {
       jwt: true,
     },
     callbacks: {
-      async signIn({ user, email }) {
-        if (email.verificationRequest) {
-          return true;
-        }
-        if (user.profileUrl) {
-          return true;
-        }
+      // async signIn({ user, email }) {
+      //   if (email.verificationRequest) {
+      //     return true;
+      //   }
+      //   if (user.profileUrl) {
+      //     return true;
+      //   }
+
+      //   const filter = {
+      //     email: user.email,
+      //   };
+      //   const updateDocument = {
+      //     $set: {
+      //       test: "test",
+      //     },
+      //   };
+      //   const test = await db
+      //     .collection("users")
+      //     .findOneAndUpdate(filter, updateDocument, {
+      //       returnDocument: "after",
+      //     });
+
+      //   return true;
+      // },
+      async session({ session }) {
+        const query = { email: session.user.email };
         const profileUrl = makeId();
         const id = uuidv4();
 
-        const filter = {
-          email: user.email,
-        };
-        const updateDocument = {
-          $set: {
-            profileUrl,
-            userId: id,
-          },
-        };
-        await db.collection("users").findOneAndUpdate(filter, updateDocument);
-
-        return true;
-      },
-      async session({ session }) {
-        const query = { email: session.user.email };
         const options = {
           projection: {
             profileUrl: 1,
@@ -65,7 +69,35 @@ export default async function auth(req, res) {
             image: 1,
           },
         };
+
+        const updateDocument = {
+          $set: {
+            profileUrl,
+            userId: id,
+          },
+        };
+
         const dbUser = await db.collection("users").findOne(query, options);
+
+        if (!dbUser.profileUrl) {
+          const dbUser = await db
+            .collection("users")
+            .findOneAndUpdate(query, updateDocument, {
+              returnDocument: "after",
+            });
+          console.log(dbUser);
+
+          return {
+            ...session,
+            user: {
+              ...session.user,
+              profileUrl: dbUser.profileUrl,
+              userId: dbUser.userId,
+              name: dbUser.name,
+              image: dbUser.image,
+            },
+          };
+        }
 
         return {
           ...session,
