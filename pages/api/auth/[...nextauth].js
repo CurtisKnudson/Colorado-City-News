@@ -82,11 +82,7 @@ export default async function auth(req, res) {
         if (!dbUser.profileUrl) {
           const dbUser = await db
             .collection("users")
-            .findOneAndUpdate(query, updateDocument, {
-              returnDocument: "after",
-            });
-          console.log(dbUser);
-
+            .findOneAndUpdate(query, updateDocument);
           return {
             ...session,
             user: {
