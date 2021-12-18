@@ -20,4 +20,5 @@ export interface ArticleComment {
   authorEmail: string;
   authorName: string;
   authorImage: string;
+  authorProfileUrl: string;
 }

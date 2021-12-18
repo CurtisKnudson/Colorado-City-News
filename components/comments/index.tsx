@@ -54,6 +54,7 @@ const Comments = ({ article }: CommentsProps) => {
       authorImage: userProfileData.image
         ? userProfileData.image
         : "/no-picture.jpeg",
+      authorProfileUrl: userProfileData.profileUrl,
     };
 
     toast.promise(mediator.addCommentToArticle(commentData), {
