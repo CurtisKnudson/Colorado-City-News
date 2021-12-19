@@ -92,8 +92,7 @@ export class Api implements ApiInterface {
       if (res.status === 204) {
         return null;
       }
-      const comments = res.json();
-      return comments;
+      return res.json();
     });
 
     return comments;
@@ -107,8 +106,7 @@ export class Api implements ApiInterface {
       body: JSON.stringify(comment),
     };
 
-    const request = await fetch(postUrl, postObject).then((res) => res);
-    return request;
+    return await fetch(postUrl, postObject).then((res) => res);
   }
 
   validateProfileUrl(profileUrl: string) {
