@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Layout } from "@components/layout";
-import { Avatar, UserInfo } from "@components/profile";
-import { toast } from "react-toastify";
-import { useUserProfileContext } from "@providers/profile";
-import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
-import { LOADING, NOTFOUND } from "@constants/authentication";
-import { useAsyncValue } from "@mediator/observables/hooks";
+import React, {useEffect, useState} from "react";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/router";
+import {Layout} from "@components/layout";
+import {Avatar, UserInfo} from "@components/profile";
+import {toast} from "react-toastify";
+import {useUserProfileContext} from "@providers/profile";
+import {useMediator} from "@mediator/providers/mediators/mediatorProvider";
+import {LOADING, NOTFOUND} from "@constants/authentication";
+import {useAsyncValue} from "@mediator/observables/hooks";
 import Loading from "@components/loading";
-import { NonUserProfile } from "types/user";
-import { UserNotFound } from "@components/undraw/userNotFound";
+import {NonUserProfile} from "types/user";
+import {UserNotFound} from "@components/undraw/userNotFound";
 import RecentActivity from "@components/profile/recentActivity";
 
 const Profile = () => {
@@ -27,16 +27,15 @@ const Profile = () => {
   const handleSave = async () => {
     if (userProfileData.name && userProfileData.email) {
       const userProfile = async () => {
-        let userProfile = await mediator
-          .updateUserProfile(userProfileData)
-          .then((res) => {
-            setUserProfileData(res);
-            return res;
-          })
-          .catch((err) => {
-            return err;
-          });
-        return userProfile;
+        return await mediator
+            .updateUserProfile(userProfileData)
+            .then((res) => {
+              setUserProfileData(res);
+              return res;
+            })
+            .catch((err) => {
+              return err;
+            });
       };
       // @ts-ignore
       if (userProfileData.profileUrl !== session?.user.profileUrl) {
