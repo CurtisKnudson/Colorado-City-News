@@ -1,8 +1,8 @@
-import { config } from "@constants/config";
-import { delayWithValue } from "@utils/delayValue";
-import { ApiInterface } from "types/api";
-import { Article, ArticleComment } from "types/article";
-import { NonUserProfile, User } from "types/user";
+import {config} from "@constants/config";
+import {delayWithValue} from "@utils/delayValue";
+import {ApiInterface} from "types/api";
+import {Article, ArticleComment} from "types/article";
+import {NonUserProfile, User} from "types/user";
 
 const url = config.url.API_URL;
 export class Api implements ApiInterface {
@@ -25,10 +25,9 @@ export class Api implements ApiInterface {
       body: JSON.stringify(userProfileData),
     };
 
-    const completedUser = await fetch(postUrl, postObject).then((res) =>
-      res.json()
+    return await fetch(postUrl, postObject).then((res) =>
+        res.json()
     );
-    return completedUser;
   }
 
   async addProfileUrl(email: string, profileUrl: string) {
@@ -73,9 +72,7 @@ export class Api implements ApiInterface {
       }),
     };
 
-    const publishedArticle = await fetch(postUrl, postObject);
-
-    return publishedArticle;
+    return await fetch(postUrl, postObject);
   }
 
   async getArticleCommentsByArticleId(articleId: string) {
