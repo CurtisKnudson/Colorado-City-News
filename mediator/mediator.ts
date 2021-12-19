@@ -84,6 +84,10 @@ export class Mediator implements MediatorInterface {
     });
   }
 
+  async validateProfileUrl(profileUrl: string) {
+    return this.api.validateProfileUrl(profileUrl);
+  }
+
   dispose() {
     this.featuredArticle.dispose();
     this.articleComments.dispose();

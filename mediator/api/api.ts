@@ -1,4 +1,5 @@
 import { config } from "@constants/config";
+import { delayWithValue } from "@utils/delayValue";
 import { ApiInterface } from "types/api";
 import { Article, ArticleComment } from "types/article";
 import { NonUserProfile, User } from "types/user";
@@ -111,5 +112,9 @@ export class Api implements ApiInterface {
 
     const request = await fetch(postUrl, postObject).then((res) => res);
     return request;
+  }
+
+  validateProfileUrl(profileUrl: string) {
+    return delayWithValue(false);
   }
 }
