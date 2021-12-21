@@ -84,6 +84,16 @@ export class Mediator implements MediatorInterface {
     });
   }
 
+  async validateProfileUrl(profileUrl: string) {
+    const req = this.api.validateProfileUrl(profileUrl).then((res) => {
+      if (res.message === "User not found") {
+        return true;
+      }
+      return false;
+    });
+    return req;
+  }
+
   dispose() {
     this.featuredArticle.dispose();
     this.articleComments.dispose();

@@ -14,6 +14,7 @@ const Article = ({ article, author }: DynamicArticleProps) => {
           width={1800}
           height={1200}
           layout="responsive"
+          alt="Article Header Image"
         />
       </div>
       <div className="m-4">
@@ -46,8 +47,14 @@ export const AuthorCard = ({
   profileUrl: string;
 }) => {
   return (
-    <div className="flex items-center mt-4 mb-8">
-      <img src={image} alt="Author Image" className="rounded-full w-12" />
+    <div className="flex items-center mt-4">
+      <Image
+        src={image}
+        alt="Author Image"
+        width={48}
+        height={48}
+        className="rounded"
+      />
       <span className="mx-4 subtitle2">
         <span className="text-gray-600">by</span>
         <span className="border-b-2 font-bold border-gray-600 mx-2 cursor-pointer">

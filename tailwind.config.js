@@ -17,6 +17,8 @@ module.exports = {
     "./components/profile/avater.tsx",
     "./components/profile/userInfo.tsx",
     "./components/profile/recentActivity.tsx",
+    "./components/profile/profileInput.tsx",
+    "./components/profile/adornmentInputWithValidation.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./components/wysiwyg/button.tsx",

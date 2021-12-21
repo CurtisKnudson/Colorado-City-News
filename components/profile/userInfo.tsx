@@ -1,16 +1,10 @@
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { NonUserProfile } from "types/user";
-
-export interface ProfileInput {
-  className: string;
-  label: string;
-  type: string;
-  name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string | undefined;
-  placeholder: string;
-  readOnly?: boolean;
-}
+import { AdornmentInputWithValidation } from "./adornmentInputWithValidation";
+import { ProfileInput } from "./profileInput";
 
 export interface UserInfoProps {
   pageId?: string;
@@ -18,12 +12,23 @@ export interface UserInfoProps {
   nonUserProfile?: NonUserProfile;
 }
 
+export enum ProfileUrlValidation {
+  DEFAULT,
+  PENDING,
+  VALID,
+  INVALID,
+}
+
 export const UserInfo = ({
   pageId,
   viewOnly,
   nonUserProfile,
 }: UserInfoProps) => {
+  const mediator = useMediator();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
+  const [profileUrlValidation, setProfileUrlValidation] =
+    useState<ProfileUrlValidation>(ProfileUrlValidation.DEFAULT);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -66,10 +71,9 @@ export const UserInfo = ({
             onChange={handleChange}
             value={userProfileData.email}
             placeholder={userProfileData.email}
-            className="pointer-events-none select-none text-gray-300 w-full"
-            readOnly
+            className="text-gray-300 w-full"
           />
-          <ProfileInput
+          <AdornmentInputWithValidation
             label="Profile Url:"
             type="text"
             name="profileUrl"
@@ -77,6 +81,7 @@ export const UserInfo = ({
             value={userProfileData.profileUrl ? userProfileData.profileUrl : ""}
             placeholder={pageId ? pageId : ""}
             className="w-full"
+            validation={profileUrlValidation}
           />
           <div className="text-gray-500 italic text-xs mt-8">
             {userProfileData.name
@@ -86,32 +91,6 @@ export const UserInfo = ({
           </div>
         </>
       )}
-    </div>
-  );
-};
-
-export const ProfileInput = ({
-  className,
-  label,
-  type,
-  name,
-  onChange,
-  value,
-  placeholder,
-  readOnly,
-}: ProfileInput) => {
-  return (
-    <div className="flex mt-4">
-      <span className="w-1/3">{label}</span>
-      <input
-        type={type}
-        name={name}
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-        className={className}
-        readOnly={readOnly}
-      />
     </div>
   );
 };

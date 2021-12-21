@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -68,7 +69,7 @@ const Comments = ({ article }: CommentsProps) => {
 
   useEffect(() => {
     mediator.getArticleCommentsByArticleId(article.id);
-  }, [mediator]);
+  }, [article.id, mediator]);
 
   return (
     <div className=" mx-4 mt-4 mb-32">
@@ -99,14 +100,16 @@ const Comments = ({ article }: CommentsProps) => {
                 ? "Add Comment..."
                 : "You cannot comment unless you have created an account"
             }
-            className="w-full border focus:border-gray-500 rounded p-2 h-auto outline-none"
+            className="w-full border focus:border-gray-500 rounded p-2 h-auto outline-none mr-4"
             value={comment}
             onChange={handleChange}
           ></textarea>
-          <img
-            className="w-12 h-12 ml-2"
+          <Image
+            className="rounded"
             src={session ? session.user!.image! : "/no-picture.jpeg"}
             alt=""
+            width={48}
+            height={48}
           />
         </div>
 

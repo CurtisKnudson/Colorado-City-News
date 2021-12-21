@@ -16,13 +16,14 @@ export const FeaturedArticleCard = ({
     return <GhostFeaturedArticleCard />;
   }
   return (
-    <Link href={`article/${featuredArticle.url}`}>
+    <Link href={`article/${featuredArticle.url}`} passHref>
       <div className="cursor-pointer">
         <Image
           src={featuredArticle.image}
           priority
           width="1800"
           height="1200"
+          alt="Featured Article Header Image"
         />
         <div className="flex flex-col">
           <span className="font-lfBold text-sm my-2">World</span>
@@ -38,7 +39,13 @@ export const FeaturedArticleCard = ({
 export const GhostFeaturedArticleCard = () => {
   return (
     <div>
-      <Image src="/placeholder.jpg" priority width="1800" height="1200" />
+      <Image
+        src="/placeholder.jpg"
+        priority
+        width="1800"
+        height="1200"
+        alt="Placeholder image because article isnt rendering"
+      />
       <div className="flex flex-col">
         <span className="font-lfBold text-sm my-2"></span>
         <span className="font-lfRegular text-4xl"></span>
