@@ -12,5 +12,5 @@ export interface ApiInterface {
   ): Promise<ArticleComment[] | null | undefined>;
   addCommentToArticle(comment: ArticleComment): Promise<any>;
   addProfileUrl(email: string, profileUrl: string): Promise<User>;
-  validateProfileUrl(profileUrl: string): Promise<boolean>;
+  validateProfileUrl(profileUrl: string): Promise<any>;
 }

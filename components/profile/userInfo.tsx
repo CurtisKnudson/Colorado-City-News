@@ -1,20 +1,10 @@
-import { ACCENT } from "@constants/design";
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
-import { SpinnerDotted } from "spinners-react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { NonUserProfile } from "types/user";
-
-export interface ProfileInput {
-  className: string;
-  label: string;
-  type: string;
-  name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string | undefined;
-  placeholder: string;
-  readOnly?: boolean;
-  adornment?: boolean;
-  validation?: any;
-}
+import { AdornmentInputWithValidation } from "./adornmentInputWithValidation";
+import { ProfileInput } from "./profileInput";
 
 export interface UserInfoProps {
   pageId?: string;
@@ -22,22 +12,24 @@ export interface UserInfoProps {
   nonUserProfile?: NonUserProfile;
 }
 
+export enum ProfileUrlValidation {
+  DEFAULT,
+  PENDING,
+  VALID,
+  INVALID,
+}
+
 export const UserInfo = ({
   pageId,
   viewOnly,
   nonUserProfile,
 }: UserInfoProps) => {
+  const mediator = useMediator();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setUserProfileData({
-      ...userProfileData,
-      [name]: value,
-    });
-  };
+  const [profileUrlValidation, setProfileUrlValidation] =
+    useState<ProfileUrlValidation>(ProfileUrlValidation.DEFAULT);
 
-  const handleChangeProfileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setUserProfileData({
@@ -81,15 +73,15 @@ export const UserInfo = ({
             placeholder={userProfileData.email}
             className="text-gray-300 w-full"
           />
-          <ProfileInput
+          <AdornmentInputWithValidation
             label="Profile Url:"
             type="text"
             name="profileUrl"
-            onChange={handleChangeProfileUrl}
+            onChange={handleChange}
             value={userProfileData.profileUrl ? userProfileData.profileUrl : ""}
             placeholder={pageId ? pageId : ""}
             className="w-full"
-            adornment={true}
+            validation={profileUrlValidation}
           />
           <div className="text-gray-500 italic text-xs mt-8">
             {userProfileData.name
@@ -99,39 +91,6 @@ export const UserInfo = ({
           </div>
         </>
       )}
-    </div>
-  );
-};
-
-export const ProfileInput = ({
-  className,
-  label,
-  type,
-  name,
-  onChange,
-  value,
-  placeholder,
-  readOnly,
-  adornment = false,
-  validation,
-}: ProfileInput) => {
-  return (
-    <div className="flex mt-4">
-      <span className="w-1/3">{label}</span>
-      <input
-        type={type}
-        name={name}
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-        className={`${className} px-2`}
-        readOnly={readOnly}
-      />
-      {adornment ? (
-        <div className="mx-1">
-          <SpinnerDotted size={20} thickness={100} speed={100} color={ACCENT} />
-        </div>
-      ) : null}
     </div>
   );
 };

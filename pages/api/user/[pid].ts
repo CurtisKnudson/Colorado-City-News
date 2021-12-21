@@ -1,11 +1,35 @@
 import { connectToDatabase } from "database/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
   const { db } = await connectToDatabase();
   const { pid } = req.query;
   if (typeof pid === "string") {
     if (req.method === "GET") {
+      if (pid === "validateProfileUrl") {
+        const profileUrl = req.headers.body;
+        const filter = {
+          profileUrl,
+        };
+
+        const user = await db
+          .collection("users")
+          .findOne(filter)
+          .then((res: any) => {
+            if (!res) {
+              return {
+                status: 204,
+                message: "User not found",
+              };
+            }
+            return res;
+          });
+
+        console.log(user);
+
+        res.json(user);
+        return;
+      }
       if (pid === "viewAnotherUserByProfileUrl") {
         const filter = {
           profileUrl: req.headers.body,
@@ -37,6 +61,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.json(user);
         return;
       }
+
       let user = await db
         .collection("users")
         .findOne({ [pid]: req.headers.body });
@@ -112,3 +137,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default UserApi;

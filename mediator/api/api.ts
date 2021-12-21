@@ -1,14 +1,14 @@
-import {config} from "@constants/config";
-import {delayWithValue} from "@utils/delayValue";
-import {ApiInterface} from "types/api";
-import {Article, ArticleComment} from "types/article";
-import {NonUserProfile, User} from "types/user";
+import { config } from "@constants/config";
+import { delayWithValue } from "@utils/delayValue";
+import { ApiInterface } from "types/api";
+import { Article, ArticleComment } from "types/article";
+import { NonUserProfile, User } from "types/user";
 
 const url = config.url.API_URL;
 export class Api implements ApiInterface {
   async getUserByEmail(email: string) {
-    let getUrl = `${url}/user/email`;
-    let getObject = {
+    const getUrl = `${url}/user/email`;
+    const getObject = {
       method: "GET",
       headers: {
         body: email,
@@ -19,21 +19,19 @@ export class Api implements ApiInterface {
   }
 
   async updateUserProfile(userProfileData: User) {
-    let postUrl = `${url}/user/update`;
-    let postObject = {
+    const postUrl = `${url}/user/update`;
+    const postObject = {
       method: "POST",
       body: JSON.stringify(userProfileData),
     };
 
-    return await fetch(postUrl, postObject).then((res) =>
-        res.json()
-    );
+    return await fetch(postUrl, postObject).then((res) => res.json());
   }
 
   async addProfileUrl(email: string, profileUrl: string) {
     const postUrl = `${url}/user/addProfileUrl`;
 
-    let postObject = {
+    const postObject = {
       method: "POST",
       body: JSON.stringify({ email, profileUrl }),
     };
@@ -43,7 +41,7 @@ export class Api implements ApiInterface {
   async viewAnotherUserByProfileUrl(profileUrl: string) {
     const getUrl = `${url}/user/viewAnotherUserByProfileUrl`;
 
-    let getObject = {
+    const getObject = {
       method: "GET",
       headers: {
         body: profileUrl,
@@ -64,8 +62,8 @@ export class Api implements ApiInterface {
   }
 
   async publishArticle(article: Article) {
-    let postUrl = `${url}/article/${article.url}`;
-    let postObject = {
+    const postUrl = `${url}/article/${article.url}`;
+    const postObject = {
       method: "POST",
       body: JSON.stringify({
         article,
@@ -78,7 +76,7 @@ export class Api implements ApiInterface {
   async getArticleCommentsByArticleId(articleId: string) {
     const getUrl = `${url}/article/getArticleCommentsByArticleId`;
 
-    let getObject = {
+    const getObject = {
       method: "GET",
       headers: {
         body: articleId,
@@ -101,7 +99,7 @@ export class Api implements ApiInterface {
   async addCommentToArticle(comment: ArticleComment) {
     const postUrl = `${url}/article/addCommentToArticle`;
 
-    let postObject = {
+    const postObject = {
       method: "POST",
       body: JSON.stringify(comment),
     };
@@ -109,7 +107,15 @@ export class Api implements ApiInterface {
     return await fetch(postUrl, postObject).then((res) => res);
   }
 
-  validateProfileUrl(profileUrl: string) {
-    return delayWithValue(false);
+  async validateProfileUrl(profileUrl: string) {
+    const getUrl = `${url}/user/validateProfileUrl`;
+    const getObject = {
+      method: "GET",
+      headers: {
+        body: profileUrl,
+      },
+    };
+
+    return await fetch(getUrl, getObject).then((res) => res);
   }
 }

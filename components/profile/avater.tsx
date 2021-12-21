@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { createRef } from "react";
 import { useSession } from "next-auth/react";
 import { Camera } from "icons";
 import { useUserProfileContext } from "@providers/profile";
