@@ -1,6 +1,7 @@
 import React from "react";
 import { Article } from "types/article";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ArticleCardProps {
   article: Article;
@@ -8,7 +9,7 @@ interface ArticleCardProps {
 
 export const ArticleCard = ({ article }: ArticleCardProps) => {
   return (
-    <Link href={`/article/${article.url}`}>
+    <Link href={`/article/${article.url}`} passHref>
       <div className="max-w-3xl">
         <div className="my-4 border-t border-dotted">
           <div className=" py-4 flex">
@@ -21,7 +22,7 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
               </span>
             </div>
             <div className="min-h-full ml-auto flex items-center pt-8">
-              <img
+              <Image
                 className="w-24 h-24 object-cover rounded"
                 src={article.image}
                 alt=""

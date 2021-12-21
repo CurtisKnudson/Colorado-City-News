@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArticleComment } from "types/article";
 
 const Comment = ({
@@ -11,10 +12,11 @@ const Comment = ({
     <div key={index} className="flex items-center justify-between my-2">
       <div>{comment.comment}</div>
       <a href={`/user/${comment.authorProfileUrl}`}>
-        <img
+        <Image
           src={comment.authorImage}
           alt="User profile picture"
-          className="w-12 h-12"
+          height={48}
+          width={48}
         />
       </a>
     </div>

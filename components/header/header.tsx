@@ -13,7 +13,7 @@ export const Header = () => {
         <div className="col-span-1 flex items-center justify-center">
           <SidebarButtonCollapser open={navOpen} setOpen={setNavOpen} />
         </div>
-        <Link href="/">
+        <Link href="/" passHref>
           <div className="font-chomsky col-span-7 text-xl flex items-center justify-center cursor-pointer select-none">
             Colorado City News
           </div>

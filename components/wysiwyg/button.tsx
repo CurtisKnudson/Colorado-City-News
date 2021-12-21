@@ -5,6 +5,7 @@ interface BaseProps {
   [key: string]: unknown;
 }
 
+// eslint-disable-next-line react/display-name
 export const Button = forwardRef(
   (
     {

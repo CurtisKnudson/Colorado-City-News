@@ -2,7 +2,7 @@ import { Article, ArticleComment } from "types/article";
 import { connectToDatabase } from "database/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
   const { db } = await connectToDatabase();
   const { pid } = req.query;
 
@@ -126,3 +126,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 };
+
+export default ArticleApi;

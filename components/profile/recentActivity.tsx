@@ -1,5 +1,7 @@
+import React from "react";
 import Link from "next/link";
-import React, { useState } from "react";
+import Image from "next/image";
+
 import { ArticleComment, Article } from "types/article";
 
 interface ArticleCommentsRecentActivity extends ArticleComment {
@@ -118,7 +120,7 @@ export const RecentActivityComment = ({
 }) => {
   return (
     <div className="flex flex-col my-2 cursor-pointer">
-      <Link href={`/article/${comment.article.url}`}>
+      <Link href={`/article/${comment.article.url}`} passHref>
         <div>
           <span className="text-gray-500 body2 underline cursor-pointer">
             {comment.article.title}
@@ -138,10 +140,16 @@ export const RecentActivityArticle = ({
 }) => {
   return (
     <div className="my-2 cursor-pointer">
-      <Link href={`/article/${article.url}`}>
+      <Link href={`/article/${article.url}`} passHref>
         <div className="flex">
           <div className="w-10/12">{article.title}</div>
-          <img className="w-14 h-14" src={article.image} alt="" />
+          <Image
+            width={56}
+            height={56}
+            className="w-14 h-14"
+            src={article.image}
+            alt=" Recent Activity Article Photo"
+          />
         </div>
       </Link>
     </div>

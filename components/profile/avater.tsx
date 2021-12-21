@@ -1,4 +1,5 @@
 import React, { createRef } from "react";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Camera } from "icons";
 import { useUserProfileContext } from "@providers/profile";
@@ -46,10 +47,12 @@ export const Avatar = ({ viewOnly, nonUserImage }: AvatarProps) => {
       <>
         {nonUserImage ? (
           <div className="center-all mt-8">
-            <img
+            <Image
               src={nonUserImage}
               alt="profile picture"
-              className="h-44 w-44 rounded cursor-pointer shadow-xl hover:shadow-2xl"
+              className="rounded cursor-pointer shadow-sm hover:shadow-lg"
+              height={176}
+              width={176}
             />
           </div>
         ) : (
@@ -70,11 +73,13 @@ export const Avatar = ({ viewOnly, nonUserImage }: AvatarProps) => {
     <div className="center-all mt-8">
       {userProfileData.image ? (
         <>
-          <img
+          <Image
             src={userProfileData.image}
             alt="profile picture"
-            className="h-44 w-44 rounded cursor-pointer shadow-xl hover:shadow-2xl"
+            className="rounded cursor-pointer shadow-xl hover:shadow-2xl"
             onClick={handleImageClick}
+            width={176}
+            height={176}
           />
         </>
       ) : (
