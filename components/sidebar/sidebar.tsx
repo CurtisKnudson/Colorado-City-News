@@ -1,17 +1,15 @@
 import * as React from "react";
 import Link from "next/link";
-import { useUserProfileContext } from "@providers/profile";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
-  const [userProfileData] = useUserProfileContext();
   const { data: session } = useSession({
     required: false,
   });
 
-  const userProfileUrl = `/user/${userProfileData.profileUrl}`;
+  const userProfileUrl = `/user/${session?.user.profileUrl}`;
 
   return (
     <div>
