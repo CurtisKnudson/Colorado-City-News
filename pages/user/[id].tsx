@@ -72,8 +72,6 @@ const Profile = () => {
     return;
   };
 
-  console.log(userProfileData, session);
-
   useEffect(() => {
     if (typeof id === "string") {
       mediator.viewAnotherUserByProfileUrl(id);

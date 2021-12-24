@@ -49,6 +49,10 @@ export const UserInfo = ({
     const isValid = await mediator.validateProfileUrl(
       userProfileData.profileUrl
     );
+    if (userProfileData.profileUrl.length < 1) {
+      setProfileUrlValidation(ProfileUrlValidation.INVALID);
+      return;
+    }
     setProfileUrlValidation(isValid);
   }, [mediator, session?.user.profileUrl, userProfileData.profileUrl]);
 
