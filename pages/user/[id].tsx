@@ -12,6 +12,7 @@ import Loading from "@components/loading";
 import { NonUserProfile } from "types/user";
 import { UserNotFound } from "@components/undraw/userNotFound";
 import RecentActivity from "@components/profile/recentActivity";
+import { ProfileUrlValidation } from "@components/profile/userInfo";
 
 const Profile = () => {
   const router = useRouter();
@@ -39,7 +40,16 @@ const Profile = () => {
       };
 
       if (userProfileData.profileUrl !== session?.user.profileUrl) {
-        window.location.assign(`/user/${userProfileData.profileUrl}`);
+        await mediator
+          .validateProfileUrl(userProfileData.profileUrl)
+          .then((res) => {
+            if (res === ProfileUrlValidation.INVALID) {
+              toast.warning("Invalid Profile Url");
+              return;
+            }
+            window.location.assign(`/user/${userProfileData.profileUrl}`);
+          });
+        return;
       }
       toast
         .promise(userProfile, {

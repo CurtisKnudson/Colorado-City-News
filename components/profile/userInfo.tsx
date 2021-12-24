@@ -56,8 +56,6 @@ export const UserInfo = ({
     isValid();
   }, [isValid]);
 
-  console.log(userProfileData.profileUrl);
-
   return (
     <div className="flex flex-col mt-8">
       {viewOnly ? (
