@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useSession} from "next-auth/react";
-import {useRouter} from "next/router";
-import {Layout} from "@components/layout";
-import {Avatar, UserInfo} from "@components/profile";
-import {toast} from "react-toastify";
-import {useUserProfileContext} from "@providers/profile";
-import {useMediator} from "@mediator/providers/mediators/mediatorProvider";
-import {LOADING, NOTFOUND} from "@constants/authentication";
-import {useAsyncValue} from "@mediator/observables/hooks";
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { Layout } from "@components/layout";
+import { Avatar, UserInfo } from "@components/profile";
+import { toast } from "react-toastify";
+import { useUserProfileContext } from "@providers/profile";
+import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
+import { LOADING, NOTFOUND } from "@constants/authentication";
+import { useAsyncValue } from "@mediator/observables/hooks";
 import Loading from "@components/loading";
-import {NonUserProfile} from "types/user";
-import {UserNotFound} from "@components/undraw/userNotFound";
+import { NonUserProfile } from "types/user";
+import { UserNotFound } from "@components/undraw/userNotFound";
 import RecentActivity from "@components/profile/recentActivity";
+import { ProfileUrlValidation } from "@components/profile/userInfo";
 
 const Profile = () => {
   const router = useRouter();
@@ -28,18 +29,28 @@ const Profile = () => {
     if (userProfileData.name && userProfileData.email) {
       const userProfile = async () => {
         return await mediator
-            .updateUserProfile(userProfileData)
-            .then((res) => {
-              setUserProfileData(res);
-              return res;
-            })
-            .catch((err) => {
-              return err;
-            });
+          .updateUserProfile(userProfileData)
+          .then((res) => {
+            setUserProfileData(res);
+            return res;
+          })
+          .catch((err) => {
+            return err;
+          });
       };
-      // @ts-ignore
+
       if (userProfileData.profileUrl !== session?.user.profileUrl) {
-        window.location.assign(`/user/${userProfileData.profileUrl}`);
+        await mediator
+          .validateProfileUrl(userProfileData.profileUrl)
+          .then((res) => {
+            if (res === ProfileUrlValidation.INVALID) {
+              toast.warning("Invalid Profile Url");
+              return;
+            }
+            window.location.assign(`/user/${userProfileData.profileUrl}`);
+            return;
+          });
+        return;
       }
       toast
         .promise(userProfile, {
@@ -64,11 +75,9 @@ const Profile = () => {
     }
     if (session) {
       setIsCurrentUserProfile(
-        // @ts-ignore
         session.user?.profileUrl === undefined
           ? false
-          : // @ts-ignore
-          session.user.profileUrl === id
+          : session.user.profileUrl === id
           ? true
           : false
       );

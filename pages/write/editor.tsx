@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
 import Link from "next/link";
 import SlateEditor from "@components/wysiwyg/editor";
 import { Layout } from "@components/layout";
@@ -27,7 +27,7 @@ const EditorView = () => {
   });
 
   const handlePublish = () => {
-    let article = {
+    const article = {
       id: uuidv4(),
       author: userProfileData.name,
       authorId: userProfileData.userId,
@@ -38,6 +38,7 @@ const EditorView = () => {
         .replace(/\s+/g, "-")
         .toLowerCase(),
       ...inputData,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       content: JSON.parse(window!.localStorage!.getItem!("content")!),
     };
     window.localStorage.removeItem("content");
@@ -121,8 +122,8 @@ export const EditorInput = ({
 }: {
   placeholder: string;
   name: string;
-  value: any;
-  handleChange: any;
+  value: string | number | readonly string[] | undefined;
+  handleChange: ChangeEventHandler<HTMLInputElement> | undefined;
 }) => {
   return (
     <div className="flex items-center my-2">

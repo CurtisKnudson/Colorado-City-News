@@ -89,6 +89,7 @@ export class ObservableValue<T, TInitial = T, TError = any> {
         this._value = this.setter(value, this);
         this.valueSubject.next(value);
       } catch (e) {
+        // @ts-ignore
         this.setError(e);
       }
       return;
@@ -102,6 +103,7 @@ export class ObservableValue<T, TInitial = T, TError = any> {
         this._value = this.setter(value, this);
         this.valueSubject.next(value);
       } catch (e) {
+        // @ts-ignore
         this.setError(e);
       }
 

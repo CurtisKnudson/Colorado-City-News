@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,19 +18,50 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "./",
-      "paths": {
-        "@ccn/*": ["./"],
-        "@components/*": ["./components/*"],
-        "@modules/*": ["./styles/modules/*"],
-        "@providers/*": ["./providers/*"],
-        "@utils/*":["./utils/*"],
-        "@mediator/*": ["./mediator/*"],
-        "@constants/*": ["./constants/*"],
-        "@database/*":["./database/*"],
-        "@types/*": ["./types/*"]
-      },
+    "paths": {
+      "@ccn/*": [
+        "./"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@modules/*": [
+        "./styles/modules/*"
+      ],
+      "@providers/*": [
+        "./providers/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@mediator/*": [
+        "./mediator/*"
+      ],
+      "@constants/*": [
+        "./constants/*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ],
+      "@types/*": [
+        "./types/*"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.jsx", "**/*.js"],
-  "exclude": ["node_modules", "./yarn-error.log", "./yarn.lock", ".next", "./public/curtisknudson_files", "./public/curtisknudson.html"]
-
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.jsx",
+    "**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "./yarn-error.log",
+    "./yarn.lock",
+    ".next",
+    "./public/curtisknudson_files",
+    "./public/curtisknudson.html"
+  ]
 }

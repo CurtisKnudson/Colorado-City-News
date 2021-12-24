@@ -20,8 +20,6 @@ export interface DynamicArticleProps {
   };
 }
 
-export interface StaticPaths {}
-
 const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
   return (
     <Layout className="mx-0">
@@ -56,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { db } = await connectToDatabase();
-  const articleQuery = { url: params!.id };
+  const articleQuery = { url: params?.id };
 
   const article: DatabaseArticle = await db
     .collection("articles")

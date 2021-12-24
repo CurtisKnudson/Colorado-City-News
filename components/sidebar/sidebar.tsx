@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useUserProfileContext } from "@providers/profile";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();

@@ -4,6 +4,7 @@ import { MediatorInterface } from "types/mediator/mediator";
 import { NonUserProfile, User } from "types/user";
 import { ObservableValue } from "./observables";
 import { NOTFOUND } from "constants/authentication";
+import { ProfileUrlValidation } from "@components/profile/userInfo";
 
 export class Mediator implements MediatorInterface {
   private api: ApiInterface;
@@ -85,13 +86,12 @@ export class Mediator implements MediatorInterface {
   }
 
   async validateProfileUrl(profileUrl: string) {
-    const req = this.api.validateProfileUrl(profileUrl).then((res) => {
+    return this.api.validateProfileUrl(profileUrl).then((res) => {
       if (res.message === "User not found") {
-        return true;
+        return ProfileUrlValidation.VALID;
       }
-      return false;
+      return ProfileUrlValidation.INVALID;
     });
-    return req;
   }
 
   dispose() {
