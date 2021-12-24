@@ -6,7 +6,6 @@ import {
   Descendant,
   Editor,
   Element as SlateElement,
-  Span,
   Transforms,
 } from "slate";
 import { Editable, Slate, useSlate, withReact } from "slate-react";
@@ -75,7 +74,7 @@ const SlateEditor = ({
         setValue(value);
 
         // Save the value to Local Storage.
-        let content = JSON.stringify(value);
+        const content = JSON.stringify(value);
         localStorage.setItem("content", content);
       }}
     >

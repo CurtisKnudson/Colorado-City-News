@@ -1,8 +1,9 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import React, { useState } from "react";
 import { SidebarOpenContext } from "@providers/sidebarContext";
 import { Header } from "@components/header";
 import { Sidebar } from "@components/sidebar";
-interface Layout {
+export interface Layout {
   children?: React.ReactNode;
   className?: string;
 }

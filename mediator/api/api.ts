@@ -1,5 +1,4 @@
 import { config } from "@constants/config";
-import { delayWithValue } from "@utils/delayValue";
 import { ApiInterface } from "types/api";
 import { Article, ArticleComment } from "types/article";
 import { NonUserProfile, User } from "types/user";
@@ -116,6 +115,6 @@ export class Api implements ApiInterface {
       },
     };
 
-    return await fetch(getUrl, getObject).then((res) => res);
+    return await fetch(getUrl, getObject).then((res) => res.json());
   }
 }

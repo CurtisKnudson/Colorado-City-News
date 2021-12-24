@@ -29,7 +29,9 @@ const Comments = ({ article }: CommentsProps) => {
     mediator.articleComments
   );
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setComment(e.target.value);
   };
 
@@ -106,7 +108,13 @@ const Comments = ({ article }: CommentsProps) => {
           ></textarea>
           <Image
             className="rounded"
-            src={session ? session.user!.image! : "/no-picture.jpeg"}
+            src={
+              session
+                ? session.user.image
+                  ? session.user.image
+                  : "/no-picture.jpeg"
+                : "/no-picture.jpeg"
+            }
             alt=""
             width={48}
             height={48}

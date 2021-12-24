@@ -1,3 +1,4 @@
+import { ProfileUrlValidation } from "@components/profile/userInfo";
 import { Article, ArticleComment } from "types/article";
 import { User } from "types/user";
 
@@ -14,5 +15,5 @@ export interface MediatorInterface {
   addProfileUrl(email: string, profileUrl: string): Promise<User>;
   viewAnotherUserByProfileUrl(profileUrl: string): void;
   getAllArticles(): Promise<Article[]>;
-  validateProfileUrl(profileUrl: string): Promise<boolean>;
+  validateProfileUrl(profileUrl: string): Promise<ProfileUrlValidation>;
 }

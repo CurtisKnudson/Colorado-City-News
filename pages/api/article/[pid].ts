@@ -32,7 +32,7 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (pid === "getAllArticles") {
-      let articles: Article[] = await db
+      const articles: Article[] = await db
         .collection("articles")
         .find()
         .toArray();
@@ -52,10 +52,10 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
         profileUrl: 1,
       },
     };
-    let article = await db
+    const article = await db
       .collection("users")
       .findOne(query, options)
-      .then((res: any) => {
+      .then((res: unknown) => {
         return res;
       });
     res.json(article);
@@ -110,12 +110,12 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await db.collection("articles").insertOne(article);
 
-    let publishedArticle = await db
+    const publishedArticle = await db
       .collection("users")
       .findOneAndUpdate(publishArticleByUserId, databaseArticle, {
         returnDocument: "after",
       })
-      .then((res: any) => {
+      .then((res: unknown) => {
         res;
       })
       .catch((err: string) => {

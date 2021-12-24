@@ -1,7 +1,7 @@
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NonUserProfile } from "types/user";
 import { AdornmentInputWithValidation } from "./adornmentInputWithValidation";
 import { ProfileInput } from "./profileInput";
@@ -26,6 +26,7 @@ export const UserInfo = ({
 }: UserInfoProps) => {
   const mediator = useMediator();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
+  const { data: session } = useSession();
   const [profileUrlValidation, setProfileUrlValidation] =
     useState<ProfileUrlValidation>(ProfileUrlValidation.DEFAULT);
 
@@ -37,6 +38,25 @@ export const UserInfo = ({
       [name]: value,
     });
   };
+
+  const isValid = useCallback(async () => {
+    if (session?.user.profileUrl === userProfileData.profileUrl) {
+      setProfileUrlValidation(ProfileUrlValidation.DEFAULT);
+      return;
+    }
+    setProfileUrlValidation(ProfileUrlValidation.PENDING);
+
+    const isValid = await mediator.validateProfileUrl(
+      userProfileData.profileUrl
+    );
+    setProfileUrlValidation(isValid);
+  }, [mediator, session?.user.profileUrl, userProfileData.profileUrl]);
+
+  useEffect(() => {
+    isValid();
+  }, [isValid]);
+
+  console.log(userProfileData.profileUrl);
 
   return (
     <div className="flex flex-col mt-8">

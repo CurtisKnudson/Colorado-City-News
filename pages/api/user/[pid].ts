@@ -15,7 +15,7 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
         const user = await db
           .collection("users")
           .findOne(filter)
-          .then((res: any) => {
+          .then((res: unknown) => {
             if (!res) {
               return {
                 status: 204,
@@ -24,9 +24,6 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
             }
             return res;
           });
-
-        console.log(user);
-
         res.json(user);
         return;
       }
@@ -49,7 +46,7 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
         const user = await db
           .collection("users")
           .findOne(filter, options)
-          .then((res: any) => {
+          .then((res: unknown) => {
             if (!res) {
               return {
                 status: 204,
@@ -62,7 +59,7 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
       }
 
-      let user = await db
+      const user = await db
         .collection("users")
         .findOne({ [pid]: req.headers.body });
 
@@ -80,10 +77,10 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
             profileUrl: profileUrl,
           },
         };
-        let user = await db
+        const user = await db
           .collection("users")
           .findOneAndUpdate(filter, updateDocument, { returnDocument: "after" })
-          .then((res: any) => res);
+          .then((res: unknown) => res);
 
         res.json(user);
         return;
@@ -98,9 +95,9 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
         let dbImage = image;
 
         if (image.includes("base64")) {
-          let stringifiedImage = JSON.stringify(image.split(",")[1]);
+          const stringifiedImage = JSON.stringify(image.split(",")[1]);
 
-          let headersList = {
+          const headersList = {
             Accept: "*/*",
             Authorization: "Client-ID 1a01fef28b385f9",
           };
@@ -125,10 +122,10 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
             profileUrl: profileUrl,
           },
         };
-        let user = await db
+        const user = await db
           .collection("users")
           .findOneAndUpdate(filter, updateDocument, { returnDocument: "after" })
-          .then((res: any) => res);
+          .then((res: unknown) => res);
 
         res.json(user.value);
         return;

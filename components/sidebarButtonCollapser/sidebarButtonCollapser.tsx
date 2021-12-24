@@ -1,6 +1,6 @@
 import { Menu, MenuOpen } from "icons";
 
-interface SidebarButtonCollapser {
+export interface SidebarButtonCollapser {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
