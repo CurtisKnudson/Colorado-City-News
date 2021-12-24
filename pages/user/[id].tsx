@@ -48,6 +48,7 @@ const Profile = () => {
               return;
             }
             window.location.assign(`/user/${userProfileData.profileUrl}`);
+            return;
           });
         return;
       }
