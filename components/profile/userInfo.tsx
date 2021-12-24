@@ -93,7 +93,8 @@ export const UserInfo = ({
             onChange={handleChange}
             value={userProfileData.email}
             placeholder={userProfileData.email}
-            className="text-gray-300 w-full"
+            className="text-gray-300 w-full select-none outline-none"
+            readOnly
           />
           <AdornmentInputWithValidation
             label="Profile Url:"
