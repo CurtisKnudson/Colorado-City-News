@@ -28,6 +28,15 @@ const Profile = () => {
   const handleSave = async () => {
     if (userProfileData.name && userProfileData.email) {
       const userProfile = async () => {
+        if (userProfileData.profileUrl !== session?.user.profileUrl) {
+          await mediator
+            .validateProfileUrl(userProfileData.profileUrl)
+            .then((res) => {
+              if (res === ProfileUrlValidation.INVALID) {
+                throw new Error("Invalid Profile Url");
+              }
+            });
+        }
         return await mediator
           .updateUserProfile(userProfileData)
           .then((res) => {
@@ -38,29 +47,23 @@ const Profile = () => {
             return err;
           });
       };
-
-      if (userProfileData.profileUrl !== session?.user.profileUrl) {
-        await mediator
-          .validateProfileUrl(userProfileData.profileUrl)
-          .then((res) => {
-            if (res === ProfileUrlValidation.INVALID) {
-              toast.warning("Invalid Profile Url");
-              return;
-            }
-            window.location.assign(`/user/${userProfileData.profileUrl}`);
-            return;
-          });
-        return;
-      }
       toast
         .promise(userProfile, {
           pending: "Please wait...",
           success: "Your account has been updated! 👌",
-          error: "There was an error 🤯. Contact admin@coloradocity.news ",
+          error: {
+            render({ data }) {
+              return `${data}`;
+            },
+          },
         })
         .then((res) => {
+          if (userProfileData.profileUrl !== session?.user.profileUrl) {
+            window.location.assign(`/user/${userProfileData.profileUrl}`);
+          }
           return res;
         });
+
       return;
     }
     toast.warning(
@@ -68,6 +71,8 @@ const Profile = () => {
     );
     return;
   };
+
+  console.log(userProfileData, session);
 
   useEffect(() => {
     if (typeof id === "string") {
