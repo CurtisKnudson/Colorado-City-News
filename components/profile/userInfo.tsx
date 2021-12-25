@@ -1,5 +1,6 @@
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
+import { useIsMounted } from "hooks/useIsMounted";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { NonUserProfile } from "types/user";
@@ -25,6 +26,7 @@ export const UserInfo = ({
   nonUserProfile,
 }: UserInfoProps) => {
   const mediator = useMediator();
+  const isMounted = useIsMounted();
   const [userProfileData, setUserProfileData] = useUserProfileContext();
   const { data: session } = useSession();
   const [profileUrlValidation, setProfileUrlValidation] =
@@ -40,21 +42,37 @@ export const UserInfo = ({
   };
 
   const isValid = useCallback(async () => {
-    if (session?.user.profileUrl === userProfileData.profileUrl) {
-      setProfileUrlValidation(ProfileUrlValidation.DEFAULT);
+    if (!session) {
       return;
     }
-    setProfileUrlValidation(ProfileUrlValidation.PENDING);
+    if (!userProfileData.profileUrl) {
+      return;
+    }
+    if (session?.user.profileUrl === userProfileData.profileUrl) {
+      if (isMounted.current) {
+        setProfileUrlValidation(ProfileUrlValidation.DEFAULT);
+      }
+
+      return;
+    }
+    if (isMounted.current) {
+      setProfileUrlValidation(ProfileUrlValidation.PENDING);
+    }
 
     const isValid = await mediator.validateProfileUrl(
       userProfileData.profileUrl
     );
     if (userProfileData.profileUrl.length < 1) {
-      setProfileUrlValidation(ProfileUrlValidation.INVALID);
+      if (isMounted.current) {
+        setProfileUrlValidation(ProfileUrlValidation.INVALID);
+      }
+
       return;
     }
-    setProfileUrlValidation(isValid);
-  }, [mediator, session?.user.profileUrl, userProfileData.profileUrl]);
+    if (isMounted.current) {
+      setProfileUrlValidation(isValid);
+    }
+  }, [isMounted, mediator, session, userProfileData.profileUrl]);
 
   useEffect(() => {
     isValid();
