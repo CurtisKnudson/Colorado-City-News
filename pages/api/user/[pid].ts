@@ -86,11 +86,29 @@ const UserApi = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
       }
 
-      if (pid === "update") {
+      if (pid === "updateUserProfile") {
         const { email, name, image, profileUrl } = JSON.parse(req.body);
         const filter = {
           email: email,
         };
+
+        if (!image) {
+          const updateDocument = {
+            $set: {
+              name: name,
+              profileUrl: profileUrl,
+            },
+          };
+          const user = await db
+            .collection("users")
+            .findOneAndUpdate(filter, updateDocument, {
+              returnDocument: "after",
+            })
+            .then((res: unknown) => res);
+
+          res.json(user.value);
+          return;
+        }
 
         let dbImage = image;
 

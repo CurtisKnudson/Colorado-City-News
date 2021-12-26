@@ -18,7 +18,7 @@ export class Api implements ApiInterface {
   }
 
   async updateUserProfile(userProfileData: User) {
-    const postUrl = `${url}/user/update`;
+    const postUrl = `${url}/user/updateUserProfile`;
     const postObject = {
       method: "POST",
       body: JSON.stringify(userProfileData),
