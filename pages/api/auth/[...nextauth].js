@@ -32,35 +32,32 @@ export default async function auth(req, res) {
       jwt: true,
     },
     callbacks: {
-      // async signIn({ user, email }) {
-      //   if (email.verificationRequest) {
-      //     return true;
-      //   }
-      //   if (user.profileUrl) {
-      //     return true;
-      //   }
+      async signIn({ user, email }) {
+        const profileUrl = makeId();
+        const userId = uuidv4();
+        const query = {
+          email: user.email,
+        };
+        const newUserSchema = {
+          email: user.email,
+          profileUrl,
+          userId,
+        };
 
-      //   const filter = {
-      //     email: user.email,
-      //   };
-      //   const updateDocument = {
-      //     $set: {
-      //       test: "test",
-      //     },
-      //   };
-      //   const test = await db
-      //     .collection("users")
-      //     .findOneAndUpdate(filter, updateDocument, {
-      //       returnDocument: "after",
-      //     });
+        if (email.verificationRequest) {
+          console.log("Verification request true");
+          return true;
+        }
+        const userExists = await db.collection("users").findOne(query);
 
-      //   return true;
-      // },
+        if (userExists) {
+          return true;
+        }
+        await db.collection("users").insertOne(newUserSchema);
+        return true;
+      },
       async session({ session }) {
         const query = { email: session.user.email };
-        const profileUrl = makeId();
-        const id = uuidv4();
-
         const options = {
           projection: {
             profileUrl: 1,
@@ -69,32 +66,7 @@ export default async function auth(req, res) {
             image: 1,
           },
         };
-
-        const updateDocument = {
-          $set: {
-            profileUrl,
-            userId: id,
-          },
-        };
-
         const dbUser = await db.collection("users").findOne(query, options);
-
-        if (!dbUser.profileUrl) {
-          const dbUser = await db
-            .collection("users")
-            .findOneAndUpdate(query, updateDocument);
-          return {
-            ...session,
-            user: {
-              ...session.user,
-              profileUrl: dbUser.profileUrl,
-              userId: dbUser.userId,
-              name: dbUser.name,
-              image: dbUser.image,
-            },
-          };
-        }
-
         return {
           ...session,
           user: {
