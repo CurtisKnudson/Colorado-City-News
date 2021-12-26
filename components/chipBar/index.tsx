@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@modules/chipbar.module.css";
 import { Chip } from "./chip";
+import { chipArray } from "@constants/chipArray";
 
 export interface CategoryChip {
   name: string;
@@ -8,17 +9,6 @@ export interface CategoryChip {
 }
 
 const ChipBar = () => {
-  const chipArray: CategoryChip[] = [
-    { name: "Bulletin", id: 1 },
-    { name: "Hildale", id: 2 },
-    { name: "Centennial Park", id: 3 },
-    { name: "Bee's", id: 4 },
-    { name: "School", id: 5 },
-    { name: "Jobs", id: 6 },
-    { name: "Colorado City", id: 7 },
-    { name: "WorldNews", id: 8 },
-  ];
-
   return (
     <>
       <div
