@@ -15,6 +15,7 @@ const Article = ({ article, author }: DynamicArticleProps) => {
           height={1200}
           layout="responsive"
           alt="Article Header Image"
+          priority
         />
       </div>
       <div className="m-4">
