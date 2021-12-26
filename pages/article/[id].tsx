@@ -3,9 +3,13 @@ import { Layout } from "@components/layout";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Article as ArticleType } from "types/article";
 import Article from "@components/article";
-import Comments from "@components/comments";
 import { connectToDatabase } from "@database/mongodb";
 import { User } from "types/user";
+import dynamic from "next/dynamic";
+
+const DynamicComments = dynamic(() => import("../../components/comments"), {
+  ssr: false,
+});
 
 interface DatabaseArticle extends ArticleType {
   _id?: string;
@@ -26,7 +30,7 @@ const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
       {article && (
         <>
           <Article article={article} author={author} />
-          <Comments article={article} />
+          <DynamicComments article={article} />
         </>
       )}
     </Layout>
