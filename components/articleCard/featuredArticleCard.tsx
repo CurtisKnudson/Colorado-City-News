@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Article } from "../../types/article";
 import Link from "next/link";
+import { useLoadingBarContext } from "@providers/loadingBar/loadinBarContext";
 
 interface FeaturedArticle extends Article {
   image: string;
@@ -12,29 +13,32 @@ export const FeaturedArticleCard = ({
 }: {
   featuredArticle: FeaturedArticle;
 }) => {
+  const [, setIsLoading] = useLoadingBarContext();
   if (!featuredArticle) {
     return <GhostFeaturedArticleCard />;
   }
   return (
-    <Link href={`article/${featuredArticle.url}`} passHref>
-      <div className="cursor-pointer">
-        <Image
-          src={featuredArticle.image}
-          priority
-          width="1800"
-          height="1200"
-          alt="Featured Article Header Image"
-        />
-        <div className="flex flex-col">
-          <span className="font-lfBold text-sm my-2">
-            {featuredArticle.tags ? featuredArticle.tags[0] : "Colorado City"}
-          </span>
-          <span className="font-lfRegular text-4xl">
-            {featuredArticle.title}
-          </span>
+    <div onClick={() => setIsLoading(true)}>
+      <Link href={`article/${featuredArticle.url}`} passHref>
+        <div className="cursor-pointer">
+          <Image
+            src={featuredArticle.image}
+            priority
+            width="1800"
+            height="1200"
+            alt="Featured Article Header Image"
+          />
+          <div className="flex flex-col">
+            <span className="font-lfBold text-sm my-2">
+              {featuredArticle.tags ? featuredArticle.tags[0] : "Colorado City"}
+            </span>
+            <span className="font-lfRegular text-4xl">
+              {featuredArticle.title}
+            </span>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

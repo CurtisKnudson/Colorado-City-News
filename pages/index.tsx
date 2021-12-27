@@ -6,6 +6,8 @@ import { Article } from "types/article";
 import { useAsyncValue } from "@mediator/observables/hooks";
 import { Layout } from "@components/layout";
 import { useSelectedTag } from "@providers/tags/selectedTagContext";
+import { LoadingBar } from "@components/loadingBar";
+import { useLoadingBarContext } from "@providers/loadingBar/loadinBarContext";
 
 const DynamicChipBar = dynamic(() => import("../components/chipBar"), {
   ssr: false,
@@ -22,6 +24,7 @@ const FrontPage = () => {
     mediator.featuredArticle
   );
   const [tag] = useSelectedTag();
+  const [, setIsLoading] = useLoadingBarContext();
 
   useEffect(() => {
     mediator.getAllArticles().then((res) => {
@@ -32,12 +35,13 @@ const FrontPage = () => {
       const articlesWithoutFeatured = res.splice(1);
       setArticles(articlesWithoutFeatured);
     });
-    console.log(tag);
-  }, [mediator, tag]);
+    setIsLoading(false);
+  }, [mediator, setIsLoading, tag]);
 
   return (
     <>
       <Layout>
+        <LoadingBar />
         <DynamicChipBar />
         {tag ? null : <FeaturedArticleCard featuredArticle={featuredArticle} />}
         <Articles articles={articles} tag={tag} />

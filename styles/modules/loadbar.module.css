@@ -1,0 +1,22 @@
+.shine {
+  background:rgb(2, 0, 36);
+  background-image: linear-gradient(to right, #020024 0%, #02164e 20%, #18268c 40%, #6b38fb 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 104px; 
+
+  -webkit-animation-duration: 2s;
+  -webkit-animation-fill-mode: forwards; 
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: placeholderShimmer;
+  -webkit-animation-timing-function: linear;
+  }
+
+  @-webkit-keyframes placeholderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  
+  100% {
+    background-position: 468px 0; 
+  }
+}
