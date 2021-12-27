@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ApiProvider from "@mediator/providers/api/apiProvider";
 import MediatorProvider from "@mediator/providers/mediators/mediatorProvider";
 import EditorInputDataContext from "@providers/editor/editorInputContext";
+import SelectedTagContext from "@providers/tags/selectedTagContext";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -19,8 +20,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <MediatorProvider>
           <UserProfileContext>
             <EditorInputDataContext>
-              <ToastContainer />
-              <Component {...pageProps} />
+              <SelectedTagContext>
+                <ToastContainer />
+                <Component {...pageProps} />
+              </SelectedTagContext>
             </EditorInputDataContext>
           </UserProfileContext>
         </MediatorProvider>
