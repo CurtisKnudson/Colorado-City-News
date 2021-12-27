@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useLoadingBarContext } from "@providers/loadingBar/loadinBarContext";
-
-import styles from "@modules/loadBar.module.css";
+import styles from "../../styles/modules/loadbar.module.css";
 
 export const LoadingBar = () => {
   const [isLoading] = useLoadingBarContext();
