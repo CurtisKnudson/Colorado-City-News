@@ -2,14 +2,16 @@ import React from "react";
 import { Article } from "types/article";
 import Link from "next/link";
 import Image from "next/image";
+import { useLoadingBarContext } from "@providers/loadingBar/loadinBarContext";
 
 interface ArticleCardProps {
   article: Article;
 }
 
 export const ArticleCard = ({ article }: ArticleCardProps) => {
+  const [, setIsLoading] = useLoadingBarContext();
   return (
-    <div>
+    <div onClick={() => setIsLoading(true)}>
       <Link href={`/article/${article.url}`} passHref>
         <div className="max-w-3xl">
           <div className="my-4 border-t border-dotted">

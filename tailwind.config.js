@@ -16,6 +16,7 @@ module.exports = {
     "./components/header/header.tsx",
     "./components/layout/layout.tsx",
     "./components/loading/index.tsx",
+    "./components/loadingBar/index.tsx",
     "./components/profile/avater.tsx",
     "./components/profile/userInfo.tsx",
     "./components/profile/recentActivity.tsx",
