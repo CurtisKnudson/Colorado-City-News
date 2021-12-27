@@ -7,7 +7,7 @@ import styles from "@modules/chipbar.module.css";
 export const EditorChipBar = () => {
   return (
     <>
-      <div className="my-2">Select a Tag:</div>
+      <div className="my-2">Select Tag(s):</div>
       <div
         className={`h-6 mb-6 flex overflow-auto whitespace-nowrap scrollbar-visibility-none ${styles.chipbar}`}
       >
