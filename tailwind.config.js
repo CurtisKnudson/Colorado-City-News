@@ -5,6 +5,7 @@ module.exports = {
     "./components/article/index.tsx",
     "./components/articleCard/articleCard.tsx",
     "./components/articleCard/featuredArticleCard.tsx",
+    "./components/articleCard/articles.tsx",
     "/components/authentication/needsAuthentication.tsx",
     "/components/authentication/components/signIn.tsx",
     "./components/chipBar/chip.tsx",

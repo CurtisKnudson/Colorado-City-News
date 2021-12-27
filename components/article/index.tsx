@@ -71,11 +71,11 @@ export const AuthorCard = ({
         alt="Author Image"
         width={48}
         height={48}
-        className="rounded"
+        className="rounded-full"
       />
       <span className="mx-4 subtitle2">
         <span className="text-gray-600">by</span>
-        <span className=" text-lg border-b-2 font-bold border-gray-600 mx-2 cursor-pointer">
+        <span className=" text-md border-b-2 font-bold border-gray-600 mx-2 cursor-pointer">
           <Link href={`/user/${profileUrl}`}>{name}</Link>
         </span>
       </span>
