@@ -61,7 +61,7 @@ export class Api implements ApiInterface {
   }
 
   async publishArticle(article: Article) {
-    const postUrl = `${url}/article/${article.url}`;
+    const postUrl = `${url}/article/publishArticle`;
     const postObject = {
       method: "POST",
       body: JSON.stringify({

@@ -7,6 +7,7 @@ export interface Article {
   subTitle: string;
   image: string;
   readTime: string;
+  tags?: string[];
   content: any;
   url: string;
 }

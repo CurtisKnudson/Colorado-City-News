@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { EditorChipBar } from "@components/chipBar/editorChipBar";
 import { useEditorInputData } from "@providers/editor/editorInputContext";
+import { Article } from "types/article";
 
 const EditorView = () => {
   const { data: session } = useSession();
@@ -19,7 +20,7 @@ const EditorView = () => {
   console.log(inputData);
 
   const handlePublish = () => {
-    const article = {
+    const article: Article = {
       id: uuidv4(),
       author: userProfileData.name,
       authorId: userProfileData.userId,
@@ -34,15 +35,6 @@ const EditorView = () => {
       content: JSON.parse(window!.localStorage!.getItem!("content")!),
     };
     window.localStorage.removeItem("content");
-    if (
-      !article.title ||
-      !article.subTitle ||
-      !article.image ||
-      !article.readTime
-    ) {
-      toast.error("Please fill out all fields");
-      return;
-    }
 
     toast.promise(mediator.publishArticle(article), {
       pending: "Please wait...",
