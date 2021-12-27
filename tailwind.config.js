@@ -116,7 +116,7 @@ module.exports = {
         },
         ".h3Headline": {
           fontFamily: "Merriweather-Black-Italic",
-          fontSize: "48px",
+          fontSize: "36px",
         },
         ".h2Headline": {
           fontFamily: "Libre-Franklin-Light",
