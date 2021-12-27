@@ -17,8 +17,6 @@ const EditorView = () => {
   const [userProfileData] = useUserProfileContext();
   const [inputData, setInputData] = useEditorInputData();
 
-  console.log(inputData);
-
   const handlePublish = () => {
     const article: Article = {
       id: uuidv4(),

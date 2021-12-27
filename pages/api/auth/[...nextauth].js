@@ -45,7 +45,6 @@ export default async function auth(req, res) {
         };
 
         if (email.verificationRequest) {
-          console.log("Verification request true");
           return true;
         }
         const userExists = await db.collection("users").findOne(query);

@@ -42,7 +42,6 @@ export const EditorChip = ({ chipLabel }: EditorChipProps) => {
     }
     setSelected(!selected);
   };
-  console.log(inputData);
   return (
     <>
       <div
