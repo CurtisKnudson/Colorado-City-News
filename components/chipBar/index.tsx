@@ -4,7 +4,7 @@ import { Chip } from "./chip";
 import { chipArray } from "@constants/chipArray";
 
 export interface CategoryChip {
-  name: string;
+  label: string;
   id: number;
 }
 
@@ -18,7 +18,7 @@ const ChipBar = () => {
           .map((chip) => ({ ...chip, sort: Math.random() }))
           .sort((a, b) => a.sort - b.sort)
           .map((chip) => {
-            return <Chip name={chip.name} key={chip.id} />;
+            return <Chip chipLabel={chip.label} key={chip.id} />;
           })}
       </div>
     </>
