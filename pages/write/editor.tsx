@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler } from "react";
 import Link from "next/link";
 import SlateEditor from "@components/wysiwyg/editor";
 import { Layout } from "@components/layout";
@@ -7,27 +7,20 @@ import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
 import { useUserProfileContext } from "@providers/profile";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
-
-export interface InputData {
-  title: string;
-  subTitle: string;
-  image: string;
-  readTime: string;
-}
+import { EditorChipBar } from "@components/chipBar/editorChipBar";
+import { useEditorInputData } from "@providers/editor/editorInputContext";
+import { Article } from "types/article";
 
 const EditorView = () => {
   const { data: session } = useSession();
   const mediator = useMediator();
   const [userProfileData] = useUserProfileContext();
-  const [inputData, setInputData] = useState<InputData>({
-    title: "",
-    subTitle: "",
-    image: "",
-    readTime: "",
-  });
+  const [inputData, setInputData] = useEditorInputData();
+
+  console.log(inputData);
 
   const handlePublish = () => {
-    const article = {
+    const article: Article = {
       id: uuidv4(),
       author: userProfileData.name,
       authorId: userProfileData.userId,
@@ -42,15 +35,6 @@ const EditorView = () => {
       content: JSON.parse(window!.localStorage!.getItem!("content")!),
     };
     window.localStorage.removeItem("content");
-    if (
-      !article.title ||
-      !article.subTitle ||
-      !article.image ||
-      !article.readTime
-    ) {
-      toast.error("Please fill out all fields");
-      return;
-    }
 
     toast.promise(mediator.publishArticle(article), {
       pending: "Please wait...",
@@ -97,6 +81,7 @@ const EditorView = () => {
               value={inputData.readTime}
               handleChange={handleChange}
             />
+            <EditorChipBar />
           </div>
 
           <SlateEditor />
@@ -107,7 +92,8 @@ const EditorView = () => {
           <Link href="/">Return To Home</Link>
         </>
       )}
-      <button className="border cursor-pointer" onClick={handlePublish}>
+      <hr className="mt-4" />
+      <button className="border cursor-pointer mt-8" onClick={handlePublish}>
         PUBLISH
       </button>
     </Layout>

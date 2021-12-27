@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ApiProvider from "@mediator/providers/api/apiProvider";
 import MediatorProvider from "@mediator/providers/mediators/mediatorProvider";
+import EditorInputDataContext from "@providers/editor/editorInputContext";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -17,8 +18,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <ApiProvider>
         <MediatorProvider>
           <UserProfileContext>
-            <ToastContainer />
-            <Component {...pageProps} />
+            <EditorInputDataContext>
+              <ToastContainer />
+              <Component {...pageProps} />
+            </EditorInputDataContext>
           </UserProfileContext>
         </MediatorProvider>
       </ApiProvider>

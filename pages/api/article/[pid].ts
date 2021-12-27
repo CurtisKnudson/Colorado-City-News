@@ -95,34 +95,36 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
       res.json(request);
       return;
     }
+    if (pid === "publishArticle") {
+      // Logic for publishing a new article
+      const { article }: { article: Article } = JSON.parse(req.body);
+      const publishArticleByUserId = {
+        userId: article.authorId,
+      };
 
-    // Logic for publishing a new article
-    const { article }: { article: Article } = JSON.parse(req.body);
-    const publishArticleByUserId = {
-      userId: article.authorId,
-    };
+      const databaseArticle = {
+        $push: {
+          publishedArticles: article,
+        },
+      };
 
-    const databaseArticle = {
-      $push: {
-        publishedArticles: article,
-      },
-    };
+      await db.collection("articles").insertOne(article);
 
-    await db.collection("articles").insertOne(article);
+      const publishedArticle = await db
+        .collection("users")
+        .findOneAndUpdate(publishArticleByUserId, databaseArticle, {
+          returnDocument: "after",
+        })
+        .then((res: unknown) => {
+          res;
+        })
+        .catch((err: string) => {
+          throw new Error(err);
+        });
 
-    const publishedArticle = await db
-      .collection("users")
-      .findOneAndUpdate(publishArticleByUserId, databaseArticle, {
-        returnDocument: "after",
-      })
-      .then((res: unknown) => {
-        res;
-      })
-      .catch((err: string) => {
-        throw new Error(err);
-      });
-
-    res.json(publishedArticle);
+      res.json(publishedArticle);
+      return;
+    }
     return;
   }
 };

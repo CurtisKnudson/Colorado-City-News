@@ -30,7 +30,7 @@ const UserProfileContext: React.FC = ({ children }: any) => {
         setUserProfileData(res);
       });
     }
-  }, [session]);
+  }, [mediator, session]);
 
   return (
     <context.Provider value={[userProfileData, setUserProfileData]}>
