@@ -11,9 +11,7 @@ export const context = React.createContext<
 export const useUserProfileContext = makeContextHook(context);
 
 const UserProfileContext: React.FC = ({ children }: any) => {
-  const { data: session } = useSession({
-    required: false,
-  });
+  const { data: session } = useSession();
   const mediator = useMediator();
   const [userProfileData, setUserProfileData] = useState<User>({
     _id: "",

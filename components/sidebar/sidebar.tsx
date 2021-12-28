@@ -6,9 +6,7 @@ import { useUserProfileContext } from "@providers/profile";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
-  const { data: session } = useSession({
-    required: false,
-  });
+  const { data: session } = useSession();
 
   const [userProfileData] = useUserProfileContext();
 
