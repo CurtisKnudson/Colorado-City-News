@@ -52,8 +52,6 @@ const EditorView = () => {
       [name]: value,
     });
   };
-
-  console.log(session);
   if (status === "loading") {
     return <Loading />;
   }
