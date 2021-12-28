@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import isHotkey from "is-hotkey";
 import {
   createEditor,
@@ -26,6 +26,8 @@ import {
   Ol,
 } from "icons";
 
+import styles from "@modules/editor.module.css";
+
 type CustomElement = { type: "paragraph"; children: CustomText[] };
 type CustomText = { text: string };
 
@@ -42,6 +44,7 @@ const HOTKEYS = {
   "mod+i": "italic",
   "mod+u": "underline",
   "mod+`": "code",
+  "mod+5": "dropCap",
 };
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
@@ -60,12 +63,22 @@ const SlateEditor = ({
   readOnly?: boolean;
   content?: CustomElement[];
 }) => {
+  const [localStorageContent, setLocalStorageContent] =
+    useState<Descendant[]>(initialValue);
   const [value, setValue] = useState<Descendant[]>(
-    readOnly ? (content ? content : initialValue) : initialValue
+    readOnly ? (content ? content : initialValue) : localStorageContent
   );
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+
+  useEffect(() => {
+    const localStorageContent: Descendant[] = JSON.parse(
+      // @ts-ignore
+      window.localStorage.getItem("content")
+    );
+    setLocalStorageContent(localStorageContent);
+  }, []);
   return (
     <Slate
       editor={editor}
@@ -107,7 +120,7 @@ const SlateEditor = ({
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          placeholder="Enter some rich text..."
+          placeholder="Write your article here..."
           onKeyDown={(event) => {
             for (const hotkey in HOTKEYS) {
               if (isHotkey(hotkey, event as any)) {
@@ -238,7 +251,9 @@ export const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.underline) {
     children = <u>{children}</u>;
   }
-
+  if (leaf.dropCap) {
+    children = <span className={`${styles.firstCharacter}`}>{children}</span>;
+  }
   return <span {...attributes}>{children}</span>;
 };
 

@@ -13,9 +13,7 @@ import { Article } from "types/article";
 import Loading from "@components/loading";
 
 const EditorView = () => {
-  const { data: session, status } = useSession({
-    required: true,
-  });
+  const { data: session, status } = useSession();
   const mediator = useMediator();
   const [userProfileData] = useUserProfileContext();
   const [inputData, setInputData] = useEditorInputData();

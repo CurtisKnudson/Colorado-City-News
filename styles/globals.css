@@ -41,7 +41,7 @@
 @font-face {
   font-family: "Merriweather-Black-Italic";
   src: url("../fonts/Merriweather/Merriweather-BlackItalic.ttf");
-  font-weight: 700;
+  font-weight: 900;
 }
 
 @font-face {
@@ -66,3 +66,5 @@
   src: url("../fonts/Merriweather/Merriweather-Light.ttf");
   font-weight: 500;
 }
+
+
