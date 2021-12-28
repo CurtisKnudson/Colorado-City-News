@@ -29,8 +29,6 @@ export const Articles = ({ articles, tag }: ArticlesProps) => {
     }
   }, [articles, tag]);
 
-  console.log(articlesWithTag);
-
   return (
     <>
       {articlesWithTag &&
