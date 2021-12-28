@@ -138,6 +138,16 @@ module.exports = {
         ".merriweather-light": {
           fontFamily: "Merriweather-Light",
         },
+        ".dropT": {
+          color: "black",
+          float: "left",
+          fontSize: "6rem",
+          lineHeight: "60px",
+          paddingTop: "1rem",
+          fontWeight: "900",
+          marginRight: "1rem",
+          fontFamily: "Merriweather-Black-Italic",
+        },
       };
 
       addUtilities(newUtilities);

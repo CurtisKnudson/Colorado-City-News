@@ -26,8 +26,6 @@ import {
   Ol,
 } from "icons";
 
-import styles from "@modules/editor.module.css";
-
 type CustomElement = { type: "paragraph"; children: CustomText[] };
 type CustomText = { text: string };
 
@@ -252,7 +250,7 @@ export const Leaf = ({ attributes, children, leaf }) => {
     children = <u>{children}</u>;
   }
   if (leaf.dropCap) {
-    children = <span className={`${styles.firstCharacter}`}>{children}</span>;
+    children = <span className="dropT">{children}</span>;
   }
   return <span {...attributes}>{children}</span>;
 };
