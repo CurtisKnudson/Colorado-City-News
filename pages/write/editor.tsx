@@ -10,9 +10,12 @@ import { v4 as uuidv4 } from "uuid";
 import { EditorChipBar } from "@components/chipBar/editorChipBar";
 import { useEditorInputData } from "@providers/editor/editorInputContext";
 import { Article } from "types/article";
+import Loading from "@components/loading";
 
 const EditorView = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession({
+    required: true,
+  });
   const mediator = useMediator();
   const [userProfileData] = useUserProfileContext();
   const [inputData, setInputData] = useEditorInputData();
@@ -50,9 +53,14 @@ const EditorView = () => {
     });
   };
 
+  console.log(session);
+  if (status === "loading") {
+    return <Loading />;
+  }
+
   return (
     <Layout>
-      {session ? (
+      {session?.user.isWriter ? (
         <>
           <div className="flex flex-col">
             <EditorInput
@@ -83,17 +91,25 @@ const EditorView = () => {
           </div>
 
           <SlateEditor />
+
+          <hr className="mt-4" />
+          <button
+            className="border cursor-pointer mt-8"
+            onClick={handlePublish}
+          >
+            PUBLISH
+          </button>
         </>
       ) : (
-        <>
-          <div>You must be signed in to access the editor</div>
-          <Link href="/">Return To Home</Link>
-        </>
+        <div className="center-all flex flex-col h-screen pb-32">
+          <div>
+            You must be an Author with Colorado City News to access the editor
+          </div>
+          <Link href="/" passHref>
+            <a className="underline accent mt-8">Return To Home</a>
+          </Link>
+        </div>
       )}
-      <hr className="mt-4" />
-      <button className="border cursor-pointer mt-8" onClick={handlePublish}>
-        PUBLISH
-      </button>
     </Layout>
   );
 };

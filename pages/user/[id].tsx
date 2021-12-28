@@ -17,7 +17,9 @@ import { ProfileUrlValidation } from "@components/profile/userInfo";
 const Profile = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { status, data: session } = useSession();
+  const { status, data: session } = useSession({
+    required: true,
+  });
   const [userProfileData, setUserProfileData] = useUserProfileContext();
   const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
   const mediator = useMediator();

@@ -24,7 +24,7 @@ const FrontPage = () => {
     mediator.featuredArticle
   );
   const [tag] = useSelectedTag();
-  const [isLoading, setIsLoading] = useLoadingBarContext();
+  const [, setIsLoading] = useLoadingBarContext();
 
   useEffect(() => {
     mediator.getAllArticles().then((res) => {
@@ -33,10 +33,8 @@ const FrontPage = () => {
   }, [mediator]);
 
   useEffect(() => {
-    if (isLoading) {
-      setIsLoading(false);
-    }
-  }, [isLoading, setIsLoading]);
+    setIsLoading(false);
+  }, [setIsLoading]);
 
   return (
     <>

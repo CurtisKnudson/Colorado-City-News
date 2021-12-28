@@ -12,6 +12,8 @@ declare module "next-auth" {
       profileUrl?: string;
       userId?: string;
       _id: string;
+      isWriter: boolean;
+      isAdmin: boolean;
     };
   }
 }
