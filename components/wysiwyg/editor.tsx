@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import isHotkey from "is-hotkey";
 import {
   createEditor,
@@ -63,16 +63,22 @@ const SlateEditor = ({
   readOnly?: boolean;
   content?: CustomElement[];
 }) => {
-  const localStorageContent: Descendant[] = JSON.parse(
-    // @ts-ignore
-    localStorage.getItem("content")
-  );
+  const [localStorageContent, setLocalStorageContent] =
+    useState<Descendant[]>(initialValue);
   const [value, setValue] = useState<Descendant[]>(
     readOnly ? (content ? content : initialValue) : localStorageContent
   );
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+
+  useEffect(() => {
+    const localStorageContent: Descendant[] = JSON.parse(
+      // @ts-ignore
+      window.localStorage.getItem("content")
+    );
+    setLocalStorageContent(localStorageContent);
+  }, []);
   return (
     <Slate
       editor={editor}
