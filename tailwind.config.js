@@ -36,7 +36,7 @@ module.exports = {
     "./pages/index.tsx",
     "./pages/article/[id].tsx",
     "./pages/user/[id].tsx",
-    "./pages/write/editor.jsx",
+    "./pages/write/editor.tsx",
     "./views/article.tsx",
   ],
   darkMode: "media", // or 'media' or 'class'

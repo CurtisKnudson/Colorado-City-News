@@ -12,7 +12,6 @@ export interface CategoryChip {
 const ChipBar = () => {
   const [selected, setSelected] = useState<string | undefined>();
   const [tag] = useSelectedTag();
-
   const handleSelected = (chipLabel: string) => {
     if (selected === chipLabel) {
       setSelected(undefined);

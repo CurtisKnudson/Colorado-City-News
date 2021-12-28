@@ -10,12 +10,17 @@ interface ArticleCardProps {
 
 export const ArticleCard = ({ article }: ArticleCardProps) => {
   const [, setIsLoading] = useLoadingBarContext();
+
   return (
-    <div onClick={() => setIsLoading(true)}>
+    <div
+      onClick={() => {
+        setIsLoading(true);
+      }}
+    >
       <Link href={`/article/${article.url}`} passHref>
         <div className="max-w-3xl">
           <div className="my-4 border-t border-dotted">
-            <div className=" py-4 flex">
+            <div className=" flex">
               <div className="flex flex-col  w-8/12   ">
                 <span className="py-2 uppercase font-extrabold text-sm font-Category">
                   {article.tags ? article.tags[0] : "Colorado City"}

@@ -28,15 +28,13 @@ const FrontPage = () => {
 
   useEffect(() => {
     mediator.getAllArticles().then((res) => {
-      if (tag) {
-        setArticles(res.filter((article) => article.tags?.includes(tag)));
-        return;
-      }
-      const articlesWithoutFeatured = res.splice(1);
-      setArticles(articlesWithoutFeatured);
+      setArticles(res);
     });
+  }, [mediator]);
+
+  useEffect(() => {
     setIsLoading(false);
-  }, [mediator, setIsLoading, tag]);
+  }, [setIsLoading]);
 
   return (
     <>

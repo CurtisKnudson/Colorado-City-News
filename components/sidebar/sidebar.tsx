@@ -2,12 +2,15 @@ import * as React from "react";
 import Link from "next/link";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useUserProfileContext } from "@providers/profile";
 
 export const Sidebar = ({ children }: any) => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
   const { data: session } = useSession({
     required: false,
   });
+
+  const [userProfileData] = useUserProfileContext();
 
   const userProfileUrl = `/user/${session?.user.profileUrl}`;
 
@@ -40,11 +43,14 @@ export const Sidebar = ({ children }: any) => {
                 label="Profile"
                 setNavOpen={setNavOpen}
               />
-              <MenuItem
-                url="/write/editor"
-                label="Editor"
-                setNavOpen={setNavOpen}
-              />
+              {userProfileData.isWriter ? (
+                <MenuItem
+                  url="/write/editor"
+                  label="Editor"
+                  setNavOpen={setNavOpen}
+                />
+              ) : null}
+
               <hr className="mt-8" />
 
               <button onClick={() => signOut()}>Sign Out</button>

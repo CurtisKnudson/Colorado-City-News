@@ -29,7 +29,7 @@ export const FeaturedArticleCard = ({
             alt="Featured Article Header Image"
           />
           <div className="flex flex-col">
-            <span className="font-lfBold text-sm my-2">
+            <span className="font-Category font-extrabold text-sm my-2 uppercase">
               {featuredArticle.tags ? featuredArticle.tags[0] : "Colorado City"}
             </span>
             <span className="font-lfRegular text-4xl">

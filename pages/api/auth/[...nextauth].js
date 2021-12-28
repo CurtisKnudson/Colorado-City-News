@@ -42,6 +42,8 @@ export default async function auth(req, res) {
           email: user.email,
           profileUrl,
           userId,
+          isAuthor: false,
+          isWriter: false,
         };
 
         if (email.verificationRequest) {
@@ -63,6 +65,8 @@ export default async function auth(req, res) {
             userId: 1,
             name: 1,
             image: 1,
+            isAdmin: 1,
+            isWriter: 1,
           },
         };
         const dbUser = await db.collection("users").findOne(query, options);
@@ -74,6 +78,8 @@ export default async function auth(req, res) {
             userId: dbUser.userId,
             name: dbUser.name,
             image: dbUser.image,
+            isAdmin: dbUser.isAdmin,
+            isWriter: dbUser.isWriter,
           },
         };
       },

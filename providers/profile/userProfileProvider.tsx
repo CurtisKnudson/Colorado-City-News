@@ -22,6 +22,8 @@ const UserProfileContext: React.FC = ({ children }: any) => {
     image: "",
     profileUrl: "",
     userId: "",
+    isAdmin: false,
+    isWriter: false,
   });
 
   useEffect(() => {

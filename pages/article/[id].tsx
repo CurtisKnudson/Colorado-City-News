@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout } from "@components/layout";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Article as ArticleType } from "types/article";
@@ -6,6 +6,7 @@ import Article from "@components/article";
 import { connectToDatabase } from "@database/mongodb";
 import { User } from "types/user";
 import dynamic from "next/dynamic";
+import { useSelectedTag } from "@providers/tags/selectedTagContext";
 
 const DynamicComments = dynamic(() => import("../../components/comments"), {
   ssr: false,
@@ -25,6 +26,13 @@ export interface DynamicArticleProps {
 }
 
 const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
+  const [tag, setTag] = useSelectedTag();
+
+  useEffect(() => {
+    if (tag) {
+      setTag(undefined);
+    }
+  }, [setTag, tag]);
   return (
     <Layout className="mx-0">
       {article && (
