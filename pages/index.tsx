@@ -24,16 +24,19 @@ const FrontPage = () => {
     mediator.featuredArticle
   );
   const [tag] = useSelectedTag();
-  const [, setIsLoading] = useLoadingBarContext();
+  const [isLoading, setIsLoading] = useLoadingBarContext();
 
   useEffect(() => {
     mediator.getAllArticles().then((res) => {
-      const spliced = res.splice(1);
-      const weirdBugWorkAroundThatIShouldNotBeProudOf = [...res, ...spliced];
-      setArticles(weirdBugWorkAroundThatIShouldNotBeProudOf);
+      setArticles(res);
     });
-    setIsLoading(false);
-  }, [mediator, setIsLoading, tag]);
+  }, [mediator]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(false);
+    }
+  }, [isLoading, setIsLoading]);
 
   return (
     <>

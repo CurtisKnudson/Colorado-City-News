@@ -9,6 +9,8 @@ export interface User {
   publishedArticles?: any[];
   profileUrl: string;
   userId: string;
+  isAdmin: boolean;
+  isWriter: boolean;
 }
 
 export interface NonUserProfile {

@@ -42,6 +42,8 @@ export default async function auth(req, res) {
           email: user.email,
           profileUrl,
           userId,
+          isAuthor: false,
+          isWriter: false,
         };
 
         if (email.verificationRequest) {
