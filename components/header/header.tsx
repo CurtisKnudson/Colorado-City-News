@@ -3,9 +3,11 @@ import { SidebarButtonCollapser } from "@components/sidebarButtonCollapser";
 import useSideBarOpenContext from "@providers/sidebarContext";
 import Link from "next/link";
 import { Search } from "icons";
+import { useSelectedTag } from "@providers/tags/selectedTagContext";
 
 export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
+  const [tag, setTag] = useSelectedTag();
   return (
     <div className="mx-4 h-16 grid grid-cols-12">
       <div className="col-span-1 flex items-center justify-center">
@@ -17,6 +19,9 @@ export const Header = () => {
           <a
             onClick={(e) => {
               e.stopPropagation(), e.nativeEvent.stopImmediatePropagation();
+              if (tag) {
+                setTag(undefined);
+              }
             }}
             className="cursor-pointer"
           >

@@ -8,5 +8,5 @@ export const chipArray: CategoryChip[] = [
   { label: "School", id: 5 },
   { label: "Jobs", id: 6 },
   { label: "Colorado City", id: 7 },
-  { label: "WorldNews", id: 8 },
+  { label: "World News", id: 8 },
 ];

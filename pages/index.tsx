@@ -28,12 +28,9 @@ const FrontPage = () => {
 
   useEffect(() => {
     mediator.getAllArticles().then((res) => {
-      if (tag) {
-        setArticles(res.filter((article) => article.tags?.includes(tag)));
-        return;
-      }
-      const articlesWithoutFeatured = res.splice(1);
-      setArticles(articlesWithoutFeatured);
+      const spliced = res.splice(1);
+      const weirdBugWorkAroundThatIShouldNotBeProudOf = [...res, ...spliced];
+      setArticles(weirdBugWorkAroundThatIShouldNotBeProudOf);
     });
     setIsLoading(false);
   }, [mediator, setIsLoading, tag]);

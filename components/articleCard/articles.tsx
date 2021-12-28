@@ -9,10 +9,14 @@ interface ArticlesProps {
 }
 
 export const Articles = ({ articles, tag }: ArticlesProps) => {
+  const articlesWithTags = tag
+    ? articles?.filter((article) => article.tags?.includes(tag))
+    : articles?.splice(1);
+
   return (
     <>
-      {articles &&
-        articles.map((article: Article, index) => {
+      {articlesWithTags &&
+        articlesWithTags.map((article: Article, index) => {
           return <ArticleCard article={article} key={index} />;
         })}
       {tag && (
