@@ -42,6 +42,20 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     }
 
+    if (pid === "doesArticleUrlExist") {
+      const query = { url: req.headers.body };
+
+      const article = await db.collection("articles").findOne(query);
+
+      if (article) {
+        res.json({ message: "Article already exists" });
+        return;
+      }
+
+      res.json({ message: "Article does not exist" });
+      return;
+    }
+
     const query = { "publishedArticles.url": pid };
     const options = {
       projection: {

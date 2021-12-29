@@ -60,6 +60,17 @@ export class Api implements ApiInterface {
     return articles;
   }
 
+  async doesArticleUrlExist(articleUrlToSearch: string) {
+    const getUrl = `${url}/article/doesArticleUrlExist`;
+    const getObject = {
+      method: "GET",
+      headers: {
+        body: articleUrlToSearch,
+      },
+    };
+    return await fetch(getUrl, getObject).then((res) => res.json());
+  }
+
   async publishArticle(article: Article) {
     const postUrl = `${url}/article/publishArticle`;
     const postObject = {
