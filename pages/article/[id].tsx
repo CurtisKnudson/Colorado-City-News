@@ -7,6 +7,7 @@ import { connectToDatabase } from "@database/mongodb";
 import { User } from "types/user";
 import dynamic from "next/dynamic";
 import { useSelectedTag } from "@providers/tags/selectedTagContext";
+import Head from "next/head";
 
 const DynamicComments = dynamic(() => import("../../components/comments"), {
   ssr: false,
@@ -33,10 +34,29 @@ const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
       setTag(undefined);
     }
   }, [setTag, tag]);
+
   return (
     <Layout className="mx-0">
       {article && (
         <>
+          <Head>
+            <title>{article.title}</title>
+            <meta property="og: type" content="article"></meta>
+            <meta property="og:title" content={article.title} />
+            <meta property="og:image" content={article.image} />
+            <meta name="description" content={article.subTitle} />
+            <meta property="og:description" content={article.subTitle} />
+            <meta
+              property="og:url"
+              content={`https://colorado-city-news-dev.vercel.app/article/${article.url}`}
+            />
+            <meta
+              property="twitter:card"
+              content={`https://colorado-city-news-dev.vercel.app/article/${article.url}`}
+            />
+            <meta property="og:site_name" content="Colorado City News" />
+            <meta name="robots" content="index, follow" />
+          </Head>
           <Article article={article} author={author} />
           <DynamicComments article={article} />
         </>
