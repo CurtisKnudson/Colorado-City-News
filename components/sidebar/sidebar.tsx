@@ -4,7 +4,6 @@ import { useUserProfileContext } from "@providers/profile";
 import { useSideBarOpenContext } from "@providers/sidebar/sidebarOpenProvider";
 import { MenuItem } from "./menuItem";
 import { useState } from "react";
-import Link from "next/link";
 
 export interface MenuItem {
   label: string;
@@ -53,31 +52,34 @@ export const Sidebar = ({ children }: any) => {
         } fixed `}
       >
         <div className="flex flex-col pl-4 mt-12">
+          <div>
+            {menuItemsArray.map((item, index) => {
+              return (
+                <MenuItem
+                  url={item.url ? item.url : "/"}
+                  label={item.label}
+                  setNavOpen={setNavOpen}
+                  selected={item.label === selected}
+                  key={index}
+                  onClick={() => setSelected(item.label)}
+                  subNavItem={item.subNavItem}
+                />
+              );
+            })}
+          </div>
           {!session && (
             <div>
-              {menuItemsArray.map((item, index) => {
-                return (
-                  <MenuItem
-                    url={item.url ? item.url : "/"}
-                    label={item.label}
-                    setNavOpen={setNavOpen}
-                    selected={item.label === selected}
-                    key={index}
-                    onClick={() => setSelected(item.label)}
-                    subNavItem={item.subNavItem}
-                  />
-                );
-              })}
-              <button className="mx-12 mt-16" onClick={() => signIn()}>
-                Sign In
+              <hr className="mt-4" />
+              <button className="mx-12  mt-4 " onClick={() => signIn()}>
+                Sign In / Sign up
               </button>
             </div>
           )}
           {session && (
-            <>
-              <span>
-                <br />
-                <strong>
+            <div className="flex flex-col">
+              <hr className="mt-4 mr-4" />
+              <span className="mt-8 text-xl grid grid-cols-12">
+                <strong className="col-start-3">
                   {session.user
                     ? session.user.name
                       ? session.user.name
@@ -85,15 +87,21 @@ export const Sidebar = ({ children }: any) => {
                     : "Sign In"}
                 </strong>
               </span>
-              <Link href={userProfileUrl}>Profile</Link>
+              <MenuItem
+                url={userProfileUrl}
+                label="Profile"
+                setNavOpen={setNavOpen}
+              />
               {userProfileData.isWriter ? (
-                <Link href="/write/editor">Editor</Link>
+                <MenuItem
+                  url="/write/editor"
+                  label="Editor"
+                  setNavOpen={setNavOpen}
+                />
               ) : null}
-
-              <hr className="mt-8" />
-
+              <hr className="mt-4 mr-4" />
               <button onClick={() => signOut()}>Sign Out</button>
-            </>
+            </div>
           )}
         </div>
       </div>

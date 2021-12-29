@@ -7,8 +7,8 @@ export interface MenuItemProps {
   label: string;
   setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
-  selected: boolean;
-  onClick: any;
+  selected?: boolean;
+  onClick?: any;
   subNavItem?: {
     label: string;
   }[];
@@ -34,7 +34,6 @@ export const MenuItem = ({
         className={`${
           className ? className : ""
         } mt-4 grid grid-cols-12 select-none`}
-        onClick={() => {}}
       >
         {subNavItem ? (
           <div className="col-start-2">
@@ -75,7 +74,7 @@ export const MenuItem = ({
               selected ? "font-extrabold" : ""
             } col-start-3 text-xl `}
             onClick={() => {
-              onClick();
+              onClick ? onClick() : null;
               setNavOpen(false);
             }}
           >
