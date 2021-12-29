@@ -4,13 +4,21 @@ import { ArticleComment } from "types/article";
 const Comment = ({
   comment,
   index,
+  scrolled,
 }: {
   comment: ArticleComment;
   index: number;
+  scrolled?: boolean;
 }) => {
   return (
-    <div key={index} className="flex items-center justify-between my-2">
-      <div>{comment.comment}</div>
+    <div
+      key={index}
+      id={comment.id}
+      className={`flex items-center justify-between my-2 `}
+    >
+      <div className={`${scrolled ? "rounded bg-gray-200 p-4" : ""}`}>
+        {comment.comment}
+      </div>
       <a href={`/user/${comment.authorProfileUrl}`}>
         <Image
           src={comment.authorImage}
