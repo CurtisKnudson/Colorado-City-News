@@ -1,14 +1,25 @@
 import * as React from "react";
 import Link from "next/link";
-import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useUserProfileContext } from "@providers/profile";
+import { useSideBarOpenContext } from "@providers/sidebar/sidebarOpenProvider";
+// import { useState } from "react";
 
 export const Sidebar = ({ children }: any) => {
-  const [navOpen, setNavOpen] = useSideBarOpenContext();
   const { data: session } = useSession();
-
   const [userProfileData] = useUserProfileContext();
+  const [navOpen, setNavOpen] = useSideBarOpenContext();
+  // const [selected, isSelected] = useState(false);
+
+  const menuItemsArray: string[] = [
+    "Front Page",
+    "Social",
+    "Jobs",
+    "Housing",
+    "Classifieds",
+    "Obituaries",
+    "Sponsors",
+  ];
 
   const userProfileUrl = `/user/${session?.user.profileUrl}`;
 
@@ -21,19 +32,23 @@ export const Sidebar = ({ children }: any) => {
       >
         <div className="flex flex-col pl-4">
           {!session && (
-            <>
+            <div>
               <button onClick={() => signIn()}>Sign In</button>
-            </>
+              {menuItemsArray.map((item, index) => {
+                return <div key={index}>{item}</div>;
+              })}
+            </div>
           )}
           {session && (
             <>
               <span>
-                <small>Signed in as:</small>
                 <br />
                 <strong>
                   {session.user
-                    ? session.user.email || session.user.name
-                    : "User not found"}
+                    ? session.user.name
+                      ? session.user.name
+                      : session.user.email
+                    : "Sign In"}
                 </strong>
               </span>
               <MenuItem
