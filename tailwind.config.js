@@ -13,7 +13,7 @@ module.exports = {
     "./components/chipBar/index.tsx",
     "./components/comments/index.tsx",
     "./components/comments/comment.tsx",
-    "./components/header/header.tsx",
+    "./components/header/index.tsx",
     "./components/layout/layout.tsx",
     "./components/loading/index.tsx",
     "./components/loadingBar/index.tsx",
@@ -153,6 +153,9 @@ module.exports = {
           overflow: "hidden",
           transition: "all 0.2s ease-out",
           height: "auto",
+        },
+        ".shrunk-header-shadow": {
+          boxShadow: "3px 5px 6px -1px rgba(0,0,0,0.46)",
         },
       };
 
