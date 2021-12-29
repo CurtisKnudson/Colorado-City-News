@@ -4,13 +4,11 @@ import Link from "next/link";
 import { Search } from "icons";
 import { useSelectedTag } from "@providers/tags/selectedTagContext";
 import { useSideBarOpenContext } from "@providers/sidebar/sidebarOpenProvider";
-import { useIsMounted } from "hooks/useIsMounted";
 
 export const Header = () => {
   const [navOpen, setNavOpen] = useSideBarOpenContext();
   const [tag, setTag] = useSelectedTag();
   const [isScrolled, setIsScrolled] = useState<boolean>();
-  const isMounted = useIsMounted();
 
   const handleScroll = () => {
     if (window.screen.width >= 640) {
@@ -25,13 +23,15 @@ export const Header = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     if (isMounted) {
       window.addEventListener("scroll", handleScroll);
     }
-    () => {
-      return window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      isMounted = false;
     };
-  }, [isMounted]);
+  }, []);
 
   return (
     <div
