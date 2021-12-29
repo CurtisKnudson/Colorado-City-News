@@ -10,6 +10,7 @@ import { ArticleComment } from "types/article";
 import Comment from "./comment";
 import { useUserProfileContext } from "@providers/profile";
 import { Article as ArticleType } from "types/article";
+import { useRouter } from "next/router";
 
 // TODO: Make so that picture associated to comment will update when the user updates their profile picture. No static images.
 
@@ -24,6 +25,7 @@ const Comments = ({ article }: CommentsProps) => {
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
   const mediator = useMediator();
+  const { query }: { query: { commentId?: string } } = useRouter();
 
   const comments: ArticleComment[] | null = useAsyncValue(
     mediator.articleComments
@@ -73,13 +75,32 @@ const Comments = ({ article }: CommentsProps) => {
     mediator.getArticleCommentsByArticleId(article.id);
   }, [article.id, mediator]);
 
+  useEffect(() => {
+    console.log("ive been called");
+    if (comments) {
+      if (query.commentId) {
+        const comment = document.getElementById(query.commentId);
+        if (comment) {
+          comment.scrollIntoView();
+        }
+      }
+    }
+  }, [comments, query, query.commentId]);
+
   return (
     <div className=" mx-4 mt-4 mb-32">
       <div className="h3Headline mb-4">Comments</div>
       <>
         {comments ? (
           comments.map((comment, index) => {
-            return <Comment key={comment.id} comment={comment} index={index} />;
+            return (
+              <Comment
+                key={comment.id}
+                comment={comment}
+                index={index}
+                scrolled={query.commentId === comment.id}
+              />
+            );
           })
         ) : (
           <div>There are no comments to be displayed!</div>

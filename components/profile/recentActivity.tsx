@@ -120,7 +120,10 @@ export const RecentActivityComment = ({
 }) => {
   return (
     <div className="flex flex-col my-2 cursor-pointer">
-      <Link href={`/article/${comment.article.url}`} passHref>
+      <Link
+        href={`/article/${comment.article.url}?commentId=${comment.id}`}
+        passHref
+      >
         <div>
           <span className="text-gray-500 body2 underline cursor-pointer">
             {comment.article.title}
