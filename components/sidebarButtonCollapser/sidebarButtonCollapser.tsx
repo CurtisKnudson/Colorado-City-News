@@ -4,10 +4,11 @@ export interface SidebarButtonCollapser {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
+  inSidebar?: boolean;
 }
 
 export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
-  const { open, setOpen, className } = props;
+  const { open, setOpen, className, inSidebar } = props;
   return (
     <div
       onClick={() => {
@@ -17,10 +18,16 @@ export const SidebarButtonCollapser = (props: SidebarButtonCollapser) => {
         className ? className : ""
       }`}
     >
-      {open ? (
+      {inSidebar ? (
         <MenuOpen color="" className="mt-auto mb-auto mr-auto" />
       ) : (
-        <Menu color="" className="mt-auto mb-auto mr-auto" />
+        <>
+          {open ? (
+            <MenuOpen color="" className="mt-auto mb-auto mr-auto" />
+          ) : (
+            <Menu color="" className="mt-auto mb-auto mr-auto" />
+          )}
+        </>
       )}
     </div>
   );

@@ -13,6 +13,7 @@ import MediatorProvider from "@mediator/providers/mediators/mediatorProvider";
 import EditorInputDataContext from "@providers/editor/editorInputContext";
 import SelectedTagContext from "@providers/tags/selectedTagContext";
 import LoadingBarContext from "@providers/loadingBar/loadinBarContext";
+import SidebarOpenContext from "@providers/sidebar/sidebarOpenProvider";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -20,14 +21,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <ApiProvider>
         <MediatorProvider>
           <UserProfileContext>
-            <LoadingBarContext>
-              <EditorInputDataContext>
-                <SelectedTagContext>
-                  <ToastContainer />
-                  <Component {...pageProps} />
-                </SelectedTagContext>
-              </EditorInputDataContext>
-            </LoadingBarContext>
+            <SidebarOpenContext>
+              <LoadingBarContext>
+                <EditorInputDataContext>
+                  <SelectedTagContext>
+                    <ToastContainer />
+                    <Component {...pageProps} />
+                  </SelectedTagContext>
+                </EditorInputDataContext>
+              </LoadingBarContext>
+            </SidebarOpenContext>
           </UserProfileContext>
         </MediatorProvider>
       </ApiProvider>

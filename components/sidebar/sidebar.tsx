@@ -1,14 +1,46 @@
 import * as React from "react";
-import Link from "next/link";
-import useSideBarOpenContext from "@providers/sidebarContext";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useUserProfileContext } from "@providers/profile";
+import { useSideBarOpenContext } from "@providers/sidebar/sidebarOpenProvider";
+import { MenuItem } from "./menuItem";
+import { useState } from "react";
+
+export interface MenuItem {
+  label: string;
+  subNavItem?: {
+    label: string;
+    url?: string;
+  }[];
+  url?: string;
+}
 
 export const Sidebar = ({ children }: any) => {
-  const [navOpen, setNavOpen] = useSideBarOpenContext();
   const { data: session } = useSession();
-
   const [userProfileData] = useUserProfileContext();
+  const [navOpen, setNavOpen] = useSideBarOpenContext();
+  const [selected, setSelected] = useState<string>("Front Page");
+
+  const menuItemsArray: MenuItem[] = [
+    {
+      label: "Front Page",
+      url: "/",
+    },
+    { label: "Social", url: "/" },
+    { label: "Jobs", url: "/" },
+    { label: "Housing", url: "/" },
+    {
+      label: "Classifieds",
+      url: "/",
+      subNavItem: [
+        {
+          label: "For Sale",
+          url: "/",
+        },
+      ],
+    },
+    { label: "Obituaries", url: "/" },
+    { label: "Sponsors", url: "/" },
+  ];
 
   const userProfileUrl = `/user/${session?.user.profileUrl}`;
 
@@ -19,21 +51,40 @@ export const Sidebar = ({ children }: any) => {
           navOpen ? "w-10/12" : "w-0"
         } fixed `}
       >
-        <div className="flex flex-col pl-4">
+        <div className="flex flex-col pl-4 mt-12">
+          <div>
+            {menuItemsArray.map((item, index) => {
+              return (
+                <MenuItem
+                  url={item.url ? item.url : "/"}
+                  label={item.label}
+                  setNavOpen={setNavOpen}
+                  selected={item.label === selected}
+                  key={index}
+                  onClick={() => setSelected(item.label)}
+                  subNavItem={item.subNavItem}
+                />
+              );
+            })}
+          </div>
           {!session && (
-            <>
-              <button onClick={() => signIn()}>Sign In</button>
-            </>
+            <div>
+              <hr className="mt-4" />
+              <button className="mx-12  mt-4 " onClick={() => signIn()}>
+                Sign In / Sign up
+              </button>
+            </div>
           )}
           {session && (
-            <>
-              <span>
-                <small>Signed in as:</small>
-                <br />
-                <strong>
+            <div className="flex flex-col">
+              <hr className="mt-4 mr-4" />
+              <span className="mt-8 text-xl grid grid-cols-12">
+                <strong className="col-start-3">
                   {session.user
-                    ? session.user.email || session.user.name
-                    : "User not found"}
+                    ? session.user.name
+                      ? session.user.name
+                      : session.user.email
+                    : "Sign In"}
                 </strong>
               </span>
               <MenuItem
@@ -48,31 +99,13 @@ export const Sidebar = ({ children }: any) => {
                   setNavOpen={setNavOpen}
                 />
               ) : null}
-
-              <hr className="mt-8" />
-
+              <hr className="mt-4 mr-4" />
               <button onClick={() => signOut()}>Sign Out</button>
-            </>
+            </div>
           )}
         </div>
       </div>
       <div className="mx-4"> {children}</div>
-    </div>
-  );
-};
-
-const MenuItem = ({
-  url,
-  label,
-  setNavOpen,
-}: {
-  url: string;
-  label: string;
-  setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  return (
-    <div className="mt-4" onClick={() => setNavOpen(false)}>
-      <Link href={url}>{label}</Link>
     </div>
   );
 };

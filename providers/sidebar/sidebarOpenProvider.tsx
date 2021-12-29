@@ -4,17 +4,16 @@ import makeContextHook from "hooks/makeContextHooks";
 export const context = React.createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
 >(undefined);
+export const useSideBarOpenContext = makeContextHook(context);
 
-export const useLoadingBarContext = makeContextHook(context);
-
-const LoadingBarContext: React.FC = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const SidebarOpenContext: React.FC = ({ children }) => {
+  const [navOpen, setNavOpen] = useState<boolean>(false);
 
   return (
-    <context.Provider value={[isLoading, setIsLoading]}>
+    <context.Provider value={[navOpen, setNavOpen]}>
       {children}
     </context.Provider>
   );
 };
 
-export default LoadingBarContext;
+export default SidebarOpenContext;

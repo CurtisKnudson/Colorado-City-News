@@ -23,6 +23,7 @@ module.exports = {
     "./components/profile/profileInput.tsx",
     "./components/profile/adornmentInputWithValidation.tsx",
     "./components/sidebar/sidebar.tsx",
+    "./components/sidebar/menuItem.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",
     "./components/wysiwyg/button.tsx",
     "./components/wysiwyg/editor.tsx",
@@ -147,6 +148,11 @@ module.exports = {
           fontWeight: "900",
           marginRight: "1rem",
           fontFamily: "Merriweather-Black-Italic",
+        },
+        ".accordion-panel": {
+          overflow: "hidden",
+          transition: "all 0.2s ease-in-out",
+          height: "auto",
         },
       };
 

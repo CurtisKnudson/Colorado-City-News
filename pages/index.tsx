@@ -37,14 +37,12 @@ const FrontPage = () => {
   }, [setIsLoading]);
 
   return (
-    <>
-      <Layout>
-        <LoadingBar />
-        <DynamicChipBar />
-        {tag ? null : <FeaturedArticleCard featuredArticle={featuredArticle} />}
-        <Articles articles={articles} tag={tag} />
-      </Layout>
-    </>
+    <Layout>
+      <LoadingBar />
+      <DynamicChipBar />
+      {tag ? null : <FeaturedArticleCard featuredArticle={featuredArticle} />}
+      <Articles articles={articles} tag={tag} />
+    </Layout>
   );
 };
 
