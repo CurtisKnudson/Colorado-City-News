@@ -151,7 +151,7 @@ module.exports = {
         },
         ".accordion-panel": {
           overflow: "hidden",
-          transition: "all 0.2s ease-in-out",
+          transition: "all 0.2s ease-out",
           height: "auto",
         },
       };
