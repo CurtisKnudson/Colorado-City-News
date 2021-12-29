@@ -69,7 +69,7 @@
 
 .shrunken-header {
   max-width: 400px;
-  filter: drop-shadow(2px 2px 8px black);
+  filter: drop-shadow(1px 1px 1px black);
   background: transparent;
 }
 .shrunken-header::before {
