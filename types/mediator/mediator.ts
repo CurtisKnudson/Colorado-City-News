@@ -9,6 +9,7 @@ export interface MediatorInterface {
   getUserByEmail(email: string): Promise<User>;
   updateUserProfile(userProfileData: User): Promise<User>;
   publishArticle(article: Article): Promise<Article>;
+  doesArticleUrlExist(url: string): Promise<boolean>;
   addCommentToArticle(comment: ArticleComment): Promise<any>;
   // TODO: Make sure that I make so this returns a comment in the promise
   getArticleCommentsByArticleId(articleId: string): Promise<any>;

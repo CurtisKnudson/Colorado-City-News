@@ -38,7 +38,11 @@ const EditorView = () => {
     toast.promise(mediator.publishArticle(article), {
       pending: "Please wait...",
       success: "Your article has been submitted for review!",
-      error: "There was an error 🤯. Have all inputs been filled out?",
+      error: {
+        render({ data }) {
+          return `${data}`;
+        },
+      },
     });
   };
 

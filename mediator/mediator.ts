@@ -66,9 +66,29 @@ export class Mediator implements MediatorInterface {
     return sortedRequest;
   }
 
+  async doesArticleUrlExist(url: string) {
+    const request = await this.api.doesArticleUrlExist(url);
+    if (request.message === "Article already exists") {
+      return true;
+    }
+    return false;
+  }
+
   async publishArticle(article: Article) {
     if (!article) {
       throw new Error("Article is required");
+    }
+    if (!article.title) {
+      throw new Error("A title is required to submit an article");
+    }
+    if (!article.content) {
+      throw new Error("You must write content to publish an article");
+    }
+    if (!article.tags) {
+      throw new Error("You must add at least one tag to publish an article");
+    }
+    if (await this.doesArticleUrlExist(article.url)) {
+      throw new Error("An Article with that Title already exists");
     }
     return await this.api.publishArticle(article);
   }

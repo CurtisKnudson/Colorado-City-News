@@ -6,6 +6,7 @@ export interface ApiInterface {
   getUserByEmail(email: string): Promise<User>;
   updateUserProfile(userProfileData: User): Promise<User>;
   publishArticle(article: Article): Promise<any>;
+  doesArticleUrlExist(url: string): any;
   getAllArticles(): Promise<Article[]>;
   getArticleCommentsByArticleId(
     articleId: string
