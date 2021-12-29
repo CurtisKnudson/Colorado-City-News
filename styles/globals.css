@@ -67,4 +67,20 @@
   font-weight: 500;
 }
 
-
+.shrunken-header {
+  max-width: 400px;
+  filter: drop-shadow(2px 2px 8px black);
+  background: transparent;
+}
+.shrunken-header::before {
+  width: 96px;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "";
+  background: white;
+  clip-path: polygon(100% 0, 100% 54%, 74% 100%, 0 100%, 0 0);
+}
