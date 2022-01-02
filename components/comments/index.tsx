@@ -76,7 +76,6 @@ const Comments = ({ article }: CommentsProps) => {
   }, [article.id, mediator]);
 
   useEffect(() => {
-    console.log("ive been called");
     if (comments) {
       if (query.commentId) {
         const comment = document.getElementById(query.commentId);

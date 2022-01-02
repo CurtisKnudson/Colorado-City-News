@@ -22,8 +22,8 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
         .findOne(getArticleCommentsQuery, articleCommentsOptions);
 
       if (Object.keys(article).length === 0) {
-        res.status(204).json({
-          message: "No Comments found for this article",
+        res.json({
+          message: "Comments not found",
         });
         return;
       }
