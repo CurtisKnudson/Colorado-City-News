@@ -64,13 +64,17 @@ const Comment = ({
         </div>
         {/* Everything on the right side of Comment header */}
         <div className="text-xs ml-2 flex justify-end items-end text-gray-400">
-          {timeSince(Date.parse(comment.date))}
+          {typeof comment.date === "string"
+            ? timeSince(Date.parse(comment.date))
+            : "Just now"}
         </div>
       </div>
       <div
         className={`${
           scrolled ? "rounded bg-gray-200" : ""
-        } text-sm  text-black-60 accordion-panel  ${closed ? "max-h-0" : ""}`}
+        } mt-1 text-sm  text-black-60 accordion-panel  ${
+          closed ? "max-h-0" : ""
+        }`}
       >
         {comment.comment}
       </div>

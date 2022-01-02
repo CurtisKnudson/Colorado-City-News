@@ -15,7 +15,7 @@ export interface Article {
 export interface ArticleComment {
   article: Article;
   id: string;
-  date: string;
+  date: Date | string;
   comment: string;
   authorId: string;
   authorEmail: string;
