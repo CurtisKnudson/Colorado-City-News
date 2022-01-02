@@ -96,12 +96,11 @@ export class Api implements ApiInterface {
     const comments: ArticleComment[] | null | undefined = await fetch(
       getUrl,
       getObject
-    ).then((res) => {
-      if (res.status === 204) {
-        return null;
-      }
-      return res.json();
-    });
+    ).then((res) => res.json());
+    // @ts-ignore
+    if (comments.message === "Comments not found") {
+      return null;
+    }
 
     return comments;
   }
