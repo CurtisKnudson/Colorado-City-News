@@ -30,6 +30,7 @@ export const Header = () => {
 
     return () => {
       isMounted = false;
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
