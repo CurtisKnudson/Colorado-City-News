@@ -1,4 +1,6 @@
+import * as React from "react";
 import Image from "next/image";
+import { useState } from "react";
 import { ArticleComment } from "types/article";
 
 const Comment = ({
@@ -10,6 +12,12 @@ const Comment = ({
   index: number;
   scrolled?: boolean;
 }) => {
+  const [closed, setClosed] = useState(false);
+
+  const handleClosed = () => {
+    setClosed(!closed);
+  };
+
   const timeSince = (date: number) => {
     const seconds = Math.floor((new Date().getTime() - date) / 1000);
 
@@ -39,7 +47,7 @@ const Comment = ({
 
   return (
     <div key={index} id={comment.id} className={`flex flex-col my-2 `}>
-      <div className="flex justify-between pr-4">
+      <div className="flex justify-between pr-4" onClick={handleClosed}>
         {/* Everything on the left side of Comment header */}
         <div className="flex justify-end items-end">
           <Image
@@ -62,7 +70,7 @@ const Comment = ({
       <div
         className={`${
           scrolled ? "rounded bg-gray-200" : ""
-        } text-sm rounded-full text-black-60`}
+        } text-sm  text-black-60 accordion-panel  ${closed ? "max-h-0" : ""}`}
       >
         {comment.comment}
       </div>
