@@ -116,6 +116,20 @@ export class Api implements ApiInterface {
     return await fetch(postUrl, postObject).then((res) => res);
   }
 
+  async updateCommentVoteCount(
+    commentId: string,
+    voteCountObject: { count: number; usersWhoVoted: string[] }
+  ) {
+    const postUrl = `${url}/article/updateCommentVoteCount`;
+
+    const postObject = {
+      method: "POST",
+      body: JSON.stringify({ commentId, voteCountObject }),
+    };
+
+    return await fetch(postUrl, postObject).then((res) => res);
+  }
+
   async validateProfileUrl(profileUrl: string) {
     const getUrl = `${url}/user/validateProfileUrl`;
     const getObject = {

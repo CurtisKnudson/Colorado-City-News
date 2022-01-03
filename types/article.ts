@@ -22,4 +22,8 @@ export interface ArticleComment {
   authorName: string;
   authorImage: string;
   authorProfileUrl: string;
+  voteCountObject: {
+    count: number;
+    usersWhoVoted: string[];
+  };
 }

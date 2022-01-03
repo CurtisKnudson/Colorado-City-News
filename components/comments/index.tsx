@@ -60,6 +60,10 @@ const Comments = ({ article }: CommentsProps) => {
         ? userProfileData.image
         : "/no-picture.jpeg",
       authorProfileUrl: userProfileData.profileUrl,
+      voteCountObject: {
+        count: 1,
+        usersWhoVoted: [userProfileData.userId],
+      },
     };
 
     toast.promise(mediator.addCommentToArticle(commentData), {

@@ -12,3 +12,4 @@ export { H2 } from "./h2";
 export { Blockquote } from "./blockquote";
 export { Ul } from "./list-ul";
 export { Ol } from "./list-ol";
+export { ArrowUpIcon } from "./arrowUp";

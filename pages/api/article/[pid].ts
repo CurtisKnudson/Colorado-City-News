@@ -139,6 +139,29 @@ const ArticleApi = async (req: NextApiRequest, res: NextApiResponse) => {
       res.json(publishedArticle);
       return;
     }
+    if (pid === "updateCommentVoteCount") {
+      const { commentId, voteCountObject } = JSON.parse(req.body);
+
+      const updateDocument = {
+        $set: {
+          voteCountObject: {
+            count: voteCountObject.count,
+            usersWhoVoted: voteCountObject.usersWhoVoted,
+          },
+        },
+      };
+
+      const comment = await db.collection("articles").updateOne(
+        {
+          "comments.id": commentId,
+        },
+        updateDocument
+      );
+
+      console.log(comment);
+
+      res.send({ message: "test" });
+    }
     return;
   }
 };
