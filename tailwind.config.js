@@ -22,6 +22,7 @@ module.exports = {
     "./components/profile/recentActivity.tsx",
     "./components/profile/profileInput.tsx",
     "./components/profile/adornmentInputWithValidation.tsx",
+    "./components/scrollToTop/index.tsx",
     "./components/sidebar/sidebar.tsx",
     "./components/sidebar/menuItem.tsx",
     "./components/sidebarButtonCollapser/sidebarButtonCollapser.tsx",

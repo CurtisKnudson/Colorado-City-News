@@ -8,6 +8,7 @@ import { User } from "types/user";
 import dynamic from "next/dynamic";
 import { useSelectedTag } from "@providers/tags/selectedTagContext";
 import Head from "next/head";
+import { ScrollToTop } from "@components/scrollToTop";
 
 const DynamicComments = dynamic(() => import("../../components/comments"), {
   ssr: false,
@@ -59,6 +60,7 @@ const DynamicArticle = ({ author, article }: DynamicArticleProps) => {
           </Head>
           <Article article={article} author={author} />
           <DynamicComments article={article} />
+          <ScrollToTop />
         </>
       )}
     </Layout>
