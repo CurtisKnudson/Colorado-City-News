@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import smoothscroll from "smoothscroll-polyfill";
 
 export const ScrollToTop = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -11,8 +12,21 @@ export const ScrollToTop = () => {
     }
   };
 
+  const supportsSmoothScrolling = () => {
+    const body = document.body;
+    const scrollSave = body.style.scrollBehavior;
+    body.style.scrollBehavior = "smooth";
+    const hasSmooth = getComputedStyle(body).scrollBehavior === "smooth";
+    body.style.scrollBehavior = scrollSave;
+    return hasSmooth;
+  };
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    smoothscroll.polyfill();
+    // scroll to top
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
   };
   useEffect(() => {
     let isMounted = true;
@@ -28,7 +42,7 @@ export const ScrollToTop = () => {
   return (
     <>
       {isScrolled ? (
-        <div className="fixed h-12 w-12 bottom-6 right-6 bg-white shadow-md z-30 center-all">
+        <div className="fixed h-12 w-12 bottom-6 right-6 bg-white shadow z-30 center-all cursor-pointer rounded">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8 text-black-60"

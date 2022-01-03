@@ -41,6 +41,7 @@ export const Header = () => {
           ? "w-24 m-0 flex justify-between shrunken-header"
           : "grid grid-cols-12 px-4"
       }`}
+      id="nav"
     >
       <div
         className={`col-span-1 flex items-center justify-center ${

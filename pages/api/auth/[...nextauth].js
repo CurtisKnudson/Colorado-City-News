@@ -86,5 +86,6 @@ export default async function auth(req, res) {
     },
     theme: "auto",
     debug: true,
+    secret: "V9KA8EbNURnDi+RIGk+FCGYc+NlblMBJ2BciCxhIg4Y=",
   });
 }
