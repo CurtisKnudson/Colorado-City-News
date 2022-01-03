@@ -5,6 +5,8 @@ import { ArticleComment } from "types/article";
 import { ArrowUpIcon } from "icons";
 import { useUserProfileContext } from "@providers/profile";
 import { useMediator } from "@mediator/providers/mediators/mediatorProvider";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 const Comment = ({
   comment,
@@ -20,6 +22,7 @@ const Comment = ({
   const [voteCount, setVoteCount] = useState(comment.voteCountObject.count);
   const [userProfileData] = useUserProfileContext();
   const mediator = useMediator();
+  const { data: session } = useSession();
 
   const handleClosed = () => {
     setClosed(!closed);
@@ -48,6 +51,10 @@ const Comment = ({
     });
     setIsVoted(true);
     setVoteCount(voteCount + 1);
+  };
+
+  const handleNoSession = () => {
+    toast.warn("To prevent spam, you must be logged in to vote");
   };
 
   const timeSince = (date: number) => {
@@ -103,7 +110,7 @@ const Comment = ({
           </div>
           <div
             className={`flex text-xs ml-2 mb-0.5 text-black-60  `}
-            onClick={handleVoted}
+            onClick={session ? handleVoted : handleNoSession}
           >
             <ArrowUpIcon className={`h-4 w-4 ${isVoted ? "accent" : ""}`} />{" "}
             <span className={`${isVoted ? "accent font-bold" : ""}`}>
