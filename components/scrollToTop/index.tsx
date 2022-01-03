@@ -12,6 +12,14 @@ export const ScrollToTop = () => {
     }
   };
 
+  const supportsSmoothScrolling = () => {
+    const body = document.body;
+    const scrollSave = body.style.scrollBehavior;
+    body.style.scrollBehavior = "smooth";
+    const hasSmooth = getComputedStyle(body).scrollBehavior === "smooth";
+    body.style.scrollBehavior = scrollSave;
+    return hasSmooth;
+  };
   const scrollToTop = () => {
     smoothscroll.polyfill();
     // scroll to top
