@@ -105,6 +105,13 @@ export class Mediator implements MediatorInterface {
     });
   }
 
+  async updateCommentVoteCount(
+    commentId: string,
+    voteCountObject: { count: number; usersWhoVoted: string[] }
+  ) {
+    await this.api.updateCommentVoteCount(commentId, voteCountObject);
+  }
+
   async validateProfileUrl(profileUrl: string) {
     return this.api.validateProfileUrl(profileUrl).then((res) => {
       if (res.message === "User not found") {

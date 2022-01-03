@@ -12,6 +12,10 @@ export interface MediatorInterface {
   doesArticleUrlExist(url: string): Promise<boolean>;
   addCommentToArticle(comment: ArticleComment): Promise<any>;
   // TODO: Make sure that I make so this returns a comment in the promise
+  updateCommentVoteCount(
+    commentId: string,
+    voteCountObject: { count: number; usersWhoVoted: string[] }
+  ): void;
   getArticleCommentsByArticleId(articleId: string): Promise<any>;
   addProfileUrl(email: string, profileUrl: string): Promise<User>;
   viewAnotherUserByProfileUrl(profileUrl: string): void;

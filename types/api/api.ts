@@ -12,6 +12,10 @@ export interface ApiInterface {
     articleId: string
   ): Promise<ArticleComment[] | null | undefined>;
   addCommentToArticle(comment: ArticleComment): Promise<any>;
+  updateCommentVoteCount(
+    commentId: string,
+    voteCountObject: { count: number; usersWhoVoted: string[] }
+  ): Promise<any>;
   addProfileUrl(email: string, profileUrl: string): Promise<User>;
   validateProfileUrl(profileUrl: string): Promise<any>;
 }
